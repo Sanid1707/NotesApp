@@ -1,0 +1,33 @@
+# Ignore build outputs
+bin/
+obj/
+
+# Ignore IDE-specific files
+.idea/
+.vscode/
+*.user
+*.suo
+
+# Ignore ASP.NET Core properties
+**/Properties/launchSettings.json
+
+# Ignore sensitive configuration files
+appsettings.json
+
+# Ignore temporary and debug files
+*.log
+*.tmp
+*.cache
+*.pdb
+*.dbmdl
+*.jfm
+~*.*
+
+# Ignore publish outputs
+wwwroot/
+*.publish.xml
+
+# Ignore NuGet packages and lock files
+packages/
+project.lock.json
+project.fragment.lock.json
