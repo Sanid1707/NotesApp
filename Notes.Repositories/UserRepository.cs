@@ -22,7 +22,44 @@ namespace Notes.Repository
         {
             try
             {
-              
+                // Input validation
+                if (string.IsNullOrWhiteSpace(dto.Username))
+                {
+                    return new BadRequestObjectResult(new
+                    {
+                        success = false,
+                        message = "Username is required."
+                    });
+                }
+
+                if (string.IsNullOrWhiteSpace(dto.Email) || !IsValidEmail(dto.Email))
+                {
+                    return new BadRequestObjectResult(new
+                    {
+                        success = false,
+                        message = "A valid Email is required."
+                    });
+                }
+
+                if (string.IsNullOrWhiteSpace(dto.Password) || dto.Password.Length < 6)
+                {
+                    return new BadRequestObjectResult(new
+                    {
+                        success = false,
+                        message = "Password must be at least 6 characters long."
+                    });
+                }
+
+                // Check for duplicate Username
+                if (await _context.Users.AnyAsync(u => u.Username == dto.Username))
+                {
+                    return new ConflictObjectResult(new
+                    {
+                        success = false,
+                        message = "The Username is already in use."
+                    });
+                }
+
                 // Check for duplicate Email
                 if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
                 {
