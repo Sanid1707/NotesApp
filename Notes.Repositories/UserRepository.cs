@@ -11,8 +11,7 @@ namespace Notes.Repository
         public UserRepository(NotesDbContext context)
         {
             _context = context;
-            //
-            //
+          
         
         }
 

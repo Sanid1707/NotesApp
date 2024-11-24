@@ -13,7 +13,10 @@ namespace Notes.Repository
         {
             modelBuilder.Entity<User>(entity =>
             {
-                entity.HasKey(u => u.UserId);
+                entity.HasKey(u => u.UserId); // Primary Key
+
+                entity.Property(u => u.UserId)
+                    .IsRequired(); 
 
                 entity.Property(u => u.Username)
                     .IsRequired()
@@ -26,7 +29,7 @@ namespace Notes.Repository
                     .IsRequired()
                     .HasMaxLength(100);
 
-                entity.Property(u => u.PasswordHash)
+                entity.Property(u => u.Password)
                     .IsRequired();
 
                 entity.Property(u => u.Role)
