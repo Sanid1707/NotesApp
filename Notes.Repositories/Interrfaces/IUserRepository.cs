@@ -12,8 +12,8 @@ namespace Notes.Repository
         
         Task<IActionResult> Registration(RegistrationRequest dto);
         IEnumerable<User> GetAllUsers();
-     
-       
 
+
+        Task<IActionResult> Login(LoginRequest dto);
     }
 }

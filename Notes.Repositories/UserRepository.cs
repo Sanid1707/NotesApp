@@ -124,5 +124,20 @@ namespace Notes.Repository
         {
             return _context.Users.ToList();
         }
+        
+        
+        
+         public async Task<IActionResult> Login(LoginRequest dto)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+       
+            }
+            return null;    
+        }
     }
 }
