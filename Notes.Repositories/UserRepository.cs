@@ -1,7 +1,12 @@
 using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using Notes.Common.DTOs;
 using Notes.Common.Enums;
 using Notes.Common.Utils;
@@ -10,12 +15,15 @@ using Notes.Entities;
 namespace Notes.Repository
 {
     public class UserRepository : IUserRepository
+    
     {
         private readonly NotesDbContext _context;
+        private readonly IConfiguration _configuration;
 
-        public UserRepository(NotesDbContext context)
+        public UserRepository(NotesDbContext context,IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         public async Task<IActionResult> Registration(RegistrationRequest dto)
@@ -127,17 +135,82 @@ namespace Notes.Repository
         
         
         
-         public async Task<IActionResult> Login(LoginRequest dto)
+public async Task<IActionResult> Login(LoginRequest dto)
+{
+    try
+    {
+        // Step 1: Validate input
+        if (string.IsNullOrWhiteSpace(dto.Email) || string.IsNullOrWhiteSpace(dto.Password))
         {
-            try
+            return new BadRequestObjectResult(new
             {
-
-            }
-            catch (Exception ex)
-            {
-       
-            }
-            return null;    
+                success = false,
+                message = "Email and Password are required."
+            });
         }
+
+        // Step 2: Check if the user exists
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
+        if (user == null)
+        {
+            return new NotFoundObjectResult(new
+            {
+                success = false,
+                message = "User not found."
+            });
+        }
+
+        // Step 3: Decrypt and validate the password
+        var decryptedPassword = CryptoHelper.Decrypt(user.Password);
+        if (decryptedPassword != dto.Password)
+        {
+            return new UnauthorizedObjectResult(new
+            {
+                success = false,
+                message = "Invalid credentials."
+            });
+        }
+
+        // Step 4: Generate a new JWT token if not already present
+        string token;
+        if (string.IsNullOrEmpty(user.LatestJwtToken))
+        {
+            // token = GenerateJwtToken(user);
+            // user.LatestJwtToken = token;
+
+            // Update the user's JWT token in the database
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+        }
+        else
+        {
+            token = user.LatestJwtToken;
+        }
+
+        // Step 5: Return success response with JWT token
+        return new OkObjectResult(new
+        {
+            success = true,
+            message = "Login successful.",
+            //token = token,
+            userId = user.UserId,
+            username = user.Username,
+            email = user.Email
+        });
+    }
+    catch (Exception ex)
+    {
+        // Step 6: Handle unexpected exceptions
+        return new ObjectResult(new
+        {
+            success = false,
+            message = $"An error occurred: {ex.Message}"
+        })
+        { StatusCode = 500 };
+    }
+}
+
+
+
     }
 }
