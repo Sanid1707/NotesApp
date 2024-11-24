@@ -28,3 +28,4 @@
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/obj/Debug/net8.0/refint/Notes.Entities.dll
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/obj/Debug/net8.0/Notes.Entities.pdb
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/obj/Debug/net8.0/ref/Notes.Entities.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/obj/Debug/net8.0/Notes.Entities.sourcelink.json

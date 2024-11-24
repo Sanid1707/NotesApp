@@ -32,3 +32,6 @@
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/obj/Debug/net8.0/refint/Notes.Repositories.dll
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/obj/Debug/net8.0/Notes.Repositories.pdb
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/obj/Debug/net8.0/ref/Notes.Repositories.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/bin/Debug/net8.0/Notes.Repositories.runtimeconfig.json
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/obj/Debug/net8.0/Notes.Repositories.sourcelink.json
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/obj/Debug/net8.0/Notes.Repositories.genruntimeconfig.cache
