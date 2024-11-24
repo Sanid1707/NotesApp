@@ -14,7 +14,6 @@ obj/
 # Ignore sensitive configuration files
 appsettings.json
 
-
 # Ignore temporary and debug files
 *.log
 *.tmp
