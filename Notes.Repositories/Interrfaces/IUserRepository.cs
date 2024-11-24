@@ -9,7 +9,11 @@ namespace Notes.Repository
     public interface IUserRepository
     {
        
-        IEnumerable<User> GetAllUsers();
+        
         Task<IActionResult> Registration(RegistrationRequest dto);
+        IEnumerable<User> GetAllUsers();
+     
+       
+
     }
 }

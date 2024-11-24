@@ -1,10 +1,11 @@
-// Repository/UserRepository.cs
-
+using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Notes.Entities;
 using Microsoft.EntityFrameworkCore;
 using Notes.Common.DTOs;
 using Notes.Common.Enums;
+using Notes.Common.Utils;
+using Notes.Entities;
 
 namespace Notes.Repository
 {
@@ -15,130 +16,73 @@ namespace Notes.Repository
         public UserRepository(NotesDbContext context)
         {
             _context = context;
-          
-        
-        } 
-         public async Task<IActionResult> Registration(RegistrationRequest dto)
+        }
+
+        public async Task<IActionResult> Registration(RegistrationRequest dto)
+        {
+            try
             {
-                try
+              
+                // Check for duplicate Email
+                if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
                 {
-                    // Input validation
-                    if (string.IsNullOrWhiteSpace(dto.Username))
-                    {
-                        return new BadRequestObjectResult(new
-                        {
-                            success = false,
-                            message = "Username is required."
-                        });
-                    }
-
-                    if (string.IsNullOrWhiteSpace(dto.Email) || !IsValidEmail(dto.Email))
-                    {
-                        return new BadRequestObjectResult(new
-                        {
-                            success = false,
-                            message = "A valid Email is required."
-                        });
-                    }
-
-                    if (string.IsNullOrWhiteSpace(dto.Password) || dto.Password.Length < 6)
-                    {
-                        return new BadRequestObjectResult(new
-                        {
-                            success = false,
-                            message = "Password is required and must be at least 6 characters long."
-                        });
-                    }
-
-                    // Check for duplicate Username
-                    var usernameExists = await _context.Users
-                        .AnyAsync(u => u.Username == dto.Username);
-
-                    if (usernameExists)
-                    {
-                        return new ConflictObjectResult(new
-                        {
-                            success = false,
-                            message = "The Username is already in use."
-                        });
-                    }
-
-                    // Check for duplicate Email
-                    var emailExists = await _context.Users
-                        .AnyAsync(u => u.Email == dto.Email);
-
-                    if (emailExists)
-                    {
-                        return new ConflictObjectResult(new
-                        {
-                            success = false,
-                            message = "The Email Address is already in use."
-                        });
-                    }
-
-                    // Hash the password
-                    var hashedPassword = HashPassword(dto.Password);
-
-                    // Create a new User object
-                    var newUser = new User
-                    {
-                        UserId = Guid.NewGuid(), // Assign a new GUID for the user ID
-                        Username = dto.Username,
-                        Email = dto.Email,
-                        Password = hashedPassword,
-                        Role = (byte)UserRole.User, // Assuming Role is coming from the DTO
-                        CreatedAt = DateTime.UtcNow,
-                        IsActive = 1
-                    };
-
-                    // Add the user to the database
-                    _context.Users.Add(newUser);
-                    await _context.SaveChangesAsync();
-
-                    return new OkObjectResult(new
-                    {
-                        success = true,
-                        message = "User registered successfully.",
-                        userId = newUser.UserId
-                    });
-                }
-                catch (Exception ex)
-                {
-                    return new ObjectResult(new
+                    return new ConflictObjectResult(new
                     {
                         success = false,
-                        message = ex.Message
-                    })
-                    { StatusCode = 500 };
+                        message = "The Email Address is already in use."
+                    });
                 }
-            }
 
-            private bool IsValidEmail(string email)
+                // Encrypt password only
+                var encryptedPassword = CryptoHelper.Encrypt(dto.Password);
+
+                // Create a new User object
+                var newUser = new User
+                {
+                    UserId = Guid.NewGuid(),
+                    Username = dto.Username, // Save as plaintext
+                    Email = dto.Email,       // Save as plaintext
+                    Password = encryptedPassword, // Encrypted password
+                    Role = (byte)UserRole.User,
+                    CreatedAt = DateTime.UtcNow,
+                    IsActive = 1 // Active by default
+                };
+
+                // Add the new user to the database
+                await _context.Users.AddAsync(newUser);
+                await _context.SaveChangesAsync();
+
+                return new OkObjectResult(new
+                {
+                    success = true,
+                    message = "User registered successfully.",
+                    userId = newUser.UserId
+                });
+            }
+            catch (Exception ex)
             {
-                try
+                // Handle unexpected exceptions
+                return new ObjectResult(new
                 {
-                    var addr = new System.Net.Mail.MailAddress(email);
-                    return addr.Address == email;
-                }
-                catch
-                {
-                    return false;
-                }
+                    success = false,
+                    message = $"An error occurred: {ex.Message}"
+                })
+                { StatusCode = 500 };
             }
+        }
 
-            // Helper method to hash passwords
-            private string HashPassword(string password)
+        private bool IsValidEmail(string email)
+        {
+            try
             {
-                // Use a secure hashing algorithm, such as SHA256 or bcrypt
-                using (var sha256 = System.Security.Cryptography.SHA256.Create())
-                {
-                    var hashedBytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-                    return Convert.ToBase64String(hashedBytes);
-                }
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
             }
-
-               
-
+            catch
+            {
+                return false;
+            }
+        }
         public IEnumerable<User> GetAllUsers()
         {
             return _context.Users.ToList();

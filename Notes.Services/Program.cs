@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Notes.Common.Utils;
 using Notes.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,9 @@ builder.Services.AddDbContext<NotesDbContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+CryptoHelper.Initialize(builder.Configuration);
+
+
 var app = builder.Build();
 
 
