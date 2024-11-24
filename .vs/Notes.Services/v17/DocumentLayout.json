@@ -1,0 +1,89 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Philip Philip\\source\\repos\\Notes.Services\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{350A0008-4810-4168-B3DB-0EFFCB8F4538}|Notes.Common\\Notes.Common.csproj|c:\\users\\philip philip\\source\\repos\\notes.services\\notes.common\\converter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{350A0008-4810-4168-B3DB-0EFFCB8F4538}|Notes.Common\\Notes.Common.csproj|solutionrelative:notes.common\\converter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{350A0008-4810-4168-B3DB-0EFFCB8F4538}|Notes.Common\\Notes.Common.csproj|c:\\users\\philip philip\\source\\repos\\notes.services\\notes.common\\notes.common.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{350A0008-4810-4168-B3DB-0EFFCB8F4538}|Notes.Common\\Notes.Common.csproj|solutionrelative:notes.common\\notes.common.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E05B1-569E-4E4B-AFBA-AB9E32D42CA2}|Notes.Repositories\\Notes.Repositories.csproj|c:\\users\\philip philip\\source\\repos\\notes.services\\notes.repositories\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{552E05B1-569E-4E4B-AFBA-AB9E32D42CA2}|Notes.Repositories\\Notes.Repositories.csproj|solutionrelative:notes.repositories\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{71812DF8-7E9B-4878-9173-9C4812700682}|Notes.Entities\\Notes.Entities.csproj|c:\\users\\philip philip\\source\\repos\\notes.services\\notes.entities\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{71812DF8-7E9B-4878-9173-9C4812700682}|Notes.Entities\\Notes.Entities.csproj|solutionrelative:notes.entities\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Notes.Common.csproj",
+              "DocumentMoniker": "C:\\Users\\Philip Philip\\source\\repos\\Notes.Services\\Notes.Common\\Notes.Common.csproj",
+              "RelativeDocumentMoniker": "Notes.Common\\Notes.Common.csproj",
+              "ToolTip": "C:\\Users\\Philip Philip\\source\\repos\\Notes.Services\\Notes.Common\\Notes.Common.csproj",
+              "RelativeToolTip": "Notes.Common\\Notes.Common.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-11-23T18:31:40.281Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\Philip Philip\\source\\repos\\Notes.Services\\Notes.Repositories\\Class1.cs",
+              "RelativeDocumentMoniker": "Notes.Repositories\\Class1.cs",
+              "ToolTip": "C:\\Users\\Philip Philip\\source\\repos\\Notes.Services\\Notes.Repositories\\Class1.cs",
+              "RelativeToolTip": "Notes.Repositories\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-23T18:28:16.878Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\Philip Philip\\source\\repos\\Notes.Services\\Notes.Entities\\Class1.cs",
+              "RelativeDocumentMoniker": "Notes.Entities\\Class1.cs",
+              "ToolTip": "C:\\Users\\Philip Philip\\source\\repos\\Notes.Services\\Notes.Entities\\Class1.cs",
+              "RelativeToolTip": "Notes.Entities\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-23T18:27:27.392Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Converter.cs",
+              "DocumentMoniker": "C:\\Users\\Philip Philip\\source\\repos\\Notes.Services\\Notes.Common\\Converter.cs",
+              "RelativeDocumentMoniker": "Notes.Common\\Converter.cs",
+              "ToolTip": "C:\\Users\\Philip Philip\\source\\repos\\Notes.Services\\Notes.Common\\Converter.cs",
+              "RelativeToolTip": "Notes.Common\\Converter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-23T18:25:39.496Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

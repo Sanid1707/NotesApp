@@ -1,0 +1,76 @@
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/bin/Debug/net8.0/appsettings.Development.json
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/bin/Debug/net8.0/appsettings.json
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/bin/Debug/net8.0/Notes.Services
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/bin/Debug/net8.0/Notes.Services.deps.json
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/bin/Debug/net8.0/Notes.Services.runtimeconfig.json
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/bin/Debug/net8.0/Notes.Services.dll
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/bin/Debug/net8.0/Notes.Services.pdb
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/bin/Debug/net8.0/Microsoft.OpenApi.dll
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/bin/Debug/net8.0/Notes.Common.dll
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/bin/Debug/net8.0/Notes.Entities.dll
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/bin/Debug/net8.0/Notes.Repositories.dll
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/bin/Debug/net8.0/Notes.Common.pdb
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/bin/Debug/net8.0/Notes.Entities.pdb
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/bin/Debug/net8.0/Notes.Repositories.pdb
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/obj/Debug/net8.0/Notes.Services.csproj.AssemblyReference.cache
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/obj/Debug/net8.0/Notes.Services.GeneratedMSBuildEditorConfig.editorconfig
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/obj/Debug/net8.0/Notes.Services.AssemblyInfoInputs.cache
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/obj/Debug/net8.0/Notes.Services.AssemblyInfo.cs
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/obj/Debug/net8.0/Notes.Services.csproj.CoreCompileInputs.cache
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/obj/Debug/net8.0/Notes.Services.MvcApplicationPartsAssemblyInfo.cs
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/obj/Debug/net8.0/Notes.Services.MvcApplicationPartsAssemblyInfo.cache
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/obj/Debug/net8.0/staticwebassets.build.json
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/obj/Debug/net8.0/staticwebassets.development.json
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/obj/Debug/net8.0/staticwebassets/msbuild.Notes.Services.Microsoft.AspNetCore.StaticWebAssets.props
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/obj/Debug/net8.0/staticwebassets/msbuild.build.Notes.Services.props
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.Notes.Services.props
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.Notes.Services.props
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/obj/Debug/net8.0/staticwebassets.pack.json
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/obj/Debug/net8.0/scopedcss/bundle/Notes.Services.styles.css
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/obj/Debug/net8.0/Notes.Se.9CA747AD.Up2Date
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/obj/Debug/net8.0/Notes.Services.dll
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/obj/Debug/net8.0/refint/Notes.Services.dll
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/obj/Debug/net8.0/Notes.Services.pdb
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/obj/Debug/net8.0/Notes.Services.genruntimeconfig.cache
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Services/obj/Debug/net8.0/ref/Notes.Services.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/bin/Debug/net8.0/appsettings.Development.json
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/bin/Debug/net8.0/appsettings.json
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/bin/Debug/net8.0/Notes.Services
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/bin/Debug/net8.0/Notes.Services.deps.json
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/bin/Debug/net8.0/Notes.Services.runtimeconfig.json
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/bin/Debug/net8.0/Notes.Services.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/bin/Debug/net8.0/Notes.Services.pdb
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/bin/Debug/net8.0/Microsoft.OpenApi.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/bin/Debug/net8.0/Notes.Common.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/bin/Debug/net8.0/Notes.Entities.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/bin/Debug/net8.0/Notes.Repositories.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/bin/Debug/net8.0/Notes.Common.pdb
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/bin/Debug/net8.0/Notes.Entities.pdb
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/bin/Debug/net8.0/Notes.Repositories.pdb
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/Notes.Services.csproj.AssemblyReference.cache
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/Notes.Services.GeneratedMSBuildEditorConfig.editorconfig
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/Notes.Services.AssemblyInfoInputs.cache
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/Notes.Services.AssemblyInfo.cs
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/Notes.Services.csproj.CoreCompileInputs.cache
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/Notes.Services.MvcApplicationPartsAssemblyInfo.cs
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/Notes.Services.MvcApplicationPartsAssemblyInfo.cache
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/staticwebassets.build.json
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/staticwebassets.development.json
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/staticwebassets/msbuild.Notes.Services.Microsoft.AspNetCore.StaticWebAssets.props
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/staticwebassets/msbuild.build.Notes.Services.props
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.Notes.Services.props
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.Notes.Services.props
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/staticwebassets.pack.json
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/scopedcss/bundle/Notes.Services.styles.css
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/Notes.Se.9CA747AD.Up2Date
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/Notes.Services.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/refint/Notes.Services.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/Notes.Services.pdb
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/Notes.Services.genruntimeconfig.cache
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/ref/Notes.Services.dll

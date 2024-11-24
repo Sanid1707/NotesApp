@@ -1,0 +1,34 @@
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Repositories/bin/Debug/net8.0/Notes.Repositories.deps.json
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Repositories/bin/Debug/net8.0/Notes.Repositories.dll
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Repositories/bin/Debug/net8.0/Notes.Repositories.pdb
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Repositories/bin/Debug/net8.0/Notes.Common.dll
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Repositories/bin/Debug/net8.0/Notes.Entities.dll
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Repositories/bin/Debug/net8.0/Notes.Common.pdb
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Repositories/bin/Debug/net8.0/Notes.Entities.pdb
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Repositories/obj/Debug/net8.0/Notes.Repositories.csproj.AssemblyReference.cache
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Repositories/obj/Debug/net8.0/Notes.Repositories.GeneratedMSBuildEditorConfig.editorconfig
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Repositories/obj/Debug/net8.0/Notes.Repositories.AssemblyInfoInputs.cache
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Repositories/obj/Debug/net8.0/Notes.Repositories.AssemblyInfo.cs
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Repositories/obj/Debug/net8.0/Notes.Repositories.csproj.CoreCompileInputs.cache
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Repositories/obj/Debug/net8.0/Notes.Re.8F0068C1.Up2Date
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Repositories/obj/Debug/net8.0/Notes.Repositories.dll
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Repositories/obj/Debug/net8.0/refint/Notes.Repositories.dll
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Repositories/obj/Debug/net8.0/Notes.Repositories.pdb
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Repositories/obj/Debug/net8.0/ref/Notes.Repositories.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/bin/Debug/net8.0/Notes.Repositories.deps.json
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/bin/Debug/net8.0/Notes.Repositories.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/bin/Debug/net8.0/Notes.Repositories.pdb
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/bin/Debug/net8.0/Notes.Common.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/bin/Debug/net8.0/Notes.Entities.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/bin/Debug/net8.0/Notes.Common.pdb
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/bin/Debug/net8.0/Notes.Entities.pdb
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/obj/Debug/net8.0/Notes.Repositories.csproj.AssemblyReference.cache
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/obj/Debug/net8.0/Notes.Repositories.GeneratedMSBuildEditorConfig.editorconfig
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/obj/Debug/net8.0/Notes.Repositories.AssemblyInfoInputs.cache
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/obj/Debug/net8.0/Notes.Repositories.AssemblyInfo.cs
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/obj/Debug/net8.0/Notes.Repositories.csproj.CoreCompileInputs.cache
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/obj/Debug/net8.0/Notes.Re.8F0068C1.Up2Date
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/obj/Debug/net8.0/Notes.Repositories.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/obj/Debug/net8.0/refint/Notes.Repositories.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/obj/Debug/net8.0/Notes.Repositories.pdb
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/obj/Debug/net8.0/ref/Notes.Repositories.dll

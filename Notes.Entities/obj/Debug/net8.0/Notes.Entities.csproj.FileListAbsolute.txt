@@ -1,0 +1,30 @@
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Entities/bin/Debug/net8.0/Notes.Entities.deps.json
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Entities/bin/Debug/net8.0/Notes.Entities.dll
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Entities/bin/Debug/net8.0/Notes.Entities.pdb
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Entities/bin/Debug/net8.0/Notes.Common.dll
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Entities/bin/Debug/net8.0/Notes.Common.pdb
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Entities/obj/Debug/net8.0/Notes.Entities.csproj.AssemblyReference.cache
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Entities/obj/Debug/net8.0/Notes.Entities.GeneratedMSBuildEditorConfig.editorconfig
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Entities/obj/Debug/net8.0/Notes.Entities.AssemblyInfoInputs.cache
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Entities/obj/Debug/net8.0/Notes.Entities.AssemblyInfo.cs
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Entities/obj/Debug/net8.0/Notes.Entities.csproj.CoreCompileInputs.cache
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Entities/obj/Debug/net8.0/Notes.En.87470B3E.Up2Date
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Entities/obj/Debug/net8.0/Notes.Entities.dll
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Entities/obj/Debug/net8.0/refint/Notes.Entities.dll
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Entities/obj/Debug/net8.0/Notes.Entities.pdb
+/Users/sanidhyapandey/RiderProjects/Notes.Services 3/Notes.Entities/obj/Debug/net8.0/ref/Notes.Entities.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/bin/Debug/net8.0/Notes.Entities.deps.json
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/bin/Debug/net8.0/Notes.Entities.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/bin/Debug/net8.0/Notes.Entities.pdb
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/bin/Debug/net8.0/Notes.Common.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/bin/Debug/net8.0/Notes.Common.pdb
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/obj/Debug/net8.0/Notes.Entities.csproj.AssemblyReference.cache
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/obj/Debug/net8.0/Notes.Entities.GeneratedMSBuildEditorConfig.editorconfig
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/obj/Debug/net8.0/Notes.Entities.AssemblyInfoInputs.cache
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/obj/Debug/net8.0/Notes.Entities.AssemblyInfo.cs
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/obj/Debug/net8.0/Notes.Entities.csproj.CoreCompileInputs.cache
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/obj/Debug/net8.0/Notes.En.87470B3E.Up2Date
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/obj/Debug/net8.0/Notes.Entities.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/obj/Debug/net8.0/refint/Notes.Entities.dll
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/obj/Debug/net8.0/Notes.Entities.pdb
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/obj/Debug/net8.0/ref/Notes.Entities.dll
