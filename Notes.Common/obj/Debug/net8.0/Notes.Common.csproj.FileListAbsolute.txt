@@ -12,13 +12,13 @@
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/bin/Debug/net8.0/Notes.Common.deps.json
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/bin/Debug/net8.0/Notes.Common.dll
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/bin/Debug/net8.0/Notes.Common.pdb
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/obj/Debug/net8.0/Notes.Common.csproj.AssemblyReference.cache
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/obj/Debug/net8.0/Notes.Common.GeneratedMSBuildEditorConfig.editorconfig
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/obj/Debug/net8.0/Notes.Common.AssemblyInfoInputs.cache
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/obj/Debug/net8.0/Notes.Common.AssemblyInfo.cs
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/obj/Debug/net8.0/Notes.Common.csproj.CoreCompileInputs.cache
+/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/obj/Debug/net8.0/Notes.Common.sourcelink.json
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/obj/Debug/net8.0/Notes.Common.dll
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/obj/Debug/net8.0/refint/Notes.Common.dll
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/obj/Debug/net8.0/Notes.Common.pdb
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/obj/Debug/net8.0/ref/Notes.Common.dll
-/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/obj/Debug/net8.0/Notes.Common.csproj.AssemblyReference.cache
-/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/obj/Debug/net8.0/Notes.Common.sourcelink.json
