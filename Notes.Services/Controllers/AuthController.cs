@@ -8,13 +8,13 @@ namespace Notes.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : ControllerBase
+    public class AuthController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IAuthRepository _authRepository;
 
-        public UserController(IUserRepository userRepository)
+        public AuthController(IAuthRepository authRepository)
         {
-            _userRepository = userRepository;
+            _authRepository = authRepository;
         }
         
         [HttpPost("register")]
@@ -22,7 +22,7 @@ namespace Notes.Controllers
         {
             try
             {
-                var result = await _userRepository.Registration(dto);
+                var result = await _authRepository.Registration(dto);
 
                 // Check if the result is OkObjectResult
                 if (result is OkObjectResult okResult)
@@ -49,7 +49,7 @@ namespace Notes.Controllers
         {
             try
             {
-                var result = await _userRepository.Login(dto);
+                var result = await _authRepository.Login(dto);
 
                 // Check if the result is OkObjectResult
                 if (result is OkObjectResult okResult)
@@ -67,6 +67,26 @@ namespace Notes.Controllers
                 // Handle unexpected exceptions
                 return StatusCode(500, new { success = false, message = $"An error occurred: {ex.Message}" });
             }
+        }
+        
+        
+        
+        [HttpPost("validate-token")]
+        public async Task<IActionResult> ValidateToken()
+        {
+            // Extract the Authorization header
+            var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            if (string.IsNullOrEmpty(token))
+            {
+                return Unauthorized(new
+                {
+                    success = false,
+                    message = "Token is missing."
+                });
+            }
+
+            // Call the repository method
+            return await _authRepository.ValidateToken(token);
         }
 
 

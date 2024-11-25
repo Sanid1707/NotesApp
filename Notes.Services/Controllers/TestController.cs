@@ -8,11 +8,11 @@ namespace Notes.Controllers
     [Route("api/[controller]")]
     public class TestController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IAuthRepository _authRepository;
 
-        public TestController(IUserRepository userRepository)
+        public TestController(IAuthRepository authRepository)
         {
-            _userRepository = userRepository;
+            _authRepository = authRepository;
         }
 
         // GET: api/test/users
@@ -21,7 +21,7 @@ namespace Notes.Controllers
         {
             try
             {
-                var users = _userRepository.GetAllUsers();
+                var users = _authRepository.GetAllUsers();
                 return Ok(users);
             }
             catch (Exception ex)

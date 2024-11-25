@@ -14,13 +14,13 @@ using Notes.Entities;
 
 namespace Notes.Repository
 {
-    public class UserRepository : IUserRepository
+    public class AuthRepository : IAuthRepository
     
     {
         private readonly NotesDbContext _context;
         private readonly IConfiguration _configuration;
 
-        public UserRepository(NotesDbContext context,IConfiguration configuration)
+        public AuthRepository(NotesDbContext context,IConfiguration configuration)
         {
             _context = context;
             _configuration = configuration;
@@ -241,7 +241,24 @@ private string GenerateJwtToken(User user)
 
     // Return the serialized token
     return new JwtSecurityTokenHandler().WriteToken(token);
-}
+    }
+    
+
+        public async Task<IActionResult> ValidateToken(string token)
+        {
+            try
+            {
+               
+            }
+            
+            catch (Exception ex)
+            {
+ 
+            }
+
+            return null;
+        }
+
 
     }
 }

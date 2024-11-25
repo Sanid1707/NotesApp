@@ -6,7 +6,7 @@ using Notes.Entities;
 
 namespace Notes.Repository
 {
-    public interface IUserRepository
+    public interface IAuthRepository
     {
        
         
@@ -15,5 +15,6 @@ namespace Notes.Repository
 
 
         Task<IActionResult> Login(LoginRequest dto);
+        Task<IActionResult> ValidateToken(string token);
     }
 }
