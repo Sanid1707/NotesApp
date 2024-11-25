@@ -244,21 +244,66 @@ private string GenerateJwtToken(User user)
     }
     
 
-        public async Task<IActionResult> ValidateToken(string token)
-        {
-            try
-            {
-               
-            }
-            
-            catch (Exception ex)
-            {
- 
-            }
+public async Task<IActionResult> ValidateToken(string token)
+{
+    try
+    {
+        // Decode and validate the token
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
 
-            return null;
+        tokenHandler.ValidateToken(token, new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = true,
+            ValidIssuer = _configuration["Jwt:Issuer"],
+            ValidateAudience = true,
+            ValidAudience = _configuration["Jwt:Audience"],
+            ValidateLifetime = true // Ensure token is not expired
+        }, out SecurityToken validatedToken);
+
+        // Token is valid; retrieve user info
+        var jwtToken = (JwtSecurityToken)validatedToken;
+        var userId = jwtToken.Claims.First(claim => claim.Type == "sub").Value;
+
+        // Optional: Verify token matches the one in the database
+        var user = await _context.Users.FindAsync(Guid.Parse(userId));
+        if (user == null || user.LatestJwtToken != token)
+        {
+            return new UnauthorizedObjectResult(new
+            {
+                success = false,
+                message = "Token is invalid or not active."
+            });
         }
 
+        return new OkObjectResult(new
+        {
+            success = true,
+            message = "Token is valid.",
+            userId = user.UserId,
+            username = user.Username,
+            email = user.Email
+        });
+    }
+    catch (SecurityTokenExpiredException)
+    {
+        return new UnauthorizedObjectResult(new
+        {
+            success = false,
+            message = "Token has expired."
+        });
+    }
+    catch (Exception ex)
+    {
+        return new UnauthorizedObjectResult(new
+        {
+            success = false,
+            message = $"Token is invalid: {ex.Message}"
+        });
+    }
+}
 
     }
 }
