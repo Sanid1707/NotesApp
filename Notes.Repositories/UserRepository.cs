@@ -175,8 +175,8 @@ public async Task<IActionResult> Login(LoginRequest dto)
         string token;
         if (string.IsNullOrEmpty(user.LatestJwtToken))
         {
-            // token = GenerateJwtToken(user);
-            // user.LatestJwtToken = token;
+            token = GenerateJwtToken(user);
+            user.LatestJwtToken = token;
 
             // Update the user's JWT token in the database
             _context.Users.Update(user);
@@ -192,7 +192,7 @@ public async Task<IActionResult> Login(LoginRequest dto)
         {
             success = true,
             message = "Login successful.",
-            //token = token,
+            token = token,
             userId = user.UserId,
             username = user.Username,
             email = user.Email
@@ -210,7 +210,38 @@ public async Task<IActionResult> Login(LoginRequest dto)
     }
 }
 
+private string GenerateJwtToken(User user)
+{
+    // Get JWT settings from configuration
+    var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
+    var issuer = _configuration["Jwt:Issuer"];
+    var audience = _configuration["Jwt:Audience"];
+    var expiryMinutes = int.Parse(_configuration["Jwt:ExpiryMinutes"]);
 
+    // Create claims
+    var claims = new[]
+    {
+        new Claim(JwtRegisteredClaimNames.Sub, user.UserId.ToString()),
+        new Claim(JwtRegisteredClaimNames.Email, user.Email),
+        new Claim("Username", user.Username),
+        new Claim("Role", user.Role.ToString())
+    };
+
+    // Create signing credentials
+    var credentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
+
+    // Create JWT token
+    var token = new JwtSecurityToken(
+        issuer,
+        audience,
+        claims,
+        expires: DateTime.UtcNow.AddMinutes(expiryMinutes),
+        signingCredentials: credentials
+    );
+
+    // Return the serialized token
+    return new JwtSecurityTokenHandler().WriteToken(token);
+}
 
     }
 }
