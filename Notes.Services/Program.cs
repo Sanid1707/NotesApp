@@ -15,7 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<NotesDbContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 CryptoHelper.Initialize(builder.Configuration);
 
 
