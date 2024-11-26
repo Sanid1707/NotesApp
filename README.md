@@ -54,9 +54,3 @@ A simple and efficient Notes application built using **React** for the frontend 
 - .NET SDK installed.
 - SQL Server running locally or accessible remotely.
 
-### Steps
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/your-username/notes-app.git
-   cd notes-app
