@@ -10,5 +10,8 @@
         public DateTime CreatedAt { get; set; } // Account Creation Timestamp
         public byte IsActive { get; set; } // Is User Active (Soft Delete)
         public string LatestJwtToken { get; set; } // (Optional) Store the latest JWT token
-    }
+
+        public ICollection<NotesTitle> Notes { get; set; } // Navigation Property
+		
+	}
 }
