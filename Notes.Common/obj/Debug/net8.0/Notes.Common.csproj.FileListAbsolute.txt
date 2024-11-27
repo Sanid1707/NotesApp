@@ -22,3 +22,16 @@
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/obj/Debug/net8.0/refint/Notes.Common.dll
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/obj/Debug/net8.0/Notes.Common.pdb
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/obj/Debug/net8.0/ref/Notes.Common.dll
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Common\bin\Debug\net8.0\Notes.Common.deps.json
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Common\bin\Debug\net8.0\Notes.Common.dll
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Common\bin\Debug\net8.0\Notes.Common.pdb
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Common\obj\Debug\net8.0\Notes.Common.csproj.AssemblyReference.cache
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Common\obj\Debug\net8.0\Notes.Common.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Common\obj\Debug\net8.0\Notes.Common.AssemblyInfoInputs.cache
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Common\obj\Debug\net8.0\Notes.Common.AssemblyInfo.cs
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Common\obj\Debug\net8.0\Notes.Common.csproj.CoreCompileInputs.cache
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Common\obj\Debug\net8.0\Notes.Common.sourcelink.json
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Common\obj\Debug\net8.0\Notes.Common.dll
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Common\obj\Debug\net8.0\refint\Notes.Common.dll
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Common\obj\Debug\net8.0\Notes.Common.pdb
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Common\obj\Debug\net8.0\ref\Notes.Common.dll

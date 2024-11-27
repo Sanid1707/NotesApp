@@ -1,3 +1,3 @@
 ﻿<Project>
-  <Import Project="../buildMultiTargeting/Notes.Services.props" />
+  <Import Project="..\buildMultiTargeting\Notes.Services.props" />
 </Project>

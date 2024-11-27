@@ -1,25 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/Notes.Services.csproj": {}
+    "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Services\\Notes.Services.csproj": {}
   },
   "projects": {
-    "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/Notes.Common.csproj": {
+    "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\Notes.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/Notes.Common.csproj",
+        "projectUniqueName": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\Notes.Common.csproj",
         "projectName": "Notes.Common",
-        "projectPath": "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/Notes.Common.csproj",
-        "packagesPath": "/Users/sanidhyapandey/.nuget/packages/",
-        "outputPath": "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/obj/",
+        "projectPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\Notes.Common.csproj",
+        "packagesPath": "C:\\Users\\Philip Philip\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/sanidhyapandey/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Philip Philip\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -43,6 +46,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Mvc.Core": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[9.0.0, )"
@@ -64,34 +71,37 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.402/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/Notes.Entities.csproj": {
+    "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Entities\\Notes.Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/Notes.Entities.csproj",
+        "projectUniqueName": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Entities\\Notes.Entities.csproj",
         "projectName": "Notes.Entities",
-        "projectPath": "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/Notes.Entities.csproj",
-        "packagesPath": "/Users/sanidhyapandey/.nuget/packages/",
-        "outputPath": "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/obj/",
+        "projectPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Entities\\Notes.Entities.csproj",
+        "packagesPath": "C:\\Users\\Philip Philip\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Entities\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/sanidhyapandey/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Philip Philip\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/Notes.Common.csproj": {
-                "projectPath": "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/Notes.Common.csproj"
+              "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\Notes.Common.csproj": {
+                "projectPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\Notes.Common.csproj"
               }
             }
           }
@@ -111,6 +121,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Mvc.Core": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[9.0.0, )"
@@ -132,37 +146,40 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.402/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/Notes.Repositories.csproj": {
+    "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Repositories\\Notes.Repositories.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/Notes.Repositories.csproj",
+        "projectUniqueName": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Repositories\\Notes.Repositories.csproj",
         "projectName": "Notes.Repositories",
-        "projectPath": "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/Notes.Repositories.csproj",
-        "packagesPath": "/Users/sanidhyapandey/.nuget/packages/",
-        "outputPath": "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/obj/",
+        "projectPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Repositories\\Notes.Repositories.csproj",
+        "packagesPath": "C:\\Users\\Philip Philip\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Repositories\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/sanidhyapandey/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Philip Philip\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/Notes.Common.csproj": {
-                "projectPath": "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/Notes.Common.csproj"
+              "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\Notes.Common.csproj": {
+                "projectPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\Notes.Common.csproj"
               },
-              "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/Notes.Entities.csproj": {
-                "projectPath": "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/Notes.Entities.csproj"
+              "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Entities\\Notes.Entities.csproj": {
+                "projectPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Entities\\Notes.Entities.csproj"
               }
             }
           }
@@ -182,6 +199,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Mvc.Core": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[9.0.0, )"
@@ -213,40 +234,43 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.402/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/Notes.Services.csproj": {
+    "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Services\\Notes.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/Notes.Services.csproj",
+        "projectUniqueName": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Services\\Notes.Services.csproj",
         "projectName": "Notes.Services",
-        "projectPath": "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/Notes.Services.csproj",
-        "packagesPath": "/Users/sanidhyapandey/.nuget/packages/",
-        "outputPath": "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/",
+        "projectPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Services\\Notes.Services.csproj",
+        "packagesPath": "C:\\Users\\Philip Philip\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Services\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/sanidhyapandey/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Philip Philip\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/Notes.Common.csproj": {
-                "projectPath": "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Common/Notes.Common.csproj"
+              "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\Notes.Common.csproj": {
+                "projectPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\Notes.Common.csproj"
               },
-              "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/Notes.Entities.csproj": {
-                "projectPath": "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Entities/Notes.Entities.csproj"
+              "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Entities\\Notes.Entities.csproj": {
+                "projectPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Entities\\Notes.Entities.csproj"
               },
-              "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/Notes.Repositories.csproj": {
-                "projectPath": "/Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/Notes.Repositories.csproj"
+              "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Repositories\\Notes.Repositories.csproj": {
+                "projectPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Repositories\\Notes.Repositories.csproj"
               }
             }
           }
@@ -266,6 +290,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Mvc.Core": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[9.0.0, )"
@@ -294,7 +322,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.402/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

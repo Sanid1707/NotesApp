@@ -1,0 +1,70 @@
+# Ignore build artifacts and binaries
+bin/
+obj/
+*.dll
+*.pdb
+
+# Ignore Rider/JetBrains IDE-related files
+.idea/
+*.iml
+
+# Ignore Visual Studio-related files
+.vs/
+*.user
+*.suo
+
+# Ignore log files and debug output
+*.log
+debug.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore Node.js dependencies
+node_modules/
+
+# Ignore environment variable files
+.env
+.env.*
+
+# Ignore sourcelink and cache files
+*.sourcelink.json
+*.cache
+*.AssemblyReference.cache
+*.CoreCompileInputs.cache
+*.FileListAbsolute.txt
+
+# Ignore package-lock and yarn lock files
+package-lock.json
+yarn.lock
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore production build outputs
+/build/
+/dist/
+
+# Ignore coverage reports
+coverage/
+
+# Ignore specific files in your repository
+Notes.Common/bin/
+Notes.Common/obj/
+Notes.Entities/bin/
+Notes.Entities/obj/
+Notes.Repositories/bin/
+Notes.Repositories/obj/
+Notes.Services/bin/
+Notes.Services/obj/
+
+# Ignore React-specific files
+notes-react/node_modules/
+notes-react/build/
+notes-react/.env*
+notes-react/coverage/
+notes-react/debug.log
+notes-react/npm-debug.log*
+notes-react/yarn-debug.log*
+notes-react/yarn-error.log*

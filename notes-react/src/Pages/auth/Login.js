@@ -7,7 +7,7 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Placeholder for login logic (e.g., API call)
+        // Placeholder for login logic (e.g., API call) ......
         console.log("Email:", email);
         console.log("Password:", password);
         alert("Login successful!"); // Replace with real logic
