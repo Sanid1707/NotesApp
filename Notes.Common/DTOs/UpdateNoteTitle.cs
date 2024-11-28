@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace Notes.Common.DTOs
 {
-	public class CreateNoteTitle
+	public class UpdateNoteTitle
 	{
 		public string Title { get; set; }
-		
+
 		public Guid UserId { get; set; }
 
 		public string tag { get; set; }
-		
-		public byte favourite { get; set; }	
+
+		public byte favourite { get; set; }
+
+		public Guid NoteId { get; set; }
 	}
 }

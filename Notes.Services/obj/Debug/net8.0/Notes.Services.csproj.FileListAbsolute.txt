@@ -129,17 +129,6 @@
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/Notes.Services.pdb
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/Notes.Services.genruntimeconfig.cache
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Services/obj/Debug/net8.0/ref/Notes.Services.dll
-C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\Notes.Services.csproj.AssemblyReference.cache
-C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\Notes.Services.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\Notes.Services.AssemblyInfoInputs.cache
-C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\Notes.Services.AssemblyInfo.cs
-C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\Notes.Services.csproj.CoreCompileInputs.cache
-C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\Notes.Services.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\Notes.Services.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\Notes.Services.sourcelink.json
-C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\Notes.Services.dll
-C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\refint\Notes.Services.dll
-C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\Notes.Services.pdb
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\bin\Debug\net8.0\appsettings.json
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\bin\Debug\net8.0\Notes.Services.exe
@@ -214,6 +203,14 @@ C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\bin\Debug\net8.0\Not
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\bin\Debug\net8.0\Notes.Common.pdb
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\bin\Debug\net8.0\Notes.Entities.pdb
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\bin\Debug\net8.0\Notes.Repositories.pdb
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\Notes.Services.csproj.AssemblyReference.cache
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\Notes.Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\Notes.Services.AssemblyInfoInputs.cache
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\Notes.Services.AssemblyInfo.cs
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\Notes.Services.csproj.CoreCompileInputs.cache
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\Notes.Services.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\Notes.Services.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\Notes.Services.sourcelink.json
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\staticwebassets\msbuild.Notes.Services.Microsoft.AspNetCore.StaticWebAssets.props
@@ -223,5 +220,8 @@ C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\sta
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\staticwebassets.pack.json
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\scopedcss\bundle\Notes.Services.styles.css
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\Notes.Se.9CA747AD.Up2Date
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\Notes.Services.dll
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\refint\Notes.Services.dll
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\Notes.Services.pdb
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\Notes.Services.genruntimeconfig.cache
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Services\obj\Debug\net8.0\ref\Notes.Services.dll

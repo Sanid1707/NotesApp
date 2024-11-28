@@ -20,7 +20,7 @@ namespace Notes.Repositories.Interrfaces
 		Task<IEnumerable<NotesTitle>> GetAllNotes(Guid userId);
 
 		// update note method
-		Task<IActionResult> UpdateNotes(CreateNoteTitle dto);
+		Task<IActionResult> UpdateNotes(UpdateNoteTitle dto);
 
 
 	}
