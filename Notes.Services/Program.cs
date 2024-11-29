@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Notes.Common.Utils;
+using Notes.Repositories;
+using Notes.Repositories.Interrfaces;
 using Notes.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +19,7 @@ builder.Services.AddDbContext<NotesDbContext>(options =>
 
 // Add scoped services
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddScoped<INotesTitleRepository, NotesTitleRepository>();
 CryptoHelper.Initialize(builder.Configuration);
 
 // Add CORS policy
