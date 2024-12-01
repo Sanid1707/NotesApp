@@ -8,12 +8,19 @@ using Notes.Repository;
 using Notes.Common.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Notes.Repositories
 {
 	public class NotesTitleRepository : INotesTitleRepository
 	{
 		private readonly NotesDbContext _context;
+
+		public NotesTitleRepository(NotesDbContext context)
+		{
+			_context = context;
+			
+		}
 		// add note method
 		public async Task<IActionResult> AddNotes(CreateNoteTitle dto)
 		{
@@ -46,12 +53,13 @@ namespace Notes.Repositories
 				var note = new Notes.Entities.NotesTitle
 				{
 					Title = dto.Title,
+					NoteId = Guid.NewGuid(),
 					UserId = dto.UserId,
 					Tag = dto.tag,
 					favourite = dto.favourite,
 					DateCreated = DateTime.Now,
-					DataEditied = DateTime.Now,
-					NoteId = Guid.NewGuid(),
+					DateEditied = DateTime.Now,
+
 					IsActive = 1
 
 				};
@@ -138,7 +146,7 @@ namespace Notes.Repositories
 				note.Title = dto.Title;
 				note.Tag = dto.tag;
 				note.favourite = dto.favourite;
-				note.DataEditied = DateTime.Now;
+				note.DateEditied = DateTime.Now;
 				await _context.SaveChangesAsync();
 				return new OkObjectResult(new
 				{

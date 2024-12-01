@@ -64,6 +64,12 @@
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/obj/Debug/net8.0/Notes.Repositories.pdb
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/obj/Debug/net8.0/Notes.Repositories.genruntimeconfig.cache
 /Users/sanidhyapandey/RiderProjects/NotesApp/Notes.Repositories/obj/Debug/net8.0/ref/Notes.Repositories.dll
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Repositories\obj\Debug\net8.0\Notes.Repositories.csproj.AssemblyReference.cache
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Repositories\obj\Debug\net8.0\Notes.Repositories.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Repositories\obj\Debug\net8.0\Notes.Repositories.AssemblyInfoInputs.cache
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Repositories\obj\Debug\net8.0\Notes.Repositories.AssemblyInfo.cs
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Repositories\obj\Debug\net8.0\Notes.Repositories.csproj.CoreCompileInputs.cache
+C:\Users\Philip Philip\source\repos\NotesApp\Notes.Repositories\obj\Debug\net8.0\Notes.Repositories.sourcelink.json
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Repositories\bin\Debug\net8.0\Notes.Repositories.deps.json
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Repositories\bin\Debug\net8.0\Notes.Repositories.runtimeconfig.json
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Repositories\bin\Debug\net8.0\Notes.Repositories.dll
@@ -72,12 +78,6 @@ C:\Users\Philip Philip\source\repos\NotesApp\Notes.Repositories\bin\Debug\net8.0
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Repositories\bin\Debug\net8.0\Notes.Entities.dll
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Repositories\bin\Debug\net8.0\Notes.Common.pdb
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Repositories\bin\Debug\net8.0\Notes.Entities.pdb
-C:\Users\Philip Philip\source\repos\NotesApp\Notes.Repositories\obj\Debug\net8.0\Notes.Repositories.csproj.AssemblyReference.cache
-C:\Users\Philip Philip\source\repos\NotesApp\Notes.Repositories\obj\Debug\net8.0\Notes.Repositories.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Philip Philip\source\repos\NotesApp\Notes.Repositories\obj\Debug\net8.0\Notes.Repositories.AssemblyInfoInputs.cache
-C:\Users\Philip Philip\source\repos\NotesApp\Notes.Repositories\obj\Debug\net8.0\Notes.Repositories.AssemblyInfo.cs
-C:\Users\Philip Philip\source\repos\NotesApp\Notes.Repositories\obj\Debug\net8.0\Notes.Repositories.csproj.CoreCompileInputs.cache
-C:\Users\Philip Philip\source\repos\NotesApp\Notes.Repositories\obj\Debug\net8.0\Notes.Repositories.sourcelink.json
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Repositories\obj\Debug\net8.0\Notes.Re.8F0068C1.Up2Date
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Repositories\obj\Debug\net8.0\Notes.Repositories.dll
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Repositories\obj\Debug\net8.0\refint\Notes.Repositories.dll

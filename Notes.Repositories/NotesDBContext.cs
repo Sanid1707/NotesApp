@@ -122,7 +122,7 @@ namespace Notes.Repository
                     .IsRequired()
                     .HasDefaultValueSql("GETDATE()"); // Default value for creation date
 
-                entity.Property(n => n.DataEditied)
+                entity.Property(n => n.DateEditied)
                     .IsRequired();
 
                 entity.Property(n => n.Tag)
