@@ -25,7 +25,7 @@ namespace Notes.Repository
             _context = context;
             _configuration = configuration;
         }
-//test
+//testing
         public async Task<IActionResult> Registration(RegistrationRequest dto)
         {
             try
