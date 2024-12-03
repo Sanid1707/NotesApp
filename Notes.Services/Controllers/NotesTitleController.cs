@@ -15,19 +15,19 @@ namespace Notes.Controllers
             _notesTitleRepository = notesTitleRepository;
         }
 
-        [HttpGet]  // GET: api/notesTitle
-        public IActionResult GetAllNotesTitle(Guid userId)
-        {
-            try
-            {
-                var notesTitle = _notesTitleRepository.GetAllNotes(userId);
-                return Ok(notesTitle);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred: {ex.Message}");
-            }
-        }
+        // [HttpGet]  // GET: api/notesTitle
+        // public IActionResult GetAllNotesTitle(Guid userId)
+        // {
+        //     try
+        //     {
+        //         var notesTitle = _notesTitleRepository.GetAllNotes(userId);
+        //         return Ok(notesTitle);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return StatusCode(500, $"An error occurred: {ex.Message}");
+        //     }
+        // }
 
         [HttpPost]// POST: api/notesTitle
         public async Task<IActionResult> AddNotesTitle([FromBody] CreateNoteTitle dto)
@@ -69,11 +69,11 @@ namespace Notes.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { success = false, message = $"An error occurred: {ex.Message}" });
+                return StatusCode(500, new { success = false, message = $"An error occurred:  {ex.Message}" });
             }
         }
 
-        [HttpDelete] // DELETE: api/notesTitle
+        [HttpDelete] // DELETE: api/notesTitles
         public async Task<IActionResult> DeleteNotesTitle(Guid noteId)
         {
             try
