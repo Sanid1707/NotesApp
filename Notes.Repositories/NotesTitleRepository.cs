@@ -17,61 +17,7 @@ namespace Notes.Repositories
             _context = context;
         }
 
-        // // Add Note Method
-        // public async Task<IActionResult> AddNotes(CreateNoteTitle dto)
-        // {
-        //     try
-        //     {
-        //         // Validate input
-        //         if (string.IsNullOrWhiteSpace(dto.Title))
-        //         {
-        //             return new BadRequestObjectResult(new
-        //             {
-        //                 success = false,
-        //                 message = "Title is required."
-        //             });
-        //         }
-        //
-        //         if (dto.UserId == Guid.Empty)
-        //         {
-        //             return new BadRequestObjectResult(new
-        //             {
-        //                 success = false,
-        //                 message = "Invalid User ID."
-        //             });
-        //         }
-        //
-        //         var note = new Notes.Entities.NotesTitle
-        //         {
-        //             Title = dto.Title,
-        //             NoteId = Guid.NewGuid(),
-        //             // UserId = dto.UserId,
-        //             // Tag = dto.Tag,
-        //             // Favourite = dto.Favourite,
-        //             DateCreated = DateTime.UtcNow,
-        //             DateEdited = DateTime.UtcNow,
-        //             IsActive = 1
-        //         };
-        //
-        //         await _context.NotesTitles.AddAsync(note);
-        //         await _context.SaveChangesAsync();
-        //
-        //         return new OkObjectResult(new
-        //         {
-        //             success = true,
-        //             message = "Note added successfully.",
-        //             noteId = note.NoteId
-        //         });
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         return new BadRequestObjectResult(new
-        //         {
-        //             success = false,
-        //             message = $"An error occurred: {ex.Message}"
-        //         });
-        //     }
-        // }
+     
         
         public async Task<IActionResult> AddNote(EditNoteTitleDTO dto)
         {
@@ -149,15 +95,53 @@ namespace Notes.Repositories
             }
         }
 
-        public async Task<IEnumerable<ReadNoteDTO>> GetAllNotes(Guid userId)
+        // public async Task<IEnumerable<ReadNoteDTO>> GetAllNotes(Guid userId)
+        // {
+        //     try
+        //     {
+        //         // Fetch all notes where the user is either the owner or a collaborator
+        //         var notes = await _context.NotesTitles
+        //             .Include(n => n.UserNotes) // Include collaborators
+        //             .ThenInclude(un => un.User)
+        //             .Where(n => n.UserNotes.Any(un => un.UserId == userId)) // Filter for notes related to the user
+        //             .ToListAsync();
+        //
+        //         // Transform notes into ReadNoteDTO
+        //         var notesDto = notes.Select(n => new ReadNoteDTO
+        //         {
+        //             NoteId = n.NoteId,
+        //             Title = n.Title,
+        //             Tag = n.Tag,
+        //             DateCreated = n.DateCreated,
+        //             DateEdited = n.DateEdited,
+        //             Favourite = n.Favourite,
+        //             Collaborators = n.UserNotes
+        //                 .Where(c => c.UserId != userId) // Exclude the current user from collaborators
+        //                 .Select(c => new CollaboratorDTO
+        //                 {
+        //                     UserId = c.User.UserId,
+        //                     Username = c.User.Username
+        //                 })
+        //                 .ToList()
+        //         }).ToList();
+        //
+        //         return notesDto;
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         throw new Exception($"An error occurred: {ex.Message}", ex);
+        //     }
+        // }
+        //
+        public async Task<IEnumerable<ReadNoteDTO>> GetAllActiveNotes(Guid userId)
         {
             try
             {
-                // Fetch all notes where the user is either the owner or a collaborator
+                // Fetch all notes where the user is either the owner or a collaborator and the note is active
                 var notes = await _context.NotesTitles
                     .Include(n => n.UserNotes) // Include collaborators
                     .ThenInclude(un => un.User)
-                    .Where(n => n.UserNotes.Any(un => un.UserId == userId)) // Filter for notes related to the user
+                    .Where(n => n.UserNotes.Any(un => un.UserId == userId && un.Status == NoteStatus.Active)) // Filter for active notes related to the user
                     .ToListAsync();
 
                 // Transform notes into ReadNoteDTO
@@ -186,7 +170,7 @@ namespace Notes.Repositories
                 throw new Exception($"An error occurred: {ex.Message}", ex);
             }
         }
-        
+   
         // Only Users that have the permission to edit the Note are the Editor and the Owner 
         public async Task<IActionResult> EditNoteTitle(EditNoteTitleDTO dto)
         {

@@ -14,10 +14,11 @@ namespace Notes.Repositories.Interrfaces
 
 		
 		// display all notes method
-		Task<IEnumerable<ReadNoteDTO>> GetAllNotes(Guid userId);
+
 
 		Task<IActionResult> EditNoteTitle(EditNoteTitleDTO dto);
 		Task<IActionResult> DeleteNoteTitle(DeleteNoteDTO dto);
 		Task<IActionResult> AddNote(EditNoteTitleDTO dto);
+		Task<IEnumerable<ReadNoteDTO>> GetAllActiveNotes(Guid userId);
 	}
 }

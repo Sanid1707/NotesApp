@@ -21,7 +21,7 @@ namespace Notes.Controllers
         {
             try
             {
-                var notes = await _notesTitleRepository.GetAllNotes(userId);
+                var notes = await _notesTitleRepository.GetAllActiveNotes(userId);
                 return Ok(notes);
             }
             catch (Exception ex)
