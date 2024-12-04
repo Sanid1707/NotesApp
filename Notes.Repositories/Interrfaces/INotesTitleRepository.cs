@@ -17,7 +17,7 @@ namespace Notes.Repositories.Interrfaces
 		Task<IActionResult> DeleteNotes(Guid noteId);
 
 		// display all notes method
-		// Task<IEnumerable<NotesTitle>> GetAllNotes(Guid userId);
+		Task<IEnumerable<ReadNoteDTO>> GetAllNotes(Guid userId);
 
 		// update note method
 		Task<IActionResult> UpdateNotes(UpdateNoteTitle dto);

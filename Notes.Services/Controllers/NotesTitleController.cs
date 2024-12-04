@@ -14,21 +14,23 @@ namespace Notes.Controllers
         {
             _notesTitleRepository = notesTitleRepository;
         }
-
-        // [HttpGet]  // GET: api/notesTitle
-        // public IActionResult GetAllNotesTitle(Guid userId)
-        // {
-        //     try
-        //     {
-        //         var notesTitle = _notesTitleRepository.GetAllNotes(userId);
-        //         return Ok(notesTitle);
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         return StatusCode(500, $"An error occurred: {ex.Message}");
-        //     }
-        // }
-
+        
+        
+        [HttpGet("get-all-notes/{userId}")]
+        public async Task<IActionResult> GetAllNotesTitle(Guid userId)
+        {
+            try
+            {
+                var notes = await _notesTitleRepository.GetAllNotes(userId);
+                return Ok(notes);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { success = false, message = $"An error occurred: {ex.Message}" });
+            }
+        }
+        
+        
         [HttpPost]// POST: api/notesTitle
         public async Task<IActionResult> AddNotesTitle([FromBody] CreateNoteTitle dto)
         {

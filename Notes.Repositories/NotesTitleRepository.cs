@@ -127,7 +127,98 @@ namespace Notes.Repositories
         //         });
         //     }
         // }
+        
+        
+        // public async Task<IEnumerable<ReadNoteDTO>> GetAllNotes(Guid userId)
+        // {
+        //     try
+        //     {
+        //         // Validate user existence
+        //         var userExists = await _context.Users.AnyAsync(u => u.UserId == userId && u.IsActive == 1);
+        //         if (!userExists)
+        //         {
+        //             throw new Exception("User not found or inactive.");
+        //         }
+        //
+        //         // Fetch notes directly owned by the user
+        //         var ownedNotes = await _context.NotesTitles
+        //             .Where(n => n.UserNotes.Any(un => un.UserId == userId)) // Notes owned by the user
+        //             .Include(n => n.UserNotes)
+        //             .ThenInclude(un => un.User)
+        //             .ToListAsync();
+        //
+        //         // Fetch notes where the user is a collaborator
+        //         var sharedNotes = await _context.UserNotes
+        //             .Where(un => un.UserId == userId) // Notes shared with the user
+        //             .Select(un => un.NotesTitle)
+        //             .Include(n => n.UserNotes)
+        //             .ThenInclude(un => un.User)
+        //             .ToListAsync();
+        //
+        //         // Combine owned and shared notes
+        //         var allNotes = ownedNotes.Concat(sharedNotes).Distinct().ToList();
+        //
+        //         // Transform notes into ReadNoteDTO
+        //         var notesDto = allNotes.Select(n => new ReadNoteDTO
+        //         {
+        //             NoteId = n.NoteId,
+        //             Title = n.Title,
+        //             Tag = n.Tag,
+        //             Favourite = n.Favourite,
+        //             Collaborators = n.UserNotes
+        //                 .Where(c => c.UserId != userId) // Exclude the current user from collaborators
+        //                 .Select(c => new CollaboratorDTO
+        //                 {
+        //                     UserId = c.User.UserId,
+        //                     Username = c.User.Username
+        //                 })
+        //                 .ToList()
+        //         }).ToList();
+        //
+        //         return notesDto;
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         throw new Exception($"An error occurred: {ex.Message}", ex);
+        //     }
+        // }
+        public async Task<IEnumerable<ReadNoteDTO>> GetAllNotes(Guid userId)
+        {
+            try
+            {
+                // Fetch all notes where the user is either the owner or a collaborator
+                var notes = await _context.NotesTitles
+                    .Include(n => n.UserNotes) // Include collaborators
+                    .ThenInclude(un => un.User)
+                    .Where(n => n.UserNotes.Any(un => un.UserId == userId)) // Filter for notes related to the user
+                    .ToListAsync();
 
+                // Transform notes into ReadNoteDTO
+                var notesDto = notes.Select(n => new ReadNoteDTO
+                {
+                    NoteId = n.NoteId,
+                    Title = n.Title,
+                    Tag = n.Tag,
+                    Favourite = n.Favourite,
+                    Collaborators = n.UserNotes
+                        .Where(c => c.UserId != userId) // Exclude the current user from collaborators
+                        .Select(c => new CollaboratorDTO
+                        {
+                            UserId = c.User.UserId,
+                            Username = c.User.Username
+                        })
+                        .ToList()
+                }).ToList();
+
+                return notesDto;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred: {ex.Message}", ex);
+            }
+        }
+        
+        
         // Update Note Method
         public async Task<IActionResult> UpdateNotes(UpdateNoteTitle dto)
         {
