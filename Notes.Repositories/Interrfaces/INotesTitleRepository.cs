@@ -20,8 +20,9 @@ namespace Notes.Repositories.Interrfaces
 		Task<IEnumerable<ReadNoteDTO>> GetAllNotes(Guid userId);
 
 		// update note method
-		Task<IActionResult> UpdateNotes(UpdateNoteTitle dto);
+		// Task<IActionResult> UpdateNotes(UpdateNoteTitle dto);
 
 
+		Task<IActionResult> EditNoteTitle(EditNoteTitleDTO dto);
 	}
 }

@@ -52,28 +52,43 @@ namespace Notes.Controllers
                 return StatusCode(500, new { success = false, message = $"An error occurred: {ex.Message}" });
             }
         }
-
-        [HttpPut] // PUT: api/notesTitle
-        public async Task<IActionResult> UpdateNotesTitle([FromBody] UpdateNoteTitle dto)
+        
+        
+        [HttpPut("edit-note")]
+        public async Task<IActionResult> EditNoteTitle([FromBody] EditNoteTitleDTO dto)
         {
             try
             {
-                var result = await _notesTitleRepository.UpdateNotes(dto);
-
-                if (result is OkObjectResult okResult)
-                {
-                    return Ok(okResult.Value);
-                }
-                else
-                {
-                    return result;
-                }
+                var result = await _notesTitleRepository.EditNoteTitle(dto);
+                return result;
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { success = false, message = $"An error occurred:  {ex.Message}" });
+                return StatusCode(500, new { success = false, message = $"An error occurred: {ex.Message}" });
             }
         }
+
+        // [HttpPut] // PUT: api/notesTitle
+        // public async Task<IActionResult> UpdateNotesTitle([FromBody] UpdateNoteTitle dto)
+        // {
+        //     try
+        //     {
+        //         var result = await _notesTitleRepository.UpdateNotes(dto);
+        //
+        //         if (result is OkObjectResult okResult)
+        //         {
+        //             return Ok(okResult.Value);
+        //         }
+        //         else
+        //         {
+        //             return result;
+        //         }
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return StatusCode(500, new { success = false, message = $"An error occurred:  {ex.Message}" });
+        //     }
+        // }
 
         [HttpDelete] // DELETE: api/notesTitles
         public async Task<IActionResult> DeleteNotesTitle(Guid noteId)

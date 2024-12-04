@@ -107,81 +107,7 @@ namespace Notes.Repositories
             }
         }
 
-        // Get All Notes Method
-        // public async Task<IActionResult> GetAllNotes(Guid userId)
-        // {
-        //     try
-        //     {
-        //         var notes = await _context.NotesTitles
-        //             .Where(n => n.UserId == userId && n.IsActive == 1)
-        //             .ToListAsync();
-        //
-        //         return new OkObjectResult(notes);
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         return new BadRequestObjectResult(new
-        //         {
-        //             success = false,
-        //             message = $"An error occurred: {ex.Message}"
-        //         });
-        //     }
-        // }
-        
-        
-        // public async Task<IEnumerable<ReadNoteDTO>> GetAllNotes(Guid userId)
-        // {
-        //     try
-        //     {
-        //         // Validate user existence
-        //         var userExists = await _context.Users.AnyAsync(u => u.UserId == userId && u.IsActive == 1);
-        //         if (!userExists)
-        //         {
-        //             throw new Exception("User not found or inactive.");
-        //         }
-        //
-        //         // Fetch notes directly owned by the user
-        //         var ownedNotes = await _context.NotesTitles
-        //             .Where(n => n.UserNotes.Any(un => un.UserId == userId)) // Notes owned by the user
-        //             .Include(n => n.UserNotes)
-        //             .ThenInclude(un => un.User)
-        //             .ToListAsync();
-        //
-        //         // Fetch notes where the user is a collaborator
-        //         var sharedNotes = await _context.UserNotes
-        //             .Where(un => un.UserId == userId) // Notes shared with the user
-        //             .Select(un => un.NotesTitle)
-        //             .Include(n => n.UserNotes)
-        //             .ThenInclude(un => un.User)
-        //             .ToListAsync();
-        //
-        //         // Combine owned and shared notes
-        //         var allNotes = ownedNotes.Concat(sharedNotes).Distinct().ToList();
-        //
-        //         // Transform notes into ReadNoteDTO
-        //         var notesDto = allNotes.Select(n => new ReadNoteDTO
-        //         {
-        //             NoteId = n.NoteId,
-        //             Title = n.Title,
-        //             Tag = n.Tag,
-        //             Favourite = n.Favourite,
-        //             Collaborators = n.UserNotes
-        //                 .Where(c => c.UserId != userId) // Exclude the current user from collaborators
-        //                 .Select(c => new CollaboratorDTO
-        //                 {
-        //                     UserId = c.User.UserId,
-        //                     Username = c.User.Username
-        //                 })
-        //                 .ToList()
-        //         }).ToList();
-        //
-        //         return notesDto;
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         throw new Exception($"An error occurred: {ex.Message}", ex);
-        //     }
-        // }
+
         public async Task<IEnumerable<ReadNoteDTO>> GetAllNotes(Guid userId)
         {
             try
@@ -199,6 +125,8 @@ namespace Notes.Repositories
                     NoteId = n.NoteId,
                     Title = n.Title,
                     Tag = n.Tag,
+                    DateCreated = n.DateCreated,
+                    DateEdited = n.DateEdited,
                     Favourite = n.Favourite,
                     Collaborators = n.UserNotes
                         .Where(c => c.UserId != userId) // Exclude the current user from collaborators
@@ -219,26 +147,46 @@ namespace Notes.Repositories
         }
         
         
-        // Update Note Method
-        public async Task<IActionResult> UpdateNotes(UpdateNoteTitle dto)
+        
+        
+        // Only Users that have the permission to edit the Note are the Editor and the Owner 
+        public async Task<IActionResult> EditNoteTitle(EditNoteTitleDTO dto)
         {
             try
             {
-                var note = await _context.NotesTitles.FindAsync(dto.NoteId);
+                // Check if the user has permission to edit the note
+                var userNote = await _context.UserNotes
+                    .FirstOrDefaultAsync(un => un.UserId == dto.UserId && un.NoteId == dto.NoteId && 
+                                               (un.Role == NoteRoles.Owner || un.Role == NoteRoles.Editor));
+
+                if (userNote == null)
+                {
+                    return new UnauthorizedObjectResult(new
+                    {
+                        success = false,
+                        message = "User does not have permission to edit this note."
+                    });
+                }
+
+                // Fetch the note to update
+                var note = await _context.NotesTitles.FirstOrDefaultAsync(n => n.NoteId == dto.NoteId);
+
                 if (note == null)
                 {
-                    return new BadRequestObjectResult(new
+                    return new NotFoundObjectResult(new
                     {
                         success = false,
                         message = "Note not found."
                     });
                 }
 
+                // Update note details
                 note.Title = dto.Title;
-                // note.Tag = dto.Tag;
-                // note.Favourite = dto.Favourite;
+                note.Tag = dto.Tag;
+                note.Favourite = (byte)dto.Favourite;
                 note.DateEdited = DateTime.UtcNow;
 
+                _context.NotesTitles.Update(note);
                 await _context.SaveChangesAsync();
 
                 return new OkObjectResult(new
@@ -249,12 +197,18 @@ namespace Notes.Repositories
             }
             catch (Exception ex)
             {
-                return new BadRequestObjectResult(new
+                return new ObjectResult(new
                 {
                     success = false,
                     message = $"An error occurred: {ex.Message}"
-                });
+                })
+                {
+                    StatusCode = 500
+                };
             }
         }
+        
+        
+       
     }
 }
