@@ -94,6 +94,7 @@ namespace Notes.Repositories
                 };
             }
         }
+        
         public async Task<IEnumerable<ReadNoteDTO>> GetAllActiveNotes(Guid userId)
         {
             try

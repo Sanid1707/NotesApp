@@ -109,5 +109,24 @@ namespace Notes.Controllers
                 return StatusCode(500, new { success = false, message = $"An error occurred: {ex.Message}" });
             }
         }
+        
+        
+        // [HttpDelete("delete-multiple-collaborators")]
+        // public async Task<IActionResult> DeleteMultipleCollaborators([FromBody] AddMultipleCollaboratorsDTO dto)
+        // {
+        //     try
+        //     {
+        //         var result = await _userRepository.DeleteMultipleCollaborators(dto);
+        //         if (result)
+        //         {
+        //             return Ok(new { success = true, message = "Collaborators added/updated successfully." });
+        //         }
+        //         return BadRequest(new { success = false, message = "Failed to add/update collaborators." });
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return StatusCode(500, new { success = false, message = $"An error occurred: {ex.Message}" });
+        //     }
+        // }
     }
 }
