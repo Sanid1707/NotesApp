@@ -9,7 +9,7 @@ namespace Notes.Repositories.Interfaces
     {
         Task<IEnumerable<UserDTO>> GetAllUsers();
         Task<UserDTO> GetUserById(Guid userId);
-        // Task<bool> UpdateUser(UpdateUserDTO dto);
-        // Task<bool> DeleteUser(Guid userId);
+        Task<bool> UpdateUser(UpdateUserDTO dto);
+        Task<bool> DeleteUser(Guid userId);
     }
 }

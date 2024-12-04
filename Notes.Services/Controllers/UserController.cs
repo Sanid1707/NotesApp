@@ -51,5 +51,41 @@ namespace Notes.Controllers
         }
 
 
+        [HttpPut("update-user")]
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDTO dto)
+        {
+            try
+            {
+                var result = await _userRepository.UpdateUser(dto);
+                return result
+                    ? Ok(new { success = true, message = "User updated successfully." })
+                    : NotFound(new { success = false, message = "User not found." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { success = false, message = $"An error occurred: {ex.Message}" });
+            }
+        }
+
+        [HttpDelete("delete-user/{userId}")]
+        public async Task<IActionResult> DeleteUser(Guid userId)
+        {
+            try
+            {
+                var result = await _userRepository.DeleteUser(userId);
+                if (result)
+                {
+                    return Ok(new { success = true, message = "User deleted successfully." });
+                }
+                else
+                {
+                    return NotFound(new { success = false, message = "User not found." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { success = false, message = $"An error occurred: {ex.Message}" });
+            }
+        }
     }
 }
