@@ -13,16 +13,11 @@ namespace Notes.Repositories.Interrfaces
 	{
 		// add note method
 		Task<IActionResult> AddNotes(CreateNoteTitle dto);
-		// delete note method
-		Task<IActionResult> DeleteNotes(Guid noteId);
-
+		
 		// display all notes method
 		Task<IEnumerable<ReadNoteDTO>> GetAllNotes(Guid userId);
 
-		// update note method
-		// Task<IActionResult> UpdateNotes(UpdateNoteTitle dto);
-
-
 		Task<IActionResult> EditNoteTitle(EditNoteTitleDTO dto);
+		Task<IActionResult> DeleteNoteTitle(DeleteNoteDTO dto);
 	}
 }
