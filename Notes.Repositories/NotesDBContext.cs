@@ -57,17 +57,30 @@ namespace Notes.Repository
             // UserNotes entity configuration
             modelBuilder.Entity<UserNotes>(entity =>
             {
+                // Composite key for UserNotes (UserId + NoteId)
                 entity.HasKey(un => new { un.UserId, un.NoteId });
+
+                // Relationship between UserNotes and Users
                 entity.HasOne(un => un.User)
                     .WithMany(u => u.UserNotes)
                     .HasForeignKey(un => un.UserId)
                     .OnDelete(DeleteBehavior.Cascade);
+
+                // Relationship between UserNotes and NotesTitles
                 entity.HasOne(un => un.NotesTitle)
                     .WithMany(n => n.UserNotes)
                     .HasForeignKey(un => un.NoteId)
                     .OnDelete(DeleteBehavior.Cascade);
-            });
 
+                // Map Role property to TINYINT and use NoteRoles enum
+                entity.Property(un => un.Role)
+                    .HasConversion<byte>() // Store NoteRoles as a byte (TINYINT in SQL)
+                    .IsRequired();
+
+                // Configure AccessGrantedAt property
+                entity.Property(un => un.AccessGrantedAt)
+                    .IsRequired();
+            });
             base.OnModelCreating(modelBuilder);
         }
     }
