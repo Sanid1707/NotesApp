@@ -1,23 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Notes.Entities
 {
-	public class NotesTitle
-	{
-		public Guid UserId { get; set; } // Forign Key
-		public Guid NoteId { get; set; } // Primary Key
-		public string Title { get; set; } // Unique Username
-		public DateTime DateCreated { get; set; } // Creation Date
-		public DateTime DateEditied { get; set; } // Edit Date
-		public string Tag { get; set; } // Enum for Roles (Admin/User)
-		public byte IsActive { get; set; } // Is User Active (Soft Delete)
-		public byte favourite { get; set; } // favourite
+    public class NotesTitle
+    {
+        public Guid NoteId { get; set; } // Primary Key
+        public string Title { get; set; } // Unique Title
+        public DateTime DateCreated { get; set; } // Creation Date
+        public DateTime DateEdited { get; set; } // Edit Date
+        public string Tag { get; set; } // Tag for categorization
+        public byte IsActive { get; set; } // Is Note Active (Soft Delete)
+        public byte Favourite { get; set; } // Is Note Marked as Favourite
 
-		public User User { get; set; } // Navigation Property
-
-	}
+        public Content Content { get; set; } // One-to-One relationship with Content
+        public ICollection<UserNotes> UserNotes { get; set; } // Many-to-Many relationship with Users
+    }
 }

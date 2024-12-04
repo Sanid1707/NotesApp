@@ -1,169 +1,298 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Notes.Repositories.Interrfaces;
 using Notes.Repository;
 using Notes.Common.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace Notes.Repositories
 {
-	public class NotesTitleRepository : INotesTitleRepository
-	{
-		private readonly NotesDbContext _context;
+    public class NotesTitleRepository : INotesTitleRepository
+    {
+        private readonly NotesDbContext _context;
 
-		public NotesTitleRepository(NotesDbContext context)
-		{
-			_context = context;
-			
-		}
-		// add note method
-		public async Task<IActionResult> AddNotes(CreateNoteTitle dto)
-		{
-			try
-			{
+        public NotesTitleRepository(NotesDbContext context)
+        {
+            _context = context;
+        }
 
-			
-				// validate input
-				if (string.IsNullOrWhiteSpace(dto.Title))
-				{
-					return new BadRequestObjectResult(new
-					{
-						success = false,
-						message = "Title is required."
-					});
-				}
+     
+        
+        public async Task<IActionResult> AddNote(EditNoteTitleDTO dto)
+        {
+            try
+            {
+                // Validate the input
+                if (string.IsNullOrWhiteSpace(dto.Title) || string.IsNullOrWhiteSpace(dto.Tag))
+                {
+                    return new BadRequestObjectResult(new
+                    {
+                        success = false,
+                        message = "Title and Tag are required."
+                    });
+                }
 
-				// invalid guid check
-				if (dto.UserId == Guid.Empty)
-				{
-					return new BadRequestObjectResult(new
-					{
-						success = false,
-						message = "Invalid User Id."
-					});
-				}
+                if (dto.UserId == Guid.Empty)
+                {
+                    return new BadRequestObjectResult(new
+                    {
+                        success = false,
+                        message = "Invalid User ID."
+                    });
+                }
 
+                // Generate a new GUID for the NoteId
+                var newNoteId = Guid.NewGuid();
 
+                // Create a new NotesTitle entity
+                var newNote = new Notes.Entities.NotesTitle
+                {
+                    NoteId = newNoteId,
+                    Title = dto.Title,
+                    Tag = dto.Tag,
+                    Favourite = (byte)dto.Favourite,
+                    DateCreated = DateTime.UtcNow,
+                    DateEdited = DateTime.UtcNow,
+                    IsActive = 1
+                };
 
-				var note = new Notes.Entities.NotesTitle
-				{
-					Title = dto.Title,
-					NoteId = Guid.NewGuid(),
-					UserId = dto.UserId,
-					Tag = dto.tag,
-					favourite = dto.favourite,
-					DateCreated = DateTime.Now,
-					DateEditied = DateTime.Now,
+                // Add the note to the database
+                await _context.NotesTitles.AddAsync(newNote);
 
-					IsActive = 1
+                // Create a new UserNotes entry to set the user as the owner
+                var userNote = new Notes.Entities.UserNotes
+                {
+                    UserId = dto.UserId,
+                    NoteId = newNoteId,
+                    Role = NoteRoles.Owner,
+                    AccessGrantedAt = DateTime.UtcNow
+                };
 
-				};
-				await _context.NotesTitles.AddAsync(note);
-				await _context.SaveChangesAsync();
-				return new OkObjectResult(new
-				{
-					success = true,
-					message = "note title added successfully.",
-					noteId = note.NoteId,
-				});
+                // Add the UserNotes entry
+                await _context.UserNotes.AddAsync(userNote);
 
-				
-			}
+                // Save changes
+                await _context.SaveChangesAsync();
 
-			catch
-			(Exception ex)
-			{
-				return new BadRequestObjectResult(new
-				{
-					success = false,
-					message = ex.Message
-				});
-			}
-			throw new NotImplementedException();
-		}
+                return new OkObjectResult(new
+                {
+                    success = true,
+                    message = "Note added successfully.",
+                    noteId = newNoteId
+                });
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult(new
+                {
+                    success = false,
+                    message = $"An error occurred: {ex.Message}"
+                })
+                {
+                    StatusCode = 500
+                };
+            }
+        }
+        
+        public async Task<IEnumerable<ReadNoteDTO>> GetAllActiveNotes(Guid userId)
+        {
+            try
+            {
+                // Fetch all notes where the user is either the owner or a collaborator and the note is active
+                var notes = await _context.NotesTitles
+                    .Include(n => n.UserNotes) // Include collaborators
+                    .ThenInclude(un => un.User)
+                    .Where(n => n.UserNotes.Any(un => un.UserId == userId && un.Status == NoteStatus.Active)) // Filter for active notes related to the user
+                    .ToListAsync();
 
+                // Transform notes into ReadNoteDTO
+                var notesDto = notes.Select(n => new ReadNoteDTO
+                {
+                    NoteId = n.NoteId,
+                    Title = n.Title,
+                    Tag = n.Tag,
+                    DateCreated = n.DateCreated,
+                    DateEdited = n.DateEdited,
+                    Favourite = n.Favourite,
+                    Collaborators = n.UserNotes
+                        .Where(c => c.UserId != userId) // Exclude the current user from collaborators
+                        .Select(c => new CollaboratorDTO
+                        {
+                            UserId = c.User.UserId,
+                            Username = c.User.Username
+                        })
+                        .ToList()
+                }).ToList();
 
-		// delete note method
-		public async Task<IActionResult> DeleteNotes(Guid noteId)
-		{
-			try
-			{
-				var note = await _context.NotesTitles.FindAsync(noteId);
-				if (note == null)
-				{
-					return new BadRequestObjectResult(new
-					{
-						success = false,
-						message = "Note not found."
-					});
-				}
-				_context.NotesTitles.Remove(note);
-				await _context.SaveChangesAsync();
-				return new OkObjectResult(new
-				{
-					success = true,
-					message = "Note deleted successfully."
-				});
+                return notesDto;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred: {ex.Message}", ex);
+            }
+        }
+   
+        // Only Users that have the permission to edit the Note are the Editor and the Owner 
+        public async Task<IActionResult> EditNoteTitle(EditNoteTitleDTO dto)
+        {
+            try
+            {
+                // Check if the user has permission to edit the note
+                var userNote = await _context.UserNotes
+                    .FirstOrDefaultAsync(un => un.UserId == dto.UserId && un.NoteId == dto.NoteId &&
+                                               (un.Role == NoteRoles.Owner || un.Role == NoteRoles.Editor));
 
-			}
-			catch
-			(Exception ex)
-			{
-				return new BadRequestObjectResult(new
-				{
-					success = false,
-					message = ex.Message
-				});
-			}
-		}
+                if (userNote == null)
+                {
+                    return new UnauthorizedObjectResult(new
+                    {
+                        success = false,
+                        message = "User does not have permission to edit this note."
+                    });
+                }
 
-		// display all notes method
-		public async Task<IEnumerable<Notes.Entities.NotesTitle>> GetAllNotes(Guid userId)
-		{
-			return await _context.NotesTitles.Where(n => n.UserId == userId).ToListAsync();
-		}
+                // Fetch the note to update
+                var note = await _context.NotesTitles.FirstOrDefaultAsync(n => n.NoteId == dto.NoteId);
 
+                if (note == null)
+                {
+                    return new NotFoundObjectResult(new
+                    {
+                        success = false,
+                        message = "Note not found."
+                    });
+                }
 
-		// update note method
-		public async Task<IActionResult> UpdateNotes(UpdateNoteTitle dto)
-		{
-			try
-			{
-				var note = await _context.NotesTitles.FindAsync(dto.NoteId);
-				if (note == null)
-				{
-					return new BadRequestObjectResult(new
-					{
-						success = false,
-						message = "Note not found."
-					});
-				}
-				note.Title = dto.Title;
-				note.Tag = dto.tag;
-				note.favourite = dto.favourite;
-				note.DateEditied = DateTime.Now;
-				await _context.SaveChangesAsync();
-				return new OkObjectResult(new
-				{
-					success = true,
-					message = "Note updated successfully."
-				});
-			}
-			catch
-			(Exception ex)
-			{
-				return new BadRequestObjectResult(new
-				{
-					success = false,
-					message = ex.Message
-				});
-			}
-		}
+                note.Title = dto.Title;
+                note.Tag = dto.Tag;
+                note.Favourite = (byte)dto.Favourite;
+                note.DateEdited = DateTime.UtcNow;
 
-	}
+                // Update note status if provided
+                if (dto.Status.HasValue)
+                {
+                    userNote.Status = dto.Status.Value;
+                }
+
+                _context.NotesTitles.Update(note);
+                _context.UserNotes.Update(userNote); // Save the updated status
+                await _context.SaveChangesAsync();
+
+                return new OkObjectResult(new
+                {
+                    success = true,
+                    message = "Note updated successfully."
+                });
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult(new
+                {
+                    success = false,
+                    message = $"An error occurred: {ex.Message}"
+                })
+                {
+                    StatusCode = 500
+                };
+            }
+        }
+        
+        
+        //Only the Owner has the permission to Delete the Following note 
+        public async Task<IActionResult> DeleteNoteTitle(DeleteNoteDTO dto)
+        {
+            try
+            {
+                // Check if the user is the owner of the note
+                var userNote = await _context.UserNotes
+                    .FirstOrDefaultAsync(un => un.UserId == dto.UserId && un.NoteId == dto.NoteId && un.Role == NoteRoles.Owner);
+
+                if (userNote == null)
+                {
+                    return new UnauthorizedObjectResult(new
+                    {
+                        success = false,
+                        message = "User does not have permission to delete this note."
+                    });
+                }
+
+                // Fetch the note to delete
+                var note = await _context.NotesTitles.FirstOrDefaultAsync(n => n.NoteId == dto.NoteId);
+
+                if (note == null)
+                {
+                    return new NotFoundObjectResult(new
+                    {
+                        success = false,
+                        message = "Note not found."
+                    });
+                }
+
+                // Delete the note (Content will cascade due to FK constraint)
+                _context.NotesTitles.Remove(note);
+                await _context.SaveChangesAsync();
+
+                return new OkObjectResult(new
+                {
+                    success = true,
+                    message = "Note and associated content deleted successfully."
+                });
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult(new
+                {
+                    success = false,
+                    message = $"An error occurred: {ex.Message}"
+                })
+                {
+                    StatusCode = 500
+                };
+            }
+        }
+   
+        
+        //only reason make a separate  function and the API controller was because of the front-end design , could have filtered using conditions but choose not to . 
+        public async Task<IEnumerable<ReadNoteDTO>> GetArchivedNotes(Guid userId)
+        {
+            try
+            {
+                // Fetch all notes where the user is either the owner or a collaborator and the note is archived
+                var notes = await _context.NotesTitles
+                    .Include(n => n.UserNotes) // Include collaborators
+                    .ThenInclude(un => un.User)
+                    .Where(n => n.UserNotes.Any(un => un.UserId == userId && un.Status == NoteStatus.Archive)) // Filter for archived notes related to the user
+                    .ToListAsync();
+
+                // Transform notes into ReadNoteDTO
+                var notesDto = notes.Select(n => new ReadNoteDTO
+                {
+                    NoteId = n.NoteId,
+                    Title = n.Title,
+                    Tag = n.Tag,
+                    DateCreated = n.DateCreated,
+                    DateEdited = n.DateEdited,
+                    Favourite = n.Favourite,
+                    Collaborators = n.UserNotes
+                        .Where(c => c.UserId != userId) // Exclude the current user from collaborators
+                        .Select(c => new CollaboratorDTO
+                        {
+                            UserId = c.User.UserId,
+                            Username = c.User.Username
+                        })
+                        .ToList()
+                }).ToList();
+
+                return notesDto;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred: {ex.Message}", ex);
+            }
+        }
+        
+        
+       
+    }
 }
