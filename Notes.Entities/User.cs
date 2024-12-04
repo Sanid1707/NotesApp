@@ -12,8 +12,8 @@ namespace Notes.Entities
         public byte Role { get; set; } // Enum for Roles (Admin/User)
         public DateTime CreatedAt { get; set; } // Account Creation Timestamp
         public byte IsActive { get; set; } // Is User Active (Soft Delete)
-        public string LatestJwtToken { get; set; } // (Optional) Store the latest JWT token
-        public string ProfilePicture { get; set; } // Nullable profile picture URL
+        public string? LatestJwtToken { get; set; } // (Optional) Store the latest JWT token
+        public string? ProfilePicture { get; set; } // Nullable profile picture URL
 
         public ICollection<UserNotes> UserNotes { get; set; } // Many-to-Many relationship with Notes
     }
