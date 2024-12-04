@@ -42,7 +42,30 @@ namespace Notes.Repositories
                 return new List<UserDTO>();
             }
         }
+        // This APi will help Display the data of the user on the Profile page 
+        public async Task<UserDTO> GetUserById(Guid userId)
+        {
+            try
+            {
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+                if (user == null) return null;
 
+                return new UserDTO
+                {
+                    UserId = user.UserId,
+                    Username = user.Username,
+                    Email = user.Email,
+                    ProfilePicture = user.ProfilePicture
+                };
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while fetching the user: {ex.Message}");
+                return null;
+            }
+        }
+     
+        
         
     }
 }
