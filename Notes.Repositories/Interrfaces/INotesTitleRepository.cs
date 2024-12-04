@@ -20,5 +20,6 @@ namespace Notes.Repositories.Interrfaces
 		Task<IActionResult> DeleteNoteTitle(DeleteNoteDTO dto);
 		Task<IActionResult> AddNote(EditNoteTitleDTO dto);
 		Task<IEnumerable<ReadNoteDTO>> GetAllActiveNotes(Guid userId);
+		Task<IEnumerable<ReadNoteDTO>> GetArchivedNotes(Guid userId);
 	}
 }

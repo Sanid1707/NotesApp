@@ -45,6 +45,7 @@ namespace Notes.Controllers
             }
         }
         
+        
         [HttpPut("edit-note")]
         public async Task<IActionResult> EditNoteTitle([FromBody] EditNoteTitleDTO dto)
         {
@@ -60,6 +61,7 @@ namespace Notes.Controllers
         }
         
 
+        
         [HttpDelete("delete-note")]
         public async Task<IActionResult> DeleteNoteTitle([FromBody] DeleteNoteDTO dto)
         {
@@ -67,6 +69,22 @@ namespace Notes.Controllers
             {
                 var result = await _notesTitleRepository.DeleteNoteTitle(dto);
                 return result;
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { success = false, message = $"An error occurred: {ex.Message}" });
+            }
+        }
+        
+        
+        
+        [HttpGet("get-archived-notes/{userId}")]
+        public async Task<IActionResult> GetArchivedNotes(Guid userId)
+        {
+            try
+            {
+                var archivedNotes = await _notesTitleRepository.GetArchivedNotes(userId);
+                return Ok(archivedNotes);
             }
             catch (Exception ex)
             {

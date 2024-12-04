@@ -94,45 +94,6 @@ namespace Notes.Repositories
                 };
             }
         }
-
-        // public async Task<IEnumerable<ReadNoteDTO>> GetAllNotes(Guid userId)
-        // {
-        //     try
-        //     {
-        //         // Fetch all notes where the user is either the owner or a collaborator
-        //         var notes = await _context.NotesTitles
-        //             .Include(n => n.UserNotes) // Include collaborators
-        //             .ThenInclude(un => un.User)
-        //             .Where(n => n.UserNotes.Any(un => un.UserId == userId)) // Filter for notes related to the user
-        //             .ToListAsync();
-        //
-        //         // Transform notes into ReadNoteDTO
-        //         var notesDto = notes.Select(n => new ReadNoteDTO
-        //         {
-        //             NoteId = n.NoteId,
-        //             Title = n.Title,
-        //             Tag = n.Tag,
-        //             DateCreated = n.DateCreated,
-        //             DateEdited = n.DateEdited,
-        //             Favourite = n.Favourite,
-        //             Collaborators = n.UserNotes
-        //                 .Where(c => c.UserId != userId) // Exclude the current user from collaborators
-        //                 .Select(c => new CollaboratorDTO
-        //                 {
-        //                     UserId = c.User.UserId,
-        //                     Username = c.User.Username
-        //                 })
-        //                 .ToList()
-        //         }).ToList();
-        //
-        //         return notesDto;
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         throw new Exception($"An error occurred: {ex.Message}", ex);
-        //     }
-        // }
-        //
         public async Task<IEnumerable<ReadNoteDTO>> GetAllActiveNotes(Guid userId)
         {
             try
@@ -279,6 +240,46 @@ namespace Notes.Repositories
                 {
                     StatusCode = 500
                 };
+            }
+        }
+        
+        
+        
+        public async Task<IEnumerable<ReadNoteDTO>> GetArchivedNotes(Guid userId)
+        {
+            try
+            {
+                // Fetch all notes where the user is either the owner or a collaborator and the note is archived
+                var notes = await _context.NotesTitles
+                    .Include(n => n.UserNotes) // Include collaborators
+                    .ThenInclude(un => un.User)
+                    .Where(n => n.UserNotes.Any(un => un.UserId == userId && un.Status == NoteStatus.Archive)) // Filter for archived notes related to the user
+                    .ToListAsync();
+
+                // Transform notes into ReadNoteDTO
+                var notesDto = notes.Select(n => new ReadNoteDTO
+                {
+                    NoteId = n.NoteId,
+                    Title = n.Title,
+                    Tag = n.Tag,
+                    DateCreated = n.DateCreated,
+                    DateEdited = n.DateEdited,
+                    Favourite = n.Favourite,
+                    Collaborators = n.UserNotes
+                        .Where(c => c.UserId != userId) // Exclude the current user from collaborators
+                        .Select(c => new CollaboratorDTO
+                        {
+                            UserId = c.User.UserId,
+                            Username = c.User.Username
+                        })
+                        .ToList()
+                }).ToList();
+
+                return notesDto;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred: {ex.Message}", ex);
             }
         }
         
