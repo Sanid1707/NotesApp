@@ -139,7 +139,7 @@ namespace Notes.Repositories
             {
                 // Check if the user has permission to edit the note
                 var userNote = await _context.UserNotes
-                    .FirstOrDefaultAsync(un => un.UserId == dto.UserId && un.NoteId == dto.NoteId && 
+                    .FirstOrDefaultAsync(un => un.UserId == dto.UserId && un.NoteId == dto.NoteId &&
                                                (un.Role == NoteRoles.Owner || un.Role == NoteRoles.Editor));
 
                 if (userNote == null)
@@ -163,13 +163,19 @@ namespace Notes.Repositories
                     });
                 }
 
-                // Update note details
                 note.Title = dto.Title;
                 note.Tag = dto.Tag;
                 note.Favourite = (byte)dto.Favourite;
                 note.DateEdited = DateTime.UtcNow;
 
+                // Update note status if provided
+                if (dto.Status.HasValue)
+                {
+                    userNote.Status = dto.Status.Value;
+                }
+
                 _context.NotesTitles.Update(note);
+                _context.UserNotes.Update(userNote); // Save the updated status
                 await _context.SaveChangesAsync();
 
                 return new OkObjectResult(new
@@ -190,6 +196,8 @@ namespace Notes.Repositories
                 };
             }
         }
+        
+        
         //Only the Owner has the permission to Delete the Following note 
         public async Task<IActionResult> DeleteNoteTitle(DeleteNoteDTO dto)
         {
@@ -242,9 +250,9 @@ namespace Notes.Repositories
                 };
             }
         }
+   
         
-        
-        
+        //only reason make a separate  function and the API controller was because of the front-end design , could have filtered using conditions but choose not to . 
         public async Task<IEnumerable<ReadNoteDTO>> GetArchivedNotes(Guid userId)
         {
             try

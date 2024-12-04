@@ -7,4 +7,5 @@ public class EditNoteTitleDTO
     public string Title { get; set; } 
     public string Tag { get; set; } 
     public NoteFavourite Favourite { get; set; } 
+    public NoteStatus? Status { get; set; }
 }
