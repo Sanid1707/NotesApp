@@ -31,28 +31,19 @@ namespace Notes.Controllers
         }
         
         
-        [HttpPost]// POST: api/notesTitle
-        public async Task<IActionResult> AddNotesTitle([FromBody] CreateNoteTitle dto)
+        [HttpPost("add-note")]
+        public async Task<IActionResult> AddNote([FromBody] EditNoteTitleDTO dto)
         {
             try
             {
-                var result = await _notesTitleRepository.AddNotes(dto);
-
-                if (result is OkObjectResult okResult)
-                {
-                    return Ok(okResult.Value);
-                }
-                else
-                {
-                    return result;
-                }
+                var result = await _notesTitleRepository.AddNote(dto);
+                return result;
             }
             catch (Exception ex)
             {
                 return StatusCode(500, new { success = false, message = $"An error occurred: {ex.Message}" });
             }
         }
-        
         
         [HttpPut("edit-note")]
         public async Task<IActionResult> EditNoteTitle([FromBody] EditNoteTitleDTO dto)
@@ -67,44 +58,15 @@ namespace Notes.Controllers
                 return StatusCode(500, new { success = false, message = $"An error occurred: {ex.Message}" });
             }
         }
+        
 
-        // [HttpPut] // PUT: api/notesTitle
-        // public async Task<IActionResult> UpdateNotesTitle([FromBody] UpdateNoteTitle dto)
-        // {
-        //     try
-        //     {
-        //         var result = await _notesTitleRepository.UpdateNotes(dto);
-        //
-        //         if (result is OkObjectResult okResult)
-        //         {
-        //             return Ok(okResult.Value);
-        //         }
-        //         else
-        //         {
-        //             return result;
-        //         }
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         return StatusCode(500, new { success = false, message = $"An error occurred:  {ex.Message}" });
-        //     }
-        // }
-
-        [HttpDelete] // DELETE: api/notesTitles
-        public async Task<IActionResult> DeleteNotesTitle(Guid noteId)
+        [HttpDelete("delete-note")]
+        public async Task<IActionResult> DeleteNoteTitle([FromBody] DeleteNoteDTO dto)
         {
             try
             {
-                var result = await _notesTitleRepository.DeleteNotes(noteId);
-
-                if (result is OkObjectResult okResult)
-                {
-                    return Ok(okResult.Value);
-                }
-                else
-                {
-                    return result;
-                }
+                var result = await _notesTitleRepository.DeleteNoteTitle(dto);
+                return result;
             }
             catch (Exception ex)
             {

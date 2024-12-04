@@ -77,6 +77,12 @@ namespace Notes.Repository
                     .HasConversion<byte>() // Store NoteRoles as a byte (TINYINT in SQL)
                     .IsRequired();
 
+                // Map Status property to TINYINT and use NoteStatus enum
+                entity.Property(un => un.Status)
+                    .HasConversion<byte>() // Store NoteStatus as a byte (TINYINT in SQL)
+                    .HasDefaultValue(NoteStatus.Active) // Default to Active
+                    .IsRequired();
+
                 // Configure AccessGrantedAt property
                 entity.Property(un => un.AccessGrantedAt)
                     .IsRequired();

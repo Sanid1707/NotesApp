@@ -11,13 +11,13 @@ namespace Notes.Repositories.Interrfaces
 {
 	public  interface INotesTitleRepository
 	{
-		// add note method
-		Task<IActionResult> AddNotes(CreateNoteTitle dto);
+
 		
 		// display all notes method
 		Task<IEnumerable<ReadNoteDTO>> GetAllNotes(Guid userId);
 
 		Task<IActionResult> EditNoteTitle(EditNoteTitleDTO dto);
 		Task<IActionResult> DeleteNoteTitle(DeleteNoteDTO dto);
+		Task<IActionResult> AddNote(EditNoteTitleDTO dto);
 	}
 }
