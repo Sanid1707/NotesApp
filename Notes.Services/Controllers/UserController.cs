@@ -30,6 +30,8 @@ namespace Notes.Controllers
                 return StatusCode(500, new { success = false, message = $"An error occurred: {ex.Message}" });
             }
         }
+        
+        
 
         [HttpGet("get-user/{userId}")]
         public async Task<IActionResult> GetUserById(Guid userId)
@@ -50,6 +52,7 @@ namespace Notes.Controllers
             }
         }
 
+        
 
         [HttpPut("update-user")]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDTO dto)
@@ -66,6 +69,7 @@ namespace Notes.Controllers
                 return StatusCode(500, new { success = false, message = $"An error occurred: {ex.Message}" });
             }
         }
+        
 
         [HttpDelete("delete-user/{userId}")]
         public async Task<IActionResult> DeleteUser(Guid userId)
@@ -81,6 +85,24 @@ namespace Notes.Controllers
                 {
                     return NotFound(new { success = false, message = "User not found." });
                 }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { success = false, message = $"An error occurred: {ex.Message}" });
+            }
+        }
+        
+        [HttpPost("add-multiple-collaborators")]
+        public async Task<IActionResult> AddMultipleCollaborators([FromBody] AddMultipleCollaboratorsDTO dto)
+        {
+            try
+            {
+                var result = await _userRepository.AddMultipleCollaborators(dto);
+                if (result)
+                {
+                    return Ok(new { success = true, message = "Collaborators added/updated successfully." });
+                }
+                return BadRequest(new { success = false, message = "Failed to add/update collaborators." });
             }
             catch (Exception ex)
             {

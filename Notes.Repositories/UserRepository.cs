@@ -43,6 +43,7 @@ namespace Notes.Repositories
             }
         }
         
+        
   // This APi will help Display the data of the user on the Profile page 
         public async Task<UserDTO> GetUserById(Guid userId)
         {
@@ -65,6 +66,7 @@ namespace Notes.Repositories
                 return null;
             }
         }
+        
      
         
  // API to Edit the user Info from the Profile Page 
@@ -88,6 +90,7 @@ namespace Notes.Repositories
                 return false;
             }
         }
+        
 
         
  // Deletes the specified user and reassigns ownership of shared notes or deletes them if no collaborators exist.
@@ -148,6 +151,86 @@ namespace Notes.Repositories
                 return false;
             }
         }
+        
+        
+        
+//This function allows us to add multiple collaborators  with individual statuses         
+    public async Task<bool> AddMultipleCollaborators(AddMultipleCollaboratorsDTO dto)
+    {
+        try
+        {
+            // Validate if the note exists in the database
+            var noteExists = await _context.NotesTitles.AnyAsync(n => n.NoteId == dto.NoteId);
+            if (!noteExists)
+            {
+                Console.WriteLine($"Error: Note with ID {dto.NoteId} does not exist.");
+                return false; // Return false if the note does not exist
+            }
+
+            foreach (var collaborator in dto.Collaborators)
+            {
+                try
+                {
+                    // Validate if the user exists in the database
+                    var userExists = await _context.Users.AnyAsync(u => u.UserId == collaborator.UserId);
+                    if (!userExists)
+                    {
+                        Console.WriteLine($"Error: User with ID {collaborator.UserId} does not exist.");
+                        continue; // Skip to the next collaborator if the user does not exist
+                    }
+
+                    // Check if the collaborator already exists for the note
+                    var existingCollaborator = await _context.UserNotes
+                        .FirstOrDefaultAsync(un => un.NoteId == dto.NoteId && un.UserId == collaborator.UserId);
+
+                    if (existingCollaborator != null)
+                    {
+                        // Update existing collaborator's role and status
+                        existingCollaborator.Role = collaborator.Role;
+                        existingCollaborator.Status = collaborator.Status;
+                        existingCollaborator.AccessGrantedAt = DateTime.UtcNow; // Update the access timestamp
+                        _context.UserNotes.Update(existingCollaborator);
+                    }
+                    else
+                    {
+                        // Add a new collaborator to the note
+                        var newCollaborator = new UserNotes
+                        {
+                            UserId = collaborator.UserId,
+                            NoteId = dto.NoteId,
+                            Role = collaborator.Role,
+                            AccessGrantedAt = DateTime.UtcNow,
+                            Status = collaborator.Status
+                        };
+
+                        await _context.UserNotes.AddAsync(newCollaborator);
+                    }
+                }
+                catch (Exception innerEx)
+                {
+                    // Log specific error details for a single collaborator
+                    Console.WriteLine($"Error processing collaborator {collaborator.UserId}: {innerEx.Message}");
+                    continue; // Continue processing other collaborators
+                }
+            }
+
+            // Save all changes to the database after processing all collaborators
+            await _context.SaveChangesAsync();
+            return true; // Return true if all operations are successful
+        }
+        catch (DbUpdateException dbEx)
+        {
+            // Handle database update-specific errors
+            Console.WriteLine($"Database update error: {dbEx.Message}");
+            return false;
+        }
+        catch (Exception ex)
+        {
+            // Handle general errors
+            Console.WriteLine($"An unexpected error occurred while adding collaborators: {ex.Message}");
+            return false;
+        }
+    }
         
     }
 }
