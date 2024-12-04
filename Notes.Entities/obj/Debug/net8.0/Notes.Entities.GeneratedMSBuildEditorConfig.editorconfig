@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Notes.Entities
-build_property.ProjectDir = C:\Users\Philip Philip\source\repos\NotesApp\Notes.Entities\
+build_property.ProjectDir = C:\Users\Philip Philip\Documents\year 4\SOA\NotesApp\Notes.Entities\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

@@ -45,3 +45,19 @@ C:\Users\Philip Philip\source\repos\NotesApp\Notes.Entities\obj\Debug\net8.0\Not
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Entities\obj\Debug\net8.0\refint\Notes.Entities.dll
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Entities\obj\Debug\net8.0\Notes.Entities.pdb
 C:\Users\Philip Philip\source\repos\NotesApp\Notes.Entities\obj\Debug\net8.0\ref\Notes.Entities.dll
+C:\Users\Philip Philip\Documents\year 4\SOA\NotesApp\Notes.Entities\bin\Debug\net8.0\Notes.Entities.deps.json
+C:\Users\Philip Philip\Documents\year 4\SOA\NotesApp\Notes.Entities\bin\Debug\net8.0\Notes.Entities.dll
+C:\Users\Philip Philip\Documents\year 4\SOA\NotesApp\Notes.Entities\bin\Debug\net8.0\Notes.Entities.pdb
+C:\Users\Philip Philip\Documents\year 4\SOA\NotesApp\Notes.Entities\bin\Debug\net8.0\Notes.Common.dll
+C:\Users\Philip Philip\Documents\year 4\SOA\NotesApp\Notes.Entities\bin\Debug\net8.0\Notes.Common.pdb
+C:\Users\Philip Philip\Documents\year 4\SOA\NotesApp\Notes.Entities\obj\Debug\net8.0\Notes.Entities.csproj.AssemblyReference.cache
+C:\Users\Philip Philip\Documents\year 4\SOA\NotesApp\Notes.Entities\obj\Debug\net8.0\Notes.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Philip Philip\Documents\year 4\SOA\NotesApp\Notes.Entities\obj\Debug\net8.0\Notes.Entities.AssemblyInfoInputs.cache
+C:\Users\Philip Philip\Documents\year 4\SOA\NotesApp\Notes.Entities\obj\Debug\net8.0\Notes.Entities.AssemblyInfo.cs
+C:\Users\Philip Philip\Documents\year 4\SOA\NotesApp\Notes.Entities\obj\Debug\net8.0\Notes.Entities.csproj.CoreCompileInputs.cache
+C:\Users\Philip Philip\Documents\year 4\SOA\NotesApp\Notes.Entities\obj\Debug\net8.0\Notes.Entities.sourcelink.json
+C:\Users\Philip Philip\Documents\year 4\SOA\NotesApp\Notes.Entities\obj\Debug\net8.0\Notes.En.87470B3E.Up2Date
+C:\Users\Philip Philip\Documents\year 4\SOA\NotesApp\Notes.Entities\obj\Debug\net8.0\Notes.Entities.dll
+C:\Users\Philip Philip\Documents\year 4\SOA\NotesApp\Notes.Entities\obj\Debug\net8.0\refint\Notes.Entities.dll
+C:\Users\Philip Philip\Documents\year 4\SOA\NotesApp\Notes.Entities\obj\Debug\net8.0\Notes.Entities.pdb
+C:\Users\Philip Philip\Documents\year 4\SOA\NotesApp\Notes.Entities\obj\Debug\net8.0\ref\Notes.Entities.dll

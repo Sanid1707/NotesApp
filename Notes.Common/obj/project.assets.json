@@ -6076,11 +6076,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\Notes.Common.csproj",
+      "projectUniqueName": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Common\\Notes.Common.csproj",
       "projectName": "Notes.Common",
-      "projectPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\Notes.Common.csproj",
+      "projectPath": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Common\\Notes.Common.csproj",
       "packagesPath": "C:\\Users\\Philip Philip\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\obj\\",
+      "outputPath": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Common\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Philip Philip\\AppData\\Roaming\\NuGet\\NuGet.Config",
