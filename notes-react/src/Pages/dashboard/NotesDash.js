@@ -113,15 +113,13 @@ const [addedCollaborators, setAddedCollaborators] = useState([]); // List of add
 
   const filteredNotes =
     currentTab === 0
-      ? notes.filter((note) => note.Archived === 0) // Active Notes
-      : notes.filter((note) => note.Archived === 1); // Archived Notes
+      ? notes.filter((note) => note.Archived === 0)
+      : notes.filter((note) => note.Archived === 1); 
 
   return (
     <>
-      {/* Main Navbar */}
-      <Navbar username="John Doe" />
 
-      {/* Sub Navbar */}
+      <Navbar username="John Doe" />
       <SubNavbar currentTab={currentTab} setCurrentTab={setCurrentTab} />
 
       <Container maxWidth="lg" sx={{ mt: 2 }}>
@@ -138,7 +136,7 @@ const [addedCollaborators, setAddedCollaborators] = useState([]); // List of add
                   color: "#fff",
                   borderRadius: "8px",
                   boxShadow: 3,
-                  height: 230,
+                  height: 170,
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
@@ -184,6 +182,7 @@ const [addedCollaborators, setAddedCollaborators] = useState([]); // List of add
                     alignItems: "flex-end",
                   }}
                 >
+
                   {/* Collaborators */}
                   <Box>
                     {note.Collaborators.length > 1 ? (
@@ -232,6 +231,7 @@ const [addedCollaborators, setAddedCollaborators] = useState([]); // List of add
             },
           }}
         >
+
   <Dialog
   open={dialogOpen}
   onClose={closeDialog}
@@ -380,7 +380,7 @@ const [addedCollaborators, setAddedCollaborators] = useState([]); // List of add
       {/* Dropdown to Select Role */}
       <TextField
         select
-       
+ 
         SelectProps={{
           native: true,
         }}
@@ -444,6 +444,7 @@ const [addedCollaborators, setAddedCollaborators] = useState([]); // List of add
   </Box>
 )}
 
+
 {dialogTab === 2 && (
   <Box>
     <Typography variant="body1" gutterBottom>
@@ -475,27 +476,39 @@ const [addedCollaborators, setAddedCollaborators] = useState([]); // List of add
         style: { color: "#fff" },
       }}
     />
-    {/* Delete Note Button */}
-    <Button
-      variant="contained"
-      color="error"
-      sx={{ mt: 3 }}
-      onClick={() => {
-        // Remove the selected note
-        setNotes((prevNotes) =>
-          prevNotes.filter((note) => note.NoteId !== selectedNote?.NoteId)
-        );
-        // Close the dialog after deletion
-        closeDialog();
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        mt: 4,
       }}
     >
-      Delete Note
-    </Button>
+      {/* Delete Note Button */}
+      <Button
+        variant="contained"
+        color="error"
+        onClick={() => {
+          // Remove the selected note
+          setNotes((prevNotes) =>
+            prevNotes.filter((note) => note.NoteId !== selectedNote?.NoteId)
+          );
+          // Close the dialog after deletion
+          closeDialog();
+        }}
+        sx={{
+          position: "absolute",
+          bottom: 16,
+          left: 16,
+        }}
+      >
+        Delete Note
+      </Button>
+      {/* Save Button */}
+
+    </Box>
   </Box>
 )}
-
-
-
   </DialogContent>
   <DialogActions>
     <Button onClick={closeDialog} color="secondary">

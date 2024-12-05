@@ -5,19 +5,66 @@ import SettingsIcon from "@mui/icons-material/Settings";
 
 const Navbar = ({ username }) => {
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#333" }}>
-      <Toolbar>
-        <Typography variant="h6" sx={{ flexGrow: 1 }}>
+    <AppBar position="static" sx={{ backgroundColor: "#212121", boxShadow: "0 4px 12px rgba(0, 0, 0, 0.4)" }}>
+      <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        {/* Title Section */}
+        <Typography 
+          variant="h5" 
+          sx={{ 
+            flexGrow: 1, 
+            fontWeight: "bold", 
+            color: "#ffffff", 
+            textTransform: "uppercase", 
+            letterSpacing: "1px" 
+          }}
+        >
           Notes Dashboard
         </Typography>
-        <Typography variant="body1" sx={{ marginRight: "16px" }}>
+        
+        {/* User Greeting */}
+        <Typography 
+          variant="body1" 
+          sx={{ 
+            marginRight: "16px", 
+            color: "#f0f0f0", 
+            fontSize: "16px", 
+            fontStyle: "italic" 
+          }}
+        >
           Welcome, {username}!
         </Typography>
-        <IconButton edge="end" color="inherit">
-          <AccountCircleIcon />
+
+        {/* Settings Icon */}
+        <IconButton 
+          edge="end" 
+          color="inherit" 
+          sx={{ 
+            fontSize: "32px", 
+            marginRight: "8px", 
+            transition: "transform 0.2s, color 0.3s", 
+            "&:hover": { 
+              color: "#ff9800", 
+              transform: "scale(1.2)" 
+            } 
+          }}
+        >
+          <SettingsIcon fontSize="large" />
         </IconButton>
-        <IconButton edge="end" color="inherit">
-          <SettingsIcon />
+
+        {/* Profile Icon */}
+        <IconButton 
+          edge="end" 
+          color="inherit" 
+          sx={{ 
+            fontSize: "32px", 
+            transition: "transform 0.2s, color 0.3s", 
+            "&:hover": { 
+              color: "#4caf50", 
+              transform: "scale(1.2)" 
+            } 
+          }}
+        >
+          <AccountCircleIcon fontSize="large" />
         </IconButton>
       </Toolbar>
     </AppBar>
