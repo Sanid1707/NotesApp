@@ -6096,11 +6096,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Entities\\Notes.Entities.csproj",
+      "projectUniqueName": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Entities\\Notes.Entities.csproj",
       "projectName": "Notes.Entities",
-      "projectPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Entities\\Notes.Entities.csproj",
+      "projectPath": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Entities\\Notes.Entities.csproj",
       "packagesPath": "C:\\Users\\Philip Philip\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Entities\\obj\\",
+      "outputPath": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Entities\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Philip Philip\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6118,8 +6118,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\Notes.Common.csproj": {
-              "projectPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\Notes.Common.csproj"
+            "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Common\\Notes.Common.csproj": {
+              "projectPath": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Common\\Notes.Common.csproj"
             }
           }
         }

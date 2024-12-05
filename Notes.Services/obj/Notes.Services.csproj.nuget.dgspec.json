@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Services\\Notes.Services.csproj": {}
+    "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Services\\Notes.Services.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\Notes.Common.csproj": {
+    "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Common\\Notes.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\Notes.Common.csproj",
+        "projectUniqueName": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Common\\Notes.Common.csproj",
         "projectName": "Notes.Common",
-        "projectPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\Notes.Common.csproj",
+        "projectPath": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Common\\Notes.Common.csproj",
         "packagesPath": "C:\\Users\\Philip Philip\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\obj\\",
+        "outputPath": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Common\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Philip Philip\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -75,14 +75,14 @@
         }
       }
     },
-    "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Entities\\Notes.Entities.csproj": {
+    "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Entities\\Notes.Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Entities\\Notes.Entities.csproj",
+        "projectUniqueName": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Entities\\Notes.Entities.csproj",
         "projectName": "Notes.Entities",
-        "projectPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Entities\\Notes.Entities.csproj",
+        "projectPath": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Entities\\Notes.Entities.csproj",
         "packagesPath": "C:\\Users\\Philip Philip\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Entities\\obj\\",
+        "outputPath": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Entities\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Philip Philip\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -100,8 +100,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\Notes.Common.csproj": {
-                "projectPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\Notes.Common.csproj"
+              "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Common\\Notes.Common.csproj": {
+                "projectPath": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Common\\Notes.Common.csproj"
               }
             }
           }
@@ -150,14 +150,14 @@
         }
       }
     },
-    "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Repositories\\Notes.Repositories.csproj": {
+    "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Repositories\\Notes.Repositories.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Repositories\\Notes.Repositories.csproj",
+        "projectUniqueName": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Repositories\\Notes.Repositories.csproj",
         "projectName": "Notes.Repositories",
-        "projectPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Repositories\\Notes.Repositories.csproj",
+        "projectPath": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Repositories\\Notes.Repositories.csproj",
         "packagesPath": "C:\\Users\\Philip Philip\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Repositories\\obj\\",
+        "outputPath": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Repositories\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Philip Philip\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -175,11 +175,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\Notes.Common.csproj": {
-                "projectPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\Notes.Common.csproj"
+              "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Common\\Notes.Common.csproj": {
+                "projectPath": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Common\\Notes.Common.csproj"
               },
-              "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Entities\\Notes.Entities.csproj": {
-                "projectPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Entities\\Notes.Entities.csproj"
+              "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Entities\\Notes.Entities.csproj": {
+                "projectPath": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Entities\\Notes.Entities.csproj"
               }
             }
           }
@@ -238,14 +238,14 @@
         }
       }
     },
-    "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Services\\Notes.Services.csproj": {
+    "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Services\\Notes.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Services\\Notes.Services.csproj",
+        "projectUniqueName": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Services\\Notes.Services.csproj",
         "projectName": "Notes.Services",
-        "projectPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Services\\Notes.Services.csproj",
+        "projectPath": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Services\\Notes.Services.csproj",
         "packagesPath": "C:\\Users\\Philip Philip\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Services\\obj\\",
+        "outputPath": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Services\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Philip Philip\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -263,14 +263,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\Notes.Common.csproj": {
-                "projectPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Common\\Notes.Common.csproj"
+              "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Common\\Notes.Common.csproj": {
+                "projectPath": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Common\\Notes.Common.csproj"
               },
-              "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Entities\\Notes.Entities.csproj": {
-                "projectPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Entities\\Notes.Entities.csproj"
+              "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Entities\\Notes.Entities.csproj": {
+                "projectPath": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Entities\\Notes.Entities.csproj"
               },
-              "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Repositories\\Notes.Repositories.csproj": {
-                "projectPath": "C:\\Users\\Philip Philip\\source\\repos\\NotesApp\\Notes.Repositories\\Notes.Repositories.csproj"
+              "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Repositories\\Notes.Repositories.csproj": {
+                "projectPath": "C:\\Users\\Philip Philip\\Documents\\year 4\\SOA\\NotesApp\\Notes.Repositories\\Notes.Repositories.csproj"
               }
             }
           }
