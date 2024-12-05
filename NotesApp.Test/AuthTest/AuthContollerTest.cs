@@ -74,10 +74,10 @@ namespace NotesApp.Test.AuthTest
 		public async Task Login_WhenCalledWithValidDto_ReturnsOkObjectResult()
 		{
 			// Arrange
-			var dto = A.Fake<LoginRequest>(); // Mock the LoginRequest
+			var dto = A.Fake<LoginRequest>(); 
 			var expectedResponse = new OkObjectResult(new { success = true, token = "mock-token" });
 
-			// Set up the mock repository to return the expected response
+			
 			A.CallTo(() => _authRepository.Login(dto)).Returns(Task.FromResult<IActionResult>(expectedResponse));
 
 			// Act
@@ -86,7 +86,7 @@ namespace NotesApp.Test.AuthTest
 			// Assert
 			result.Should().BeOfType<OkObjectResult>();
 
-			// Optionally, verify the value inside the OkObjectResult
+			
 			var okResult = result as OkObjectResult;
 			okResult.Value.Should().BeEquivalentTo(new { success = true, token = "mock-token" });
 		}
