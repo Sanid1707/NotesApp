@@ -1,101 +1,133 @@
 /* Page Background */
 .page-background {
-    background: url('../../../public/images//AuthBg2.jpg') center center fixed;
-    background-size: cover;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* Registration Card */
-  .register-card {
-    max-width: 600px; /* Broader card */
-    border-radius: 15px;
-    background: rgba(255, 255, 255, 0.95); /* Slightly more opaque white */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    overflow: hidden; /* For consistent rounding on all edges */
-  }
-  
-  /* Heading */
-  .register-heading {
-    font-size: 36px;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  /* Form Input */
-  .custom-input {
-    height: 45px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-  }
-  
-  .custom-input:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    outline: none;
-  }
-  
-  /* Password Toggle Input Group */
-  .input-group .form-control {
-    border-right: 0;
-  }
-  
-  .input-group .input-group-text {
-    background-color: white;
-    border-left: 0;
-    cursor: pointer;
-  }
-  
-  .input-group .input-group-text:hover {
-    background-color: rgba(0, 123, 255, 0.1);
-  }
-  
-  /* Submit Button */
-  button:disabled {
-    background-color: #b3b3b3 !important;
-    border-color: #b3b3b3 !important;
-    cursor: not-allowed;
-  }
-  
-  button:focus {
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    outline: none;
-  }
-  
-  /* Footer */
-  .card-footer-custom {
-    background: rgba(245, 245, 245, 0.9); /* Light grey */
-    border-top: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 0 0 15px 15px;
-  }
-  
-  .card-footer-custom p {
-    margin: 0;
-    font-size: 14px;
-    color: #555;
-  }
-  
-  /* Login Button */
-  .login-button {
-    font-size: 16px;
-    font-weight: 500;
-    border-radius: 5px;
-    padding: 8px 16px;
-    transition: all 0.3s ease;
-    margin-top: 8px;
-  }
-  
-  .login-button:hover {
-    background-color: #007bff;
-    color: #fff;
-  }
-  
-  /* Alerts */
-  .alert {
-    font-size: 14px;
-  }
+  background: url('../../../public/images/AuthBg1.jpg') center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Registration Card */
+.register-card {
+  max-width: 700px; /* Broader card */
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* Form Input */
+.custom-input {
+  height: 45px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.custom-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+
+/* Circular Image Upload */
+.image-upload-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  border: 2px dashed #007bff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-text {
+  font-size: 14px;
+  color: #555;
+}
+
+.edit-icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 24px; /* Larger for visibility */
+  color: black; /* Black for better contrast */
+  background-color: white;
+  border-radius: 50%;
+  padding: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Submit Button */
+button:disabled {
+  background-color: #b3b3b3 !important;
+  border-color: #b3b3b3 !important;
+  cursor: not-allowed;
+}
+
+button:focus {
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+
+/* Footer */
+.card-footer-custom {
+  background: rgba(245, 245, 245, 0.9);
+  border-top: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 0 0 15px 15px;
+}
+
+.card-footer-custom p {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Login Button */
+.login-button {
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 5px;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+  margin-top: 8px;
+}
+
+.login-button:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Alerts */
+.alert {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+/* Alignment for Rows */
+.row {
+  margin-bottom: 15px;
+}
+
+/* General Form Styling */
+form {
+  margin-top: 10px;
+}
