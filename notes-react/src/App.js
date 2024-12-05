@@ -6,6 +6,7 @@ import Register from './Pages/auth/Register';
 import Dashboard from './Pages/dashboard/NotesDash';
 import NotesCanvas from "./Pages/NotesCanvas";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ProfilePage from "./Pages/ProfilePage"; // Add SettingsPage
     
 
 // Api  to check Validation of token
@@ -25,6 +26,7 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 {/* <Route path="/notes/:noteId" element={<NotesCanvas />} /> */}
                 <Route path="/notes" element={<NotesCanvas />} />
+                <Route path="/profile" element={<ProfilePage />} />
             </Routes>
         </Router>
   );
