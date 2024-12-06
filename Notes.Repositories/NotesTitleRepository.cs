@@ -135,70 +135,83 @@ namespace Notes.Repositories
         }
    
         // Only Users that have the permission to edit the Note are the Editor and the Owner 
-        public async Task<IActionResult> EditNoteTitle(EditNoteTitleDTO dto)
+   public async Task<IActionResult> EditNoteTitle(EditNoteTitleDTO dto)
+{
+    try
+    {
+        // Check if the user has permission to edit the note
+        var userNote = await _context.UserNotes
+            .FirstOrDefaultAsync(un => un.UserId == dto.UserId && un.NoteId == dto.NoteId &&
+                                       (un.Role == NoteRoles.Owner || un.Role == NoteRoles.Editor));
+
+        if (userNote == null)
         {
-            try
+            return new UnauthorizedObjectResult(new
             {
-                // Check if the user has permission to edit the note
-                var userNote = await _context.UserNotes
-                    .FirstOrDefaultAsync(un => un.UserId == dto.UserId && un.NoteId == dto.NoteId &&
-                                               (un.Role == NoteRoles.Owner || un.Role == NoteRoles.Editor));
-
-                if (userNote == null)
-                {
-                    return new UnauthorizedObjectResult(new
-                    {
-                        success = false,
-                        message = "User does not have permission to edit this note."
-                    });
-                }
-
-                // Fetch the note to update
-                var note = await _context.NotesTitles.FirstOrDefaultAsync(n => n.NoteId == dto.NoteId);
-
-                if (note == null)
-                {
-                    return new NotFoundObjectResult(new
-                    {
-                        success = false,
-                        message = "Note not found."
-                    });
-                }
-
-                note.Title = dto.Title;
-                note.Tag = dto.Tag;
-                note.Favourite = (byte)dto.Favourite;
-                note.DateEdited = DateTime.UtcNow;
-
-                // Update note status if provided
-                if (dto.Status.HasValue)
-                {
-                    userNote.Status = dto.Status.Value;
-                }
-
-                _context.NotesTitles.Update(note);
-                _context.UserNotes.Update(userNote); // Save the updated status
-                await _context.SaveChangesAsync();
-
-                return new OkObjectResult(new
-                {
-                    success = true,
-                    message = "Note updated successfully."
-                });
-            }
-            catch (Exception ex)
-            {
-                return new ObjectResult(new
-                {
-                    success = false,
-                    message = $"An error occurred: {ex.Message}"
-                })
-                {
-                    StatusCode = 500
-                };
-            }
+                success = false,
+                message = "User does not have permission to edit this note."
+            });
         }
-        
+
+        // Fetch the note to update
+        var note = await _context.NotesTitles.FirstOrDefaultAsync(n => n.NoteId == dto.NoteId);
+
+        if (note == null)
+        {
+            return new NotFoundObjectResult(new
+            {
+                success = false,
+                message = "Note not found."
+            });
+        }
+
+        // Update note properties
+        note.Title = dto.Title;
+        note.Tag = dto.Tag;
+
+        // Assign nullable properties safely
+        if (dto.Favourite.HasValue)
+        {
+            note.Favourite = (byte)dto.Favourite.Value;
+        }
+
+        if (dto.DateEdited.HasValue)
+        {
+            note.DateEdited = dto.DateEdited.Value;
+        }
+        else
+        {
+            note.DateEdited = DateTime.UtcNow; // Default to current UTC time
+        }
+
+        // Update note status if provided
+        if (dto.Status.HasValue)
+        {
+            userNote.Status = dto.Status.Value;
+        }
+
+        _context.NotesTitles.Update(note);
+        _context.UserNotes.Update(userNote); // Save the updated status
+        await _context.SaveChangesAsync();
+
+        return new OkObjectResult(new
+        {
+            success = true,
+            message = "Note updated successfully."
+        });
+    }
+    catch (Exception ex)
+    {
+        return new ObjectResult(new
+        {
+            success = false,
+            message = $"An error occurred: {ex.Message}"
+        })
+        {
+            StatusCode = 500
+        };
+    }
+}
         
         //Only the Owner has the permission to Delete the Following note 
         public async Task<IActionResult> DeleteNoteTitle(DeleteNoteDTO dto)
