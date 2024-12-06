@@ -561,6 +561,8 @@ import GroupIcon from "@mui/icons-material/Group";
 import Navbar from "../../Components/Navbar";
 import SubNavbar from "../../Components/SubNavbar";
 import { useNavigate } from "react-router-dom";
+import EditNoteDialog from "../../Components/NoteDialog"
+
 
 const NotesDash = () => {
   const [notes, setNotes] = useState([]);
@@ -789,42 +791,7 @@ const NotesDash = () => {
       </Container>
 
       {/* Dialog Component */}
-      <Dialog
-        open={dialogOpen}
-        onClose={closeDialog}
-        fullWidth
-        maxWidth="md"
-        PaperProps={{
-          style: {
-            backgroundColor: "#424242",
-            color: "#fff",
-          },
-        }}
-      >
-        <DialogTitle sx={{ color: "#fff" }}>Edit Note</DialogTitle>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs value={dialogTab} onChange={handleDialogTabChange}>
-            <Tab label="Edit Collaborators" sx={{ color: "#fff" }} />
-            <Tab label="Add Collaborators" sx={{ color: "#fff" }} />
-            <Tab label="Edit Notes" sx={{ color: "#fff" }} />
-          </Tabs>
-        </Box>
-        <DialogContent>
-          {dialogTab === 0 && (
-            <Typography>Collaborators Tab Content</Typography>
-          )}
-          {dialogTab === 1 && <Typography>Add Collaborators Tab Content</Typography>}
-          {dialogTab === 2 && <Typography>Edit Notes Tab Content</Typography>}
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={closeDialog} color="secondary">
-            Cancel
-          </Button>
-          <Button color="primary" variant="contained">
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <EditNoteDialog open={dialogOpen} onClose={closeDialog} note={selectedNote} />
     </>
   );
 };
