@@ -109,7 +109,7 @@ const Login = () => {
     const data = { email, password };
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/login`, {
+      const response = await fetch(`http://localhost:5189/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -128,14 +128,11 @@ const Login = () => {
       console.log("Success:", result);
       if (response.ok) {
         window.location.href = "/dashboard";
-        //save the token in local storage
+        // Save the token and user details in localStorage
         localStorage.setItem("token", result.token);
-        //save user id in session storage
-        sessionStorage.setItem("userId", result.userId);
-        //save user email in session storage
-        sessionStorage.setItem("email", result.email);
-
-      }
+        localStorage.setItem("userId", result.userId);
+        localStorage.setItem("email", result.email);
+    }
       
 
     } catch (error) {
