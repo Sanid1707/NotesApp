@@ -1,5 +1,6 @@
 
 
+
 // import {
 //   Dialog,
 //   DialogTitle,
@@ -13,18 +14,20 @@
 //   TextField,
 //   Button,
 //   Chip,
+//   Switch,
+//   FormControlLabel,
 // } from "@mui/material";
 // import React, { useEffect, useState } from "react";
 
 // const EditNoteDialog = ({ open, onClose, note }) => {
-//   const [dialogTab, setDialogTab] = useState(0); // 0 for Edit Collaborators, 1 for Add Collaborators
+//   const [dialogTab, setDialogTab] = useState(0);
 //   const [selectedNote, setSelectedNote] = useState(note);
-//   const [allUsers, setAllUsers] = useState([]); // To hold all users for Tab 1
-//   const [selectedUser, setSelectedUser] = useState(""); // Selected user for Tab 1
-//   const [selectedRole, setSelectedRole] = useState(2); // Default role: Viewer
+//   const [allUsers, setAllUsers] = useState([]);
+//   const [selectedUser, setSelectedUser] = useState("");
+//   const [selectedRole, setSelectedRole] = useState(2); // Default: Viewer
 //   const [addedCollaborators, setAddedCollaborators] = useState([]);
+//   const [noteStatus, setNoteStatus] = useState(1);
 
-//   // Role mapping for enums
 //   const roleEnum = {
 //     0: "Owner",
 //     1: "Editor",
@@ -33,25 +36,23 @@
 
 //   useEffect(() => {
 //     if (note) {
-//       console.log("Incoming note data to dialog:", note);
 //       setSelectedNote(note);
+//       setNoteStatus(note.status || 1);
 //     }
 //   }, [note]);
 
 //   useEffect(() => {
-//     // Fetch all users for Tab 1
-//     const fetchAllUsers = async () => {
-//       try {
-//         const response = await fetch("http://localhost:5189/api/user/get-all-users");
-//         if (!response.ok) throw new Error("Failed to fetch users");
-//         const data = await response.json();
-//         setAllUsers(data);
-//         console.log("All users fetched for adding collaborators:", data);
-//       } catch (error) {
-//         console.error("Error fetching users:", error);
-//       }
-//     };
 //     if (dialogTab === 1) {
+//       const fetchAllUsers = async () => {
+//         try {
+//           const response = await fetch("http://localhost:5189/api/user/get-all-users");
+//           if (!response.ok) throw new Error("Failed to fetch users");
+//           const data = await response.json();
+//           setAllUsers(data);
+//         } catch (error) {
+//           console.error("Error fetching users:", error);
+//         }
+//       };
 //       fetchAllUsers();
 //     }
 //   }, [dialogTab]);
@@ -97,7 +98,6 @@
 //             (collab) => !collab.isSelected
 //           ),
 //         }));
-//         console.log("Collaborators deleted successfully.");
 //       } else {
 //         console.error("Failed to delete collaborators:", data.message);
 //       }
@@ -112,7 +112,7 @@
 //       collaborators: selectedNote.collaborators.map((collab) => ({
 //         userId: collab.userId,
 //         role: collab.role,
-//         status: 1, // Active
+//         status: 1,
 //       })),
 //     };
 
@@ -126,9 +126,7 @@
 //         }
 //       );
 //       const data = await response.json();
-//       if (data.success) {
-//         console.log("Collaborators updated successfully.");
-//       } else {
+//       if (!data.success) {
 //         console.error("Failed to update collaborators:", data.message);
 //       }
 //     } catch (error) {
@@ -142,11 +140,9 @@
 //       collaborators: addedCollaborators.map((collab) => ({
 //         userId: collab.userId,
 //         role: collab.role,
-//         status: 1, // Active
+//         status: 1,
 //       })),
 //     };
-
-//     console.log("Add payload:", payload);
 
 //     try {
 //       const response = await fetch(
@@ -159,9 +155,7 @@
 //       );
 //       const data = await response.json();
 //       if (data.success) {
-//         console.log("Collaborators added successfully.");
 //         setAddedCollaborators([]);
-//         // Refresh collaborators in the dialog
 //         setSelectedNote((prevNote) => ({
 //           ...prevNote,
 //           collaborators: [
@@ -181,6 +175,31 @@
 //     }
 //   };
 
+//   const handleSaveNoteChanges = async () => {
+//     const payload = {
+//       userId: localStorage.getItem("userId"), // Retrieve UserId from localStorage
+//       noteId: selectedNote.noteId,
+//       title: selectedNote.title,
+//       tag: selectedNote.tag,
+//       status: noteStatus,
+//     };
+  
+//     console.log("Edit Note Payload:", payload); // Debugging
+  
+//     try {
+//       const response = await fetch("http://localhost:5189/api/notesTitle/edit-note", {
+//         method: "PUT",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify(payload),
+//       });
+//       const data = await response.json();
+//       if (!data.success) {
+//         console.error("Failed to update note:", data.message);
+//       }
+//     } catch (error) {
+//       console.error("Error updating note:", error);
+//     }
+//   };
 //   return (
 //     <Dialog
 //       open={open}
@@ -196,13 +215,14 @@
 //         <Tabs value={dialogTab} onChange={handleDialogTabChange}>
 //           <Tab label="Edit Collaborators" sx={{ color: "#fff" }} />
 //           <Tab label="Add Collaborators" sx={{ color: "#fff" }} />
+//           <Tab label="Edit Note" sx={{ color: "#fff" }} />
 //         </Tabs>
 //       </Box>
 //       <DialogContent>
 //         {dialogTab === 0 && (
 //           <Box>
 //             <Typography variant="body1" gutterBottom>
-//               Collaborators for: <strong>{selectedNote?.title || "N/A"}</strong>
+//               Collaborators for: <strong>{selectedNote?.title}</strong>
 //             </Typography>
 //             <Box>
 //               {selectedNote?.collaborators?.length > 0 ? (
@@ -358,12 +378,60 @@
 //             </Button>
 //           </Box>
 //         )}
+//         {dialogTab === 2 && (
+//           <Box>
+//             <Typography variant="body1" gutterBottom>
+//               Editing: <strong>{selectedNote?.title}</strong>
+//             </Typography>
+//             <TextField
+//               fullWidth
+//               variant="outlined"
+//               label="Note Title"
+//               value={selectedNote?.title || ""}
+//               onChange={(e) =>
+//                 setSelectedNote((prevNote) => ({ ...prevNote, title: e.target.value }))
+//               }
+//               sx={{ mt: 2, "& .MuiInputBase-root": { color: "#fff" } }}
+//             />
+//             <TextField
+//               fullWidth
+//               variant="outlined"
+//               label="Note Tag"
+//               value={selectedNote?.tag || ""}
+//               onChange={(e) =>
+//                 setSelectedNote((prevNote) => ({ ...prevNote, tag: e.target.value }))
+//               }
+//               sx={{ mt: 2, "& .MuiInputBase-root": { color: "#fff" } }}
+//             />
+//             <FormControlLabel
+//               control={
+//                 <Switch
+//                   checked={noteStatus === 0}
+//                   onChange={() => setNoteStatus(noteStatus === 0 ? 1 : 0)}
+//                   color="primary"
+//                 />
+//               }
+//               label="Archive Note"
+//               sx={{ mt: 2, color: "#fff" }}
+//             />
+//           </Box>
+//         )}
 //       </DialogContent>
 //       <DialogActions>
 //         <Button onClick={onClose} color="secondary">
 //           Cancel
 //         </Button>
-//         <Button color="primary" variant="contained" onClick={handleSaveChanges}>
+//         <Button
+//           color="primary"
+//           variant="contained"
+//           onClick={
+//             dialogTab === 0
+//               ? handleSaveChanges
+//               : dialogTab === 1
+//               ? handleAddCollaborators
+//               : handleSaveNoteChanges
+//           }
+//         >
 //           Save Changes
 //         </Button>
 //       </DialogActions>
@@ -557,9 +625,7 @@ const EditNoteDialog = ({ open, onClose, note }) => {
       tag: selectedNote.tag,
       status: noteStatus,
     };
-  
-    console.log("Edit Note Payload:", payload); // Debugging
-  
+
     try {
       const response = await fetch("http://localhost:5189/api/notesTitle/edit-note", {
         method: "PUT",
@@ -574,6 +640,31 @@ const EditNoteDialog = ({ open, onClose, note }) => {
       console.error("Error updating note:", error);
     }
   };
+
+  const handleDeleteNote = async () => {
+    const payload = {
+      userId: localStorage.getItem("userId"), // Retrieve UserId from localStorage
+      noteId: selectedNote.noteId,
+    };
+
+    try {
+      const response = await fetch("http://localhost:5189/api/notesTitle/delete-note", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await response.json();
+      if (data.success) {
+        console.log("Note deleted successfully.");
+        onClose(); // Close the dialog after deletion
+      } else {
+        console.error("Failed to delete note:", data.message);
+      }
+    } catch (error) {
+      console.error("Error deleting note:", error);
+    }
+  };
+
   return (
     <Dialog
       open={open}
@@ -788,6 +879,14 @@ const EditNoteDialog = ({ open, onClose, note }) => {
               label="Archive Note"
               sx={{ mt: 2, color: "#fff" }}
             />
+            <Button
+              variant="contained"
+              color="error"
+              onClick={handleDeleteNote}
+              sx={{ mt: 4 }}
+            >
+              Delete Note
+            </Button>
           </Box>
         )}
       </DialogContent>
