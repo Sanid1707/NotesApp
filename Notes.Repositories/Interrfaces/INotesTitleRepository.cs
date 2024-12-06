@@ -21,5 +21,6 @@ namespace Notes.Repositories.Interrfaces
 		Task<IActionResult> AddNote(EditNoteTitleDTO dto);
 		Task<IEnumerable<ReadNoteDTO>> GetAllActiveNotes(Guid userId);
 		Task<IEnumerable<ReadNoteDTO>> GetArchivedNotes(Guid userId);
+		Task<IActionResult> ToggleFavourite(Guid noteId, Guid dtoUserId);
 	}
 }

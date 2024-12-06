@@ -269,7 +269,7 @@ const Register = () => {
       else {
         formDataToSend.append('ProfilePicture', null);
       } 
-      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/auth/register`, formDataToSend, {
+      const response = await axios.post(`http://localhost:5189/api/auth/register`, formDataToSend, {
         headers: {
           'Content-Type': 'application/json',
         },

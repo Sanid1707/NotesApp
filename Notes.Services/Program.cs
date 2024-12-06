@@ -22,6 +22,7 @@ builder.Services.AddDbContext<NotesDbContext>(options =>
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<INotesTitleRepository, NotesTitleRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IContentRepository, ContentRepository>();
 CryptoHelper.Initialize(builder.Configuration);
 
 // Add CORS policy

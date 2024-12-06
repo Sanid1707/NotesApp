@@ -8,4 +8,6 @@ public class EditNoteTitleDTO
     public string? Tag { get; set; } 
     public NoteFavourite ?Favourite { get; set; } 
     public NoteStatus? Status { get; set; }
+    public DateTime? DateEdited { get; set; }
+    
 }
