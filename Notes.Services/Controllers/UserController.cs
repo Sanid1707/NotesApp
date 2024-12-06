@@ -110,23 +110,42 @@ namespace Notes.Controllers
             }
         }
         
+        [HttpPut("edit-collaborators")]
+        public async Task<IActionResult> EditCollaborators([FromBody] AddMultipleCollaboratorsDTO dto)
+        {
+            try
+            {
+                var result = await _userRepository.EditCollaborators(dto);
+                if (result)
+                {
+                    return Ok(new { success = true, message = "Collaborators updated successfully." });
+                }
+                return BadRequest(new { success = false, message = "Failed to update collaborators." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { success = false, message = $"An error occurred: {ex.Message}" });
+            }
+        }
         
-        // [HttpDelete("delete-multiple-collaborators")]
-        // public async Task<IActionResult> DeleteMultipleCollaborators([FromBody] AddMultipleCollaboratorsDTO dto)
-        // {
-        //     try
-        //     {
-        //         var result = await _userRepository.DeleteMultipleCollaborators(dto);
-        //         if (result)
-        //         {
-        //             return Ok(new { success = true, message = "Collaborators added/updated successfully." });
-        //         }
-        //         return BadRequest(new { success = false, message = "Failed to add/update collaborators." });
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         return StatusCode(500, new { success = false, message = $"An error occurred: {ex.Message}" });
-        //     }
-        // }
+        
+        
+        [HttpDelete("delete-collaborators")]
+        public async Task<IActionResult> DeleteCollaborators([FromBody] AddMultipleCollaboratorsDTO dto)
+        {
+            try
+            {
+                var result = await _userRepository.DeleteCollaborators(dto);
+                if (result)
+                {
+                    return Ok(new { success = true, message = "Collaborators deleted successfully." });
+                }
+                return BadRequest(new { success = false, message = "Failed to delete collaborators." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { success = false, message = $"An error occurred: {ex.Message}" });
+            }
+        }
     }
 }

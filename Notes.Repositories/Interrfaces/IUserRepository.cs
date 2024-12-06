@@ -13,5 +13,7 @@ namespace Notes.Repositories.Interfaces
         Task<bool> DeleteUser(Guid userId);
         Task<bool> AddMultipleCollaborators(AddMultipleCollaboratorsDTO dto);
         // Task<bool> DeleteMultipleCollaborators(AddMultipleCollaboratorsDTO dto);
+        Task<bool> EditCollaborators(AddMultipleCollaboratorsDTO dto);
+        Task<bool> DeleteCollaborators(AddMultipleCollaboratorsDTO dto);
     }
 }
