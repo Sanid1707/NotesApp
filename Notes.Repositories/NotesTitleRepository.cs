@@ -135,7 +135,7 @@ namespace Notes.Repositories
         }
    
         // Only Users that have the permission to edit the Note are the Editor and the Owner 
-   public async Task<IActionResult> EditNoteTitle(EditNoteTitleDTO dto)
+         public async Task<IActionResult> EditNoteTitle(EditNoteTitleDTO dto)
 {
     try
     {
