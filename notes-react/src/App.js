@@ -6,6 +6,7 @@ import Dashboard from './Pages/dashboard/NotesDash';
 import NotesCanvas from "./Pages/NotesCanvas";
 import ProfilePage from "./Pages/ProfilePage";
 import React, { useEffect, useState } from 'react';
+import { UserProvider } from './Pages/auth/Context'; // Import the UserProvider
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -50,33 +51,35 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      {isAuthenticated === null ? (
-        // Show a loading spinner or placeholder while checking authentication
-        <div>Loading...</div>
-      ) : (
-        <Routes>
-          <Route
-            path="/"
-            element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login />}
-          />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route
-            path="/dashboard"
-            element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/notes"
-            element={isAuthenticated ? <NotesCanvas /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/profile"
-            element={isAuthenticated ? <ProfilePage /> : <Navigate to="/login" />}
-          />
-        </Routes>
-      )}
-    </Router>
+    <UserProvider>
+      <Router>
+        {isAuthenticated === null ? (
+          // Show a loading spinner or placeholder while checking authentication
+          <div>Loading...</div>
+        ) : (
+          <Routes>
+            <Route
+              path="/"
+              element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login />}
+            />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route
+              path="/dashboard"
+              element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/notes"
+              element={isAuthenticated ? <NotesCanvas /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/profile"
+              element={isAuthenticated ? <ProfilePage /> : <Navigate to="/login" />}
+            />
+          </Routes>
+        )}
+      </Router>
+    </UserProvider>
   );
 }
 
