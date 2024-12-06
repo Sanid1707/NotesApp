@@ -69,7 +69,7 @@ function App() {
               element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />}
             />
             <Route
-              path="/notes"
+              path="/notes/:id" // Accept noteId in URL
               element={isAuthenticated ? <NotesCanvas /> : <Navigate to="/login" />}
             />
             <Route
