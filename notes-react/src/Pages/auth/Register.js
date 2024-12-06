@@ -223,6 +223,8 @@ const Register = () => {
     const allowedFormats = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
 
     if (file && allowedFormats.includes(file.type)) {
+      //convert to base64
+     
       setProfileImage(file);
       setPreviewImage(URL.createObjectURL(file));
       setErrorMessage('');
@@ -246,17 +248,30 @@ const Register = () => {
 
     setIsSubmitting(true);
     const formDataToSend = new FormData();
-    formDataToSend.append('username', formData.username);
-    formDataToSend.append('email', formData.email);
-    formDataToSend.append('password', formData.password);
-    if (profileImage) {
-      formDataToSend.append('profileImage', profileImage);
-    }
+    formDataToSend.append('Username', formData.username);
+    formDataToSend.append('Email', formData.email);
+    formDataToSend.append('Password', formData.password);
+    const convertToBase64 = (file) => {
+      return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = (error) => reject(error);
+          reader.readAsDataURL(file);
+      });
+    };
 
     try {
-      const response = await axios.post('http://localhost:5189/api/auth/register', formDataToSend, {
+      if (profileImage) {
+        // Wait for the Base64 conversion to complete
+        const base64Image = await convertToBase64(profileImage);
+        formDataToSend.append('ProfilePicture', base64Image);
+      } 
+      else {
+        formDataToSend.append('ProfilePicture', null);
+      } 
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/auth/register`, formDataToSend, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'application/json',
         },
       });
 
