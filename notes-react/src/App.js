@@ -4,9 +4,15 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './Pages/auth/Login';
 import Register from './Pages/auth/Register';
 import Dashboard from './Pages/dashboard/NotesDash';
+import NotesCanvas from "./Pages/NotesCanvas";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect, useState } from 'react';
+import ProfilePage from "./Pages/ProfilePage"; // Add SettingsPage
+    
 
+// Api  to check Validation of token
+
+// get a context file to save user details 
 
 
 
@@ -45,6 +51,7 @@ function App() {
 
 
   return (
+
   
     <Router>
     {isAuthenticated === null ? (
@@ -62,9 +69,18 @@ function App() {
           path="/dashboard"
           element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />}
         />
+       <Route
+          path="/notes"
+          element={isAuthenticated ? <NotesCanvas /> : <Navigate to="/login" />}
+        />
+       <Route
+          path="/profile"
+          element={isAuthenticated ? <ProfilePage /> : <Navigate to="/login" />}
+        /> 
       </Routes>
     )}
   </Router>
+
   );
 }
 
