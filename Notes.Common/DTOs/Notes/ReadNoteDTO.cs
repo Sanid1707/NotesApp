@@ -18,5 +18,7 @@ namespace Notes.Common.DTOs
     {
         public Guid? UserId { get; set; }
         public string? Username { get; set; }
+        public NoteRoles? Role { get; set; }
+        
     }
 }

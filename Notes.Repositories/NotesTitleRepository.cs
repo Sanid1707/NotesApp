@@ -120,7 +120,8 @@ namespace Notes.Repositories
                         .Select(c => new CollaboratorDTO
                         {
                             UserId = c.User.UserId,
-                            Username = c.User.Username
+                            Username = c.User.Username,
+                            Role= c.Role,
                         })
                         .ToList()
                 }).ToList();
@@ -289,6 +290,64 @@ namespace Notes.Repositories
             catch (Exception ex)
             {
                 throw new Exception($"An error occurred: {ex.Message}", ex);
+            }
+        }
+        
+        // Created to speed up the process on the front-end
+        public async Task<IActionResult> ToggleFavourite(Guid noteId, Guid userId)
+        {
+            try
+            {
+                // Fetch the note and validate permissions
+                var userNote = await _context.UserNotes
+                    .FirstOrDefaultAsync(un => un.UserId == userId && un.NoteId == noteId &&
+                                               (un.Role == NoteRoles.Owner || un.Role == NoteRoles.Editor));
+
+                if (userNote == null)
+                {
+                    return new UnauthorizedObjectResult(new
+                    {
+                        success = false,
+                        message = "User does not have permission to update this note."
+                    });
+                }
+
+                // Fetch the note
+                var note = await _context.NotesTitles.FirstOrDefaultAsync(n => n.NoteId == noteId);
+
+                if (note == null)
+                {
+                    return new NotFoundObjectResult(new
+                    {
+                        success = false,
+                        message = "Note not found."
+                    });
+                }
+
+                // Toggle favourite status
+                note.Favourite = note.Favourite == 1 ? (byte)0 : (byte)1;
+                note.DateEdited = DateTime.UtcNow;
+
+                _context.NotesTitles.Update(note);
+                await _context.SaveChangesAsync();
+
+                return new OkObjectResult(new
+                {
+                    success = true,
+                    favourite = note.Favourite,
+                    message = "Favourite status updated successfully."
+                });
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult(new
+                {
+                    success = false,
+                    message = $"An error occurred: {ex.Message}"
+                })
+                {
+                    StatusCode = 500
+                };
             }
         }
         

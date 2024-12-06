@@ -31,6 +31,8 @@ namespace Notes.Controllers
         }
         
         
+        
+        
         [HttpPost("add-note")]
         public async Task<IActionResult> AddNote([FromBody] EditNoteTitleDTO dto)
         {
@@ -46,12 +48,30 @@ namespace Notes.Controllers
         }
         
         
+        
+        
         [HttpPut("edit-note")]
         public async Task<IActionResult> EditNoteTitle([FromBody] EditNoteTitleDTO dto)
         {
             try
             {
                 var result = await _notesTitleRepository.EditNoteTitle(dto);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { success = false, message = $"An error occurred: {ex.Message}" });
+            }
+        }
+        
+        
+        
+        [HttpPatch("toggle-favourite/{noteId}")]
+        public async Task<IActionResult> ToggleFavourite(Guid noteId, [FromBody] ToggleFavouriteDTO dto)
+        {
+            try
+            {
+                var result = await _notesTitleRepository.ToggleFavourite(noteId, dto.UserId);
                 return result;
             }
             catch (Exception ex)
