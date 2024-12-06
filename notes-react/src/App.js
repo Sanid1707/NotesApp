@@ -1,11 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './Pages/auth/Login';
 import Register from './Pages/auth/Register';
 import Dashboard from './Pages/dashboard/NotesDash';
 import NotesCanvas from "./Pages/NotesCanvas";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useEffect, useState } from 'react';
 import ProfilePage from "./Pages/ProfilePage"; // Add SettingsPage
     
 
@@ -16,19 +17,70 @@ import ProfilePage from "./Pages/ProfilePage"; // Add SettingsPage
 
 
 function App() {
+ 
+  const [isAuthenticated, setIsAuthenticated] = useState(null); // null while loading
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      if (!localStorage.getItem('token')) {
+        setIsAuthenticated(false);
+        return;
+      }
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/validate-token`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+        if (!response.ok) throw new Error('Token validation failed');
+        setIsAuthenticated(true);
+        // assign user id to session storage
+        const result = await response.json();
+        sessionStorage.setItem('userId', result.userId);
+        
+      } catch (error) {
+        console.error('Error:', error);
+        setIsAuthenticated(false);
+      }
+    };
+    checkAuth();
+  }, []);
+
+
+
   return (
 
+  
     <Router>
-            <Routes>
-                <Route path="/" element={<Login />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                {/* <Route path="/notes/:noteId" element={<NotesCanvas />} /> */}
-                <Route path="/notes" element={<NotesCanvas />} />
-                <Route path="/profile" element={<ProfilePage />} />
-            </Routes>
-        </Router>
+    {isAuthenticated === null ? (
+      // Show a loading spinner or placeholder while checking authentication
+      <div>Loading...</div>
+    ) : (
+      <Routes>
+        <Route
+          path="/"
+          element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login />}
+        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route
+          path="/dashboard"
+          element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />}
+        />
+       <Route
+          path="/notes"
+          element={isAuthenticated ? <NotesCanvas /> : <Navigate to="/login" />}
+        />
+       <Route
+          path="/profile"
+          element={isAuthenticated ? <ProfilePage /> : <Navigate to="/login" />}
+        /> 
+      </Routes>
+    )}
+  </Router>
+
   );
 }
 

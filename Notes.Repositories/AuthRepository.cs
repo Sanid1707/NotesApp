@@ -59,8 +59,10 @@ namespace Notes.Repository
                     Password = encryptedPassword,
                     Role = (byte)UserRole.User,
                     CreatedAt = DateTime.UtcNow,
-                    IsActive = 1
-                };
+                    IsActive = 1,
+					ProfilePicture = dto.ProfilePicture,
+
+				};
 
                 await _context.Users.AddAsync(newUser);
                 await _context.SaveChangesAsync();
@@ -106,8 +108,9 @@ namespace Notes.Repository
                     token,
                     userId = user.UserId,
                     username = user.Username,
-                    email = user.Email
-                });
+                    email = user.Email,
+					ProfilePicture = user.ProfilePicture,
+				});
             }
             catch (Exception ex)
             {
@@ -142,7 +145,12 @@ namespace Notes.Repository
                 if (user == null || user.LatestJwtToken != token)
                     return new UnauthorizedObjectResult(new { success = false, message = "Token is invalid or not active." });
 
-                return new OkObjectResult(new { success = true, message = "Token is valid.", userId = user.UserId });
+                return new OkObjectResult(new 
+                { success = true, 
+                    message = "Token is valid.", 
+                    userId = user.UserId,
+					profilePicture = user.ProfilePicture
+				});
             }
             catch (SecurityTokenExpiredException)
             {

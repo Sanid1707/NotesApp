@@ -109,7 +109,7 @@ const Login = () => {
     const data = { email, password };
 
     try {
-      const response = await fetch("http://localhost:5189/api/auth/login", {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -122,9 +122,22 @@ const Login = () => {
       }
 
       const result = await response.json();
+
+      result.userId = 
       setSuccessMessage("Login successful!");
       console.log("Success:", result);
-      // Redirect or handle login logic here
+      if (response.ok) {
+        window.location.href = "/dashboard";
+        //save the token in local storage
+        localStorage.setItem("token", result.token);
+        //save user id in session storage
+        sessionStorage.setItem("userId", result.userId);
+        //save user email in session storage
+        sessionStorage.setItem("email", result.email);
+
+      }
+      
+
     } catch (error) {
       console.error("Error:", error);
       setErrorMessage("Login failed. Please check your credentials.");
