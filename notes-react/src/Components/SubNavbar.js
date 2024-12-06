@@ -406,3 +406,8 @@ const SubNavbar = ({ currentTab, setCurrentTab, onAddNote }) => {
 };
 
 export default SubNavbar;
+
+
+
+
+

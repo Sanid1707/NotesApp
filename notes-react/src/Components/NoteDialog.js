@@ -26,13 +26,9 @@ import {
     };
   
     useEffect(() => {
-      // Log the incoming data for debugging
-      console.log("Incoming note data to dialog:");
-      console.log(note);
+      console.log("Incoming note data to dialog:", note);
   
       if (note) {
-        console.log("Collaborators:");
-        console.log(note.collaborators || "No collaborators found.");
         setSelectedNote(note);
       }
     }, [note]);
@@ -53,11 +49,80 @@ import {
     };
   
     // Handle delete selected collaborators
-    const handleDeleteSelected = () => {
-      setSelectedNote((prevNote) => ({
-        ...prevNote,
-        collaborators: prevNote.collaborators.filter((collab) => !collab.isSelected),
-      }));
+    const handleDeleteSelected = async () => {
+      const collaboratorsToDelete = selectedNote.collaborators.filter(
+        (collab) => collab.isSelected
+      );
+      const payload = {
+        noteId: selectedNote.noteId,
+        collaborators: collaboratorsToDelete.map((collab) => ({
+          userId: collab.userId,
+        })),
+      };
+  
+      console.log("Delete payload:", payload);
+  
+      try {
+        const response = await fetch(
+          "http://localhost:5189/api/user/delete-collaborators",
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          }
+        );
+        const data = await response.json();
+        if (data.success) {
+          setSelectedNote((prevNote) => ({
+            ...prevNote,
+            collaborators: prevNote.collaborators.filter(
+              (collab) => !collab.isSelected
+            ),
+          }));
+          console.log("Collaborators deleted successfully.");
+        } else {
+          console.error("Failed to delete collaborators:", data.message);
+        }
+      } catch (error) {
+        console.error("Error deleting collaborators:", error);
+      }
+    };
+  
+    // Handle save changes for editing collaborators
+    const handleSaveChanges = async () => {
+      const payload = {
+        noteId: selectedNote.noteId,
+        collaborators: selectedNote.collaborators.map((collab) => ({
+          userId: collab.userId,
+          role: collab.role,
+          status: 1, // Assuming "Active" is the default status
+        })),
+      };
+  
+      console.log("Edit payload:", payload);
+  
+      try {
+        const response = await fetch(
+          "http://localhost:5189/api/user/edit-collaborators",
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          }
+        );
+        const data = await response.json();
+        if (data.success) {
+          console.log("Collaborators updated successfully.");
+        } else {
+          console.error("Failed to update collaborators:", data.message);
+        }
+      } catch (error) {
+        console.error("Error updating collaborators:", error);
+      }
     };
   
     return (
@@ -103,7 +168,6 @@ import {
                         backgroundColor: "#333",
                       }}
                     >
-                      {/* Checkbox */}
                       <Checkbox
                         onChange={(e) => {
                           setSelectedNote((prevNote) => ({
@@ -117,25 +181,15 @@ import {
                         }}
                         sx={{ color: "#fff" }}
                       />
-                      {/* Collaborator Name */}
                       <Typography sx={{ color: "#fff", fontWeight: "500", flex: 1 }}>
                         {collab.username}
                       </Typography>
-                      {/* Status Display */}
-                      <Typography
-                        sx={{
-                          color: "#ffb74d",
-                          fontWeight: "bold",
-                          marginRight: "16px",
-                        }}
-                      >
-                        {roleEnum[collab.role] || "Unknown Role"}
-                      </Typography>
-                      {/* Role Dropdown */}
                       <TextField
                         select
                         value={collab.role || 2} // Default to Viewer
-                        onChange={(e) => handleRoleChange(collab.userId, Number(e.target.value))}
+                        onChange={(e) =>
+                          handleRoleChange(collab.userId, Number(e.target.value))
+                        }
                         sx={{
                           width: "120px",
                           "& .MuiInputBase-root": { color: "#fff" },
@@ -155,7 +209,6 @@ import {
                   <Typography>No collaborators available.</Typography>
                 )}
               </Box>
-              {/* Delete Button */}
               <Button
                 variant="contained"
                 color="error"
@@ -177,7 +230,7 @@ import {
           <Button
             color="primary"
             variant="contained"
-            onClick={() => console.log("Updated Note Data:", selectedNote)}
+            onClick={handleSaveChanges}
           >
             Save Changes
           </Button>
