@@ -9,8 +9,7 @@ services:
     ports:
       - "80:8080" # Maps host port 5000 to container port 5189
       - "7274:8081" # Maps host port 5000 to container port 7274
-    depends_on:
-      - MyDatabase
+    
 
   MyDatabase:
     image: mcr.microsoft.com/mssql/server:2022-latest
@@ -24,7 +23,7 @@ services:
       MSSQL_DATABASE: "MyDatabase"
 
     volumes:
-      - sqlserver_data:/var/opt/mssql       # Mount a volume for data persistence
+      - ./init.sql:/var/opt/mssql/init.sql       # Mount a volume for data persistence
 volumes:
   sqlserver_data:                           # Declare the volume for persistence
 
