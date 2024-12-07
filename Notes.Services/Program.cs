@@ -7,13 +7,8 @@ using Notes.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.WebHost.ConfigureKestrel(options =>
-{
-	options.ListenAnyIP(5189); // HTTP
-	options.ListenAnyIP(7274, listenOptions => listenOptions.UseHttps()); // HTTPS
-});
-
 // Add services to the container.
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -21,26 +16,22 @@ builder.Services.AddSwaggerGen();
 
 // Add DbContext
 builder.Services.AddDbContext<NotesDbContext>(options =>
-	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add scoped services
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<INotesTitleRepository, NotesTitleRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IContentRepository, ContentRepository>();
-
-// Initialize CryptoHelper
 CryptoHelper.Initialize(builder.Configuration);
 
-// Add CORS
+// Add CORS policy
 builder.Services.AddCors(options =>
 {
-	options.AddPolicy("AllowAll", builder =>
-	{
-		builder.AllowAnyOrigin()
-			   .AllowAnyMethod()
-			   .AllowAnyHeader();
-	});
+    options.AddPolicy("AllowFrontend",
+        policy => policy.WithOrigins("http://localhost:3000") 
+            .AllowAnyHeader()
+            .AllowAnyMethod());
 });
 
 var app = builder.Build();
@@ -48,14 +39,13 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-	app.UseSwagger();
-	app.UseSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 // Use CORS
-app.UseCors("AllowAll");
+app.UseCors("AllowFrontend");
 
-// Use HTTPS redirection (optional)
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
