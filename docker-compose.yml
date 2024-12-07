@@ -10,8 +10,6 @@ services:
       - "7274:8081" # Maps host port 7274 to container port 8081
     depends_on:
       - MyDatabase  # Ensures MyDatabase starts before notesapi
-    environment:
-      ConnectionStrings__DefaultConnection: "Server=MyDatabase,1433;Database=MyDatabase;User Id=sa;Password=YourStrongPassword123;" # Pass connection string to the API
 
   MyDatabase:
     image: mcr.microsoft.com/mssql/server:2022-latest
@@ -23,13 +21,7 @@ services:
       ACCEPT_EULA: "Y"                      # Accept the license agreement
     volumes:
       - sqlserver_data:/var/opt/mssql       # Mount a named volume for data persistence
-      - ./init.sql:/var/opt/mssql/init.sql  # Mount the initialization script for creating the database
-    entrypoint: >
-      /bin/bash -c "(
-      /opt/mssql/bin/sqlservr &
-      sleep 15 &&
-      /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'YourStrongPassword123' -i /var/opt/mssql/init.sql
-      )"
+      - ./init.sql:/var/opt/mssql/init.sql  # Mount the SQL initialization script
 
 volumes:
   sqlserver_data:                           # Declare the volume for persistence
