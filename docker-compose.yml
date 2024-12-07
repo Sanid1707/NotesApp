@@ -9,6 +9,8 @@ services:
     ports:
       - "80:8080" # Maps host port 5000 to container port 5189
       - "7274:8081" # Maps host port 5000 to container port 7274
+    depends_on:
+      - MyDatabase
 
   MyDatabase:
     image: mcr.microsoft.com/mssql/server:2022-latest
@@ -19,6 +21,8 @@ services:
       
       SA_PASSWORD: "YourStrongPassword123"  # Set the SQL Server admin password
       ACCEPT_EULA: "Y"                      # Accept the license agreement
+      MSSQL_DATABASE: "MyDatabase"
+
     volumes:
       - sqlserver_data:/var/opt/mssql       # Mount a volume for data persistence
 volumes:
