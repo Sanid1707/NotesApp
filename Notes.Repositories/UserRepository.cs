@@ -60,6 +60,7 @@ namespace Notes.Repositories
                     ProfilePicture = user.ProfilePicture
                 };
             }
+            
             catch (Exception ex)
             {
                 Console.WriteLine($"An error occurred while fetching the user: {ex.Message}");
@@ -239,139 +240,140 @@ namespace Notes.Repositories
                 return false;
             }
         }
+
         
         
-        // Function to edit the note 
+// Function to edit the Collaborators which is using the same DTO as the Add MultipleCollaboratorDTO   , mainly helping update the Colaborators Roles 
         public async Task<bool> EditCollaborators(AddMultipleCollaboratorsDTO dto)
-{
-    try
-    {
-        // Validate if the note exists in the database
-        var noteExists = await _context.NotesTitles.AnyAsync(n => n.NoteId == dto.NoteId);
-        if (!noteExists)
-        {
-            Console.WriteLine($"Error: Note with ID {dto.NoteId} does not exist.");
-            return false; // Return false if the note does not exist
-        }
-
-        foreach (var collaborator in dto.Collaborators)
         {
             try
             {
-                // Check if the collaborator already exists for the note
-                var existingCollaborator = await _context.UserNotes
-                    .FirstOrDefaultAsync(un => un.NoteId == dto.NoteId && un.UserId == collaborator.UserId);
-
-                if (existingCollaborator != null)
+                // Validate if the note exists in the database
+                var noteExists = await _context.NotesTitles.AnyAsync(n => n.NoteId == dto.NoteId);
+                if (!noteExists)
                 {
-                    // Update the collaborator's properties if they are provided
-                    if (collaborator.Role.HasValue)
-                    {
-                        existingCollaborator.Role = collaborator.Role.Value;
-                    }
-
-                    if (collaborator.Status.HasValue)
-                    {
-                        existingCollaborator.Status = collaborator.Status.Value;
-                    }
-
-                    existingCollaborator.AccessGrantedAt = DateTime.UtcNow; // Update the access timestamp
-                    _context.UserNotes.Update(existingCollaborator);
+                    Console.WriteLine($"Error: Note with ID {dto.NoteId} does not exist.");
+                    return false; // Return false if the note does not exist
                 }
-                else
+
+                foreach (var collaborator in dto.Collaborators)
                 {
-                    // If the collaborator does not exist, log and skip
-                    Console.WriteLine($"Collaborator with User ID {collaborator.UserId} does not exist for Note ID {dto.NoteId}.");
-                    continue;
+                    try
+                    {
+                        // Check if the collaborator already exists for the note
+                        var existingCollaborator = await _context.UserNotes
+                            .FirstOrDefaultAsync(un => un.NoteId == dto.NoteId && un.UserId == collaborator.UserId);
+
+                        if (existingCollaborator != null)
+                        {
+                            // Update the collaborator's properties if they are provided
+                            if (collaborator.Role.HasValue)
+                            {
+                                existingCollaborator.Role = collaborator.Role.Value;
+                            }
+
+                            if (collaborator.Status.HasValue)
+                            {
+                                existingCollaborator.Status = collaborator.Status.Value;
+                            }
+
+                            existingCollaborator.AccessGrantedAt = DateTime.UtcNow; // Update the access timestamp
+                            _context.UserNotes.Update(existingCollaborator);
+                        }
+                        else
+                        {
+                            // If the collaborator does not exist, log and skip
+                            Console.WriteLine($"Collaborator with User ID {collaborator.UserId} does not exist for Note ID {dto.NoteId}.");
+                            continue;
+                        }
+                    }
+                    catch (Exception innerEx)
+                    {
+                        // Log specific error details for a single collaborator
+                        Console.WriteLine($"Error processing collaborator {collaborator.UserId}: {innerEx.Message}");
+                        continue; // Continue processing other collaborators
+                    }
                 }
+
+                // Save all changes to the database after processing all collaborators
+                await _context.SaveChangesAsync();
+                return true; // Return true if all operations are successful
             }
-            catch (Exception innerEx)
+            catch (DbUpdateException dbEx)
             {
-                // Log specific error details for a single collaborator
-                Console.WriteLine($"Error processing collaborator {collaborator.UserId}: {innerEx.Message}");
-                continue; // Continue processing other collaborators
+                // Handle database update-specific errors
+                Console.WriteLine($"Database update error: {dbEx.Message}");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                // Handle general errors
+                Console.WriteLine($"An unexpected error occurred while editing collaborators: {ex.Message}");
+                return false;
             }
         }
-
-        // Save all changes to the database after processing all collaborators
-        await _context.SaveChangesAsync();
-        return true; // Return true if all operations are successful
-    }
-    catch (DbUpdateException dbEx)
-    {
-        // Handle database update-specific errors
-        Console.WriteLine($"Database update error: {dbEx.Message}");
-        return false;
-    }
-    catch (Exception ex)
-    {
-        // Handle general errors
-        Console.WriteLine($"An unexpected error occurred while editing collaborators: {ex.Message}");
-        return false;
-    }
-}
         
         
         
-        
+// Function to Delete the Collaborators which is using the same DTO as the Add MultipleCollaboratorDTO   , this allows the user to select  multiple collborators and delete them at once     
         public async Task<bool> DeleteCollaborators(AddMultipleCollaboratorsDTO dto)
-{
-    try
-    {
-        // Validate if the note exists in the database
-        var noteExists = await _context.NotesTitles.AnyAsync(n => n.NoteId == dto.NoteId);
-        if (!noteExists)
-        {
-            Console.WriteLine($"Error: Note with ID {dto.NoteId} does not exist.");
-            return false; // Return false if the note does not exist
-        }
-
-        foreach (var collaborator in dto.Collaborators)
         {
             try
             {
-                // Check if the collaborator exists for the note
-                var existingCollaborator = await _context.UserNotes
-                    .FirstOrDefaultAsync(un => un.NoteId == dto.NoteId && un.UserId == collaborator.UserId);
+                // Validate if the note exists in the database
+                var noteExists = await _context.NotesTitles.AnyAsync(n => n.NoteId == dto.NoteId);
+                if (!noteExists)
+                {
+                    Console.WriteLine($"Error: Note with ID {dto.NoteId} does not exist.");
+                    return false; // Return false if the note does not exist
+                }
 
-                if (existingCollaborator != null)
+                foreach (var collaborator in dto.Collaborators)
                 {
-                    // Remove the collaborator
-                    _context.UserNotes.Remove(existingCollaborator);
+                    try
+                    {
+                        // Check if the collaborator exists for the note
+                        var existingCollaborator = await _context.UserNotes
+                            .FirstOrDefaultAsync(un => un.NoteId == dto.NoteId && un.UserId == collaborator.UserId);
+
+                        if (existingCollaborator != null)
+                        {
+                            // Remove the collaborator
+                            _context.UserNotes.Remove(existingCollaborator);
+                        }
+                        else
+                        {
+                            // Log if the collaborator does not exist
+                            Console.WriteLine($"Collaborator with User ID {collaborator.UserId} does not exist for Note ID {dto.NoteId}.");
+                            continue; // Skip to the next collaborator
+                        }
+                    }
+                    catch (Exception innerEx)
+                    {
+                        // Log specific error details for a single collaborator
+                        Console.WriteLine($"Error processing deletion for collaborator {collaborator.UserId}: {innerEx.Message}");
+                        continue; // Continue processing other collaborators
+                    }
                 }
-                else
-                {
-                    // Log if the collaborator does not exist
-                    Console.WriteLine($"Collaborator with User ID {collaborator.UserId} does not exist for Note ID {dto.NoteId}.");
-                    continue; // Skip to the next collaborator
-                }
+
+                // Save all changes to the database after processing all collaborators
+                await _context.SaveChangesAsync();
+                return true; // Return true if all operations are successful
             }
-            catch (Exception innerEx)
+            catch (DbUpdateException dbEx)
             {
-                // Log specific error details for a single collaborator
-                Console.WriteLine($"Error processing deletion for collaborator {collaborator.UserId}: {innerEx.Message}");
-                continue; // Continue processing other collaborators
+                // Handle database update-specific errors
+                Console.WriteLine($"Database update error: {dbEx.Message}");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                // Handle general errors
+                Console.WriteLine($"An unexpected error occurred while deleting collaborators: {ex.Message}");
+                return false;
             }
         }
-
-        // Save all changes to the database after processing all collaborators
-        await _context.SaveChangesAsync();
-        return true; // Return true if all operations are successful
-    }
-    catch (DbUpdateException dbEx)
-    {
-        // Handle database update-specific errors
-        Console.WriteLine($"Database update error: {dbEx.Message}");
-        return false;
-    }
-    catch (Exception ex)
-    {
-        // Handle general errors
-        Console.WriteLine($"An unexpected error occurred while deleting collaborators: {ex.Message}");
-        return false;
-    }
-}
-        
+                
         
         
         

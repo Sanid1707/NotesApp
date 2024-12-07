@@ -1,256 +1,88 @@
 
-
-// import React, { useState, useEffect } from "react";
-// import { useParams } from "react-router-dom"; // Import useParams to get URL params
-// import ReactQuill from "react-quill"; // Rich-text editor
-// import "react-quill/dist/quill.snow.css";
-// import Navbar from "../Components/Navbar"; // Import Navbar from Components
-// import { Box, Typography, Tooltip } from "@mui/material";
-// import GroupIcon from "@mui/icons-material/Group"; // Icon for collaborators
-
-// const NotesCanvas = () => {
-//   const [content, setContent] = useState(""); // State for note content
-//   const [title, setTitle] = useState("Loading..."); // Placeholder for title
-//   const [tag, setTag] = useState(""); // Tag for note
-//   const [lastEdited, setLastEdited] = useState(""); // Last edited time
-//   const { id: noteId } = useParams(); // Extract noteId from URL
-
-//   // Fetch note data when component mounts
-//   useEffect(() => {
-//     const fetchNote = async () => {
-//       try {
-//         const response = await fetch(`http://localhost:5189/api/notes/${noteId}`);
-//         if (!response.ok) {
-//           throw new Error("Failed to fetch note");
-//         }
-//         const note = await response.json();
-//         setTitle(note.title || "Untitled Note");
-//         setContent(note.content || "");
-//         setTag(note.tag || "General");
-//         setLastEdited(note.lastEdited || new Date().toLocaleString());
-//       } catch (error) {
-//         console.error("Error fetching note:", error);
-//       }
-//     };
-
-//     fetchNote();
-//   }, [noteId]);
-
-//   const handleSave = async () => {
-//     console.log("Saving Note ID:", noteId);
-//     console.log("HTML Content:", content);
-
-//     const noteData = {
-//       noteId,
-//       title,
-//       tag,
-//       content,
-//     };
-
-//     try {
-//       const response = await fetch(`http://localhost:5189/api/notes/${noteId}`, {
-//         method: "PUT",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(noteData),
-//       });
-
-//       if (response.ok) {
-//         console.log("Note saved successfully!");
-//         setLastEdited(new Date().toLocaleString()); // Update last edited time
-//       } else {
-//         console.error("Error saving note");
-//       }
-//     } catch (error) {
-//       console.error("Error:", error);
-//     }
-//   };
-
-//   const modules = {
-//     toolbar: [
-//       [{ header: [1, 2, 3, false] }],
-//       ["bold", "italic", "underline", "strike"],
-//       [{ list: "ordered" }, { list: "bullet" }],
-//       [{ script: "sub" }, { script: "super" }],
-//       [{ align: [] }],
-//       ["blockquote", "code-block"],
-//       ["link", "image", "video"],
-//       [{ color: [] }, { background: [] }],
-//       ["clean"],
-//     ],
-//   };
-
-//   return (
-//     <Box
-//       sx={{
-//         background: "#000",
-//         color: "#fff",
-//         minHeight: "100vh",
-//         display: "flex",
-//         flexDirection: "column",
-//       }}
-//     >
-//       <Navbar username="John Doe" />
-
-//       <Box
-//         sx={{
-//           display: "flex",
-//           justifyContent: "space-between",
-//           alignItems: "center",
-//           padding: "20px",
-//           borderBottom: "1px solid #555",
-//         }}
-//       >
-//         <Box>
-//           <Typography
-//             variant="h4"
-//             sx={{ fontSize: "24px", fontWeight: "bold", color: "#fff" }}
-//           >
-//             {title}
-//           </Typography>
-//           <Typography
-//             variant="subtitle1"
-//             sx={{ fontSize: "16px", color: "#757575" }}
-//           >
-//             {tag}
-//           </Typography>
-//         </Box>
-//         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-//           <Tooltip title="Collaborators">
-//             <GroupIcon
-//               sx={{
-//                 fontSize: "24px",
-//                 color: "#fff",
-//                 cursor: "pointer",
-//                 transition: "0.3s",
-//                 "&:hover": { color: "#1976d2" },
-//               }}
-//             />
-//           </Tooltip>
-//           <Typography sx={{ fontSize: "16px", color: "#757575" }}>
-//             Last Edited: {lastEdited}
-//           </Typography>
-//         </Box>
-//       </Box>
-
-//       <Box sx={{ flex: 1, padding: "20px" }}>
-//         <ReactQuill
-//           theme="snow"
-//           value={content}
-//           onChange={setContent}
-//           modules={modules}
-//           style={{
-//             backgroundColor: "#000",
-//             color: "#fff",
-//             height: "100%",
-//             border: "none",
-//             borderRadius: "8px",
-//           }}
-//         />
-//       </Box>
-
-//       <Box sx={{ textAlign: "center", padding: "20px", borderTop: "1px solid #555" }}>
-//         <button
-//           onClick={handleSave}
-//           style={{
-//             backgroundColor: "#1976d2",
-//             color: "#fff",
-//             padding: "10px 20px",
-//             border: "none",
-//             borderRadius: "4px",
-//             cursor: "pointer",
-//             fontSize: "16px",
-//             fontWeight: "bold",
-//             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
-//           }}
-//         >
-//           Save Note
-//         </button>
-//       </Box>
-//     </Box>
-//   );
-// };
-
-// export default NotesCanvas;
-
-
-
-
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom"; // For extracting noteId from URL
-import ReactQuill from "react-quill"; // Rich-text editor
+import { useParams,useNavigate } from "react-router-dom";
+import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import Navbar from "../Components/Navbar"; // Navbar Component
-import { Box, Typography, Tooltip, CircularProgress } from "@mui/material";
-import GroupIcon from "@mui/icons-material/Group"; // Icon for collaborators
+import Navbar from "../Components/Navbar";
+import { Box, Typography, Tooltip, CircularProgress ,IconButton} from "@mui/material";
+import GroupIcon from "@mui/icons-material/Group";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const NotesCanvas = () => {
-  const { noteId } = useParams(); // Extract noteId from the URL
-  const [content, setContent] = useState(""); // State for note content
-  const [title, setTitle] = useState(""); // State for note title
-  const [tag, setTag] = useState(""); // State for note tag
+  const [content, setContent] = useState(""); // HTML content
+  const [title, setTitle] = useState("Loading..."); // Note title
+  const [tag, setTag] = useState("General"); // Content type
   const [lastEdited, setLastEdited] = useState(""); // Last edited timestamp
-  const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [isLoading, setIsLoading] = useState(true); // Loading state
+  const { id: noteId } = useParams(); // Extract noteId from URL
+  const navigate = useNavigate();
+  
 
-  // Fetch content when the component mounts
+  // Fetch note content on component mount
   useEffect(() => {
-    const fetchContent = async () => {
+    const fetchNoteContent = async () => {
       setIsLoading(true);
       try {
         const response = await fetch(`http://localhost:5189/api/content/${noteId}`);
         if (!response.ok) {
-          throw new Error("Failed to fetch content.");
+          throw new Error("Failed to fetch note content");
         }
-        const data = await response.json();
-        setContent(data.formattedContent);
-        setTitle(data.title || "Untitled Note");
-        setTag(data.contentType || "General");
+
+        const result = await response.json();
+        const data = result.data;
+
+        // Set state with response data
+        setTitle(data.noteTitle || "Untitled Note");
+        setContent(data.formattedContent || "");
+        setTag(data.tag || "General");
         setLastEdited(new Date(data.updatedAt).toLocaleString());
       } catch (error) {
-        console.error("Error fetching content:", error);
+        console.error("Error fetching note content:", error);
+        setTitle("Error Loading Note");
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchContent();
+    fetchNoteContent();
   }, [noteId]);
 
-  // Handle saving the updated content
+  // Save note content to backend
   const handleSave = async () => {
     try {
+      const payload = {
+        formattedContent: content,
+        contentType: tag,
+      };
+
       const response = await fetch(`http://localhost:5189/api/content/${noteId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          formattedContent: content,
-          contentType: tag || "General",
-        }),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to save content.");
+        throw new Error("Failed to save content");
       }
 
-      const updatedContent = await response.json();
-      setLastEdited(new Date(updatedContent.updatedAt).toLocaleString());
+      const updatedData = await response.json();
+      setLastEdited(new Date(updatedData.data.updatedAt).toLocaleString());
       console.log("Content saved successfully!");
     } catch (error) {
       console.error("Error saving content:", error);
     }
   };
 
-  // ReactQuill toolbar configuration
+  // ReactQuill editor toolbar configuration
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, false] }],
       ["bold", "italic", "underline", "strike"],
       [{ list: "ordered" }, { list: "bullet" }],
-      ["link", "image", "video"],
       [{ align: [] }],
+      ["link", "image", "video"],
       [{ color: [] }, { background: [] }],
       ["clean"],
     ],
@@ -259,7 +91,8 @@ const NotesCanvas = () => {
   return (
     <Box
       sx={{
-        background: "#000",
+        background: `url('../../../public/images/AuthBg1.jpg') no-repeat center center fixed`,
+        backgroundSize: "cover",
         color: "#fff",
         minHeight: "100vh",
         display: "flex",
@@ -277,30 +110,43 @@ const NotesCanvas = () => {
           alignItems: "center",
           padding: "20px",
           borderBottom: "1px solid #555",
+          backgroundColor: "rgba(0, 0, 0, 0.6)",
         }}
       >
-        <Box>
-          <Typography
-            variant="h4"
-            sx={{
-              fontSize: "24px",
-              fontWeight: "bold",
-              color: "#fff",
-              marginBottom: "5px",
-            }}
-          >
-            {title || "Untitled Note"}
-          </Typography>
-          <Typography
-            variant="subtitle1"
-            sx={{
-              fontSize: "16px",
-              color: "#757575",
-            }}
-          >
-            {tag || "General"}
-          </Typography>
-        </Box>
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        padding: "10px 20px",
+        borderBottom: "1px solid #333",
+        backgroundColor: "rgba(0, 0, 0, 0.6)",
+        gap: "16px",
+      }}
+    >
+      {/* Back Arrow Button */}
+      <IconButton
+        onClick={() => navigate(-1)} // Use navigate to go back
+        sx={{
+          color: "#fff",
+          "&:hover": {
+            color: "#1976d2",
+          },
+        }}
+      >
+        <ArrowBackIcon fontSize="large" />
+      </IconButton>
+
+      {/* Title and Tag */}
+      <Box>
+        <Typography variant="h4" sx={{ fontWeight: "bold", color: "#fff" }}>
+          {title}
+        </Typography>
+        <Typography variant="subtitle1" sx={{ color: "#bdbdbd", fontSize: "14px" }}>
+          {tag}
+        </Typography>
+      </Box>
+    </Box>
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
           <Tooltip title="Collaborators">
             <GroupIcon
@@ -308,12 +154,11 @@ const NotesCanvas = () => {
                 fontSize: "24px",
                 color: "#fff",
                 cursor: "pointer",
-                transition: "0.3s",
                 "&:hover": { color: "#1976d2" },
               }}
             />
           </Tooltip>
-          <Typography sx={{ fontSize: "16px", color: "#757575" }}>
+          <Typography sx={{ fontSize: "16px", color: "#bdbdbd" }}>
             Last Edited: {lastEdited || "N/A"}
           </Typography>
         </Box>
@@ -321,7 +166,14 @@ const NotesCanvas = () => {
 
       {/* Content Editor */}
       {isLoading ? (
-        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flex: 1 }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flex: 1,
+          }}
+        >
           <CircularProgress sx={{ color: "#fff" }} />
         </Box>
       ) : (
@@ -332,11 +184,12 @@ const NotesCanvas = () => {
             onChange={setContent}
             modules={modules}
             style={{
-              backgroundColor: "#000",
-              color: "#fff",
-              height: "100%",
-              border: "none",
+              backgroundColor: "#121212", // Dark theme background
+              color: "#e0e0e0", // Light text color for contrast
+              height: "70vh",
+              border: "1px solid #333", // Border matching dark theme
               borderRadius: "8px",
+              padding: "1px",
             }}
           />
         </Box>
@@ -348,6 +201,7 @@ const NotesCanvas = () => {
           textAlign: "center",
           padding: "20px",
           borderTop: "1px solid #555",
+          backgroundColor: "rgba(0, 0, 0, 0.6)",
         }}
       >
         <button
@@ -375,3 +229,4 @@ const NotesCanvas = () => {
 };
 
 export default NotesCanvas;
+

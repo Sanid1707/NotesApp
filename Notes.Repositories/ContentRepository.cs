@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Notes.DTOs;
 using Notes.Entities;
 using Notes.Repositories.Interfaces;
 using Notes.Repository;
@@ -16,41 +17,84 @@ namespace Notes.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<Content> GetContentByNoteIdAsync(Guid noteId)
+        // Fetch content by NoteId
+        public async Task<ContentDto> GetContentByNoteIdAsync(Guid noteId)
         {
-            return await _dbContext.Contents
-                .Include(c => c.NotesTitle) // Include related NotesTitle if needed
-                .FirstOrDefaultAsync(c => c.NoteId == noteId);
+            try
+            {
+                // Fetch the content and include the related NotesTitle entity
+                var content = await _dbContext.Content
+                    .Include(c => c.NotesTitle) // Include the related NotesTitle entity
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(c => c.NoteId == noteId);
+
+                if (content == null)
+                {
+                    Console.WriteLine($"Content not found for NoteId: {noteId}");
+                    return null; // Return null if no content is found
+                }
+
+                // Map the content and note title to the DTO
+                return new ContentDto
+                {
+                    NoteId = content.NoteId,
+                    FormattedContent = content.FormattedContent,
+                    ContentType = content.ContentType,
+                    UpdatedAt = content.UpdatedAt,
+                    NoteTitle = content.NotesTitle?.Title, 
+                    Tag = content.NotesTitle?.Tag
+                };
+            }
+            catch (DbUpdateException dbEx)
+            {
+                // Log database update exception
+                Console.WriteLine($"Database error occurred while fetching content: {dbEx.Message}");
+                throw new Exception("A database error occurred while fetching the content.", dbEx);
+            }
+            catch (Exception ex)
+            {
+                // Log general exceptions
+                Console.WriteLine($"An unexpected error occurred: {ex.Message}");
+                throw new Exception("An unexpected error occurred while fetching the content.", ex);
+            }
         }
 
-        public async Task<Content> UpdateContentAsync(Guid noteId, string formattedContent, string contentType)
+        // Update or create content
+        public async Task<ContentDto> UpdateContentAsync(Guid noteId, ContentUpdateDto contentUpdateDto)
         {
-            var content = await GetContentByNoteIdAsync(noteId);
-
-            if (content == null)
+            try
             {
-                // If no content exists, create a new one
-                content = new Content
+                // Fetch the content based on the NoteId
+                var content = await _dbContext.Content.FirstOrDefaultAsync(c => c.NoteId == noteId);
+
+                if (content == null)
                 {
-                    NoteId = noteId,
-                    FormattedContent = formattedContent,
-                    ContentType = contentType,
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
-                };
-
-                await _dbContext.Contents.AddAsync(content);
-            }
-            else
-            {
+                    // Throw an exception or return null for non-existent content
+                    throw new Exception($"Content with NoteId {noteId} does not exist.");
+                }
+        
                 // Update existing content
-                content.FormattedContent = formattedContent;
-                content.ContentType = contentType;
+                content.FormattedContent = contentUpdateDto.FormattedContent;
+                content.ContentType = contentUpdateDto.ContentType;
                 content.UpdatedAt = DateTime.UtcNow;
-            }
 
-            await _dbContext.SaveChangesAsync();
-            return content;
+                // Save changes to the database
+                await _dbContext.SaveChangesAsync();
+
+                // Return the updated content as DTO
+                return new ContentDto
+                {
+                    NoteId = content.NoteId,
+                    FormattedContent = content.FormattedContent,
+                    ContentType = content.ContentType,
+                    UpdatedAt = content.UpdatedAt
+                };
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating content: {ex.Message}");
+                throw new Exception("Failed to update content. " + ex.Message);
+            }
         }
     }
 }

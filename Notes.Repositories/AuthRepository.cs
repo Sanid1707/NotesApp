@@ -108,8 +108,8 @@ namespace Notes.Repository
                     token,
                     userId = user.UserId,
                     username = user.Username,
-                    email = user.Email,
-					ProfilePicture = user.ProfilePicture,
+                    // email = user.Email,
+					// ProfilePicture = user.ProfilePicture,
 				});
             }
             catch (Exception ex)
@@ -149,7 +149,8 @@ namespace Notes.Repository
                 { success = true, 
                     message = "Token is valid.", 
                     userId = user.UserId,
-					profilePicture = user.ProfilePicture
+                    username = user.Username,
+					// profilePicture = user.ProfilePicture
 				});
             }
             catch (SecurityTokenExpiredException)

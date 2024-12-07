@@ -19,81 +19,94 @@ namespace Notes.Repositories
 
      
         
-        public async Task<IActionResult> AddNote(EditNoteTitleDTO dto)
+public async Task<IActionResult> AddNote(EditNoteTitleDTO dto)
+{
+    try
+    {
+        // Validate the input
+        if (string.IsNullOrWhiteSpace(dto.Title) || string.IsNullOrWhiteSpace(dto.Tag))
         {
-            try
+            return new BadRequestObjectResult(new
             {
-                // Validate the input
-                if (string.IsNullOrWhiteSpace(dto.Title) || string.IsNullOrWhiteSpace(dto.Tag))
-                {
-                    return new BadRequestObjectResult(new
-                    {
-                        success = false,
-                        message = "Title and Tag are required."
-                    });
-                }
-
-                if (dto.UserId == Guid.Empty)
-                {
-                    return new BadRequestObjectResult(new
-                    {
-                        success = false,
-                        message = "Invalid User ID."
-                    });
-                }
-
-                // Generate a new GUID for the NoteId
-                var newNoteId = Guid.NewGuid();
-
-                // Create a new NotesTitle entity
-                var newNote = new Notes.Entities.NotesTitle
-                {
-                    NoteId = newNoteId,
-                    Title = dto.Title,
-                    Tag = dto.Tag,
-                    Favourite = (byte)dto.Favourite,
-                    DateCreated = DateTime.UtcNow,
-                    DateEdited = DateTime.UtcNow,
-                    IsActive = 1
-                };
-
-                // Add the note to the database
-                await _context.NotesTitles.AddAsync(newNote);
-
-                // Create a new UserNotes entry to set the user as the owner
-                var userNote = new Notes.Entities.UserNotes
-                {
-                    UserId = dto.UserId,
-                    NoteId = newNoteId,
-                    Role = NoteRoles.Owner,
-                    AccessGrantedAt = DateTime.UtcNow
-                };
-
-                // Add the UserNotes entry
-                await _context.UserNotes.AddAsync(userNote);
-
-                // Save changes
-                await _context.SaveChangesAsync();
-
-                return new OkObjectResult(new
-                {
-                    success = true,
-                    message = "Note added successfully.",
-                    noteId = newNoteId
-                });
-            }
-            catch (Exception ex)
-            {
-                return new ObjectResult(new
-                {
-                    success = false,
-                    message = $"An error occurred: {ex.Message}"
-                })
-                {
-                    StatusCode = 500
-                };
-            }
+                success = false,
+                message = "Title and Tag are required."
+            });
         }
+
+        if (dto.UserId == Guid.Empty)
+        {
+            return new BadRequestObjectResult(new
+            {
+                success = false,
+                message = "Invalid User ID."
+            });
+        }
+
+        // Generate a new GUID for the NoteId
+        var newNoteId = Guid.NewGuid();
+
+        // Create a new NotesTitle entity
+        var newNote = new Notes.Entities.NotesTitle
+        {
+            NoteId = newNoteId,
+            Title = dto.Title,
+            Tag = dto.Tag,
+            Favourite = (byte)dto.Favourite,
+            DateCreated = DateTime.UtcNow,
+            DateEdited = DateTime.UtcNow,
+            IsActive = 1
+        };
+
+        // Add the note to the database
+        await _context.NotesTitles.AddAsync(newNote);
+
+        // Create a new UserNotes entry to set the user as the owner
+        var userNote = new Notes.Entities.UserNotes
+        {
+            UserId = dto.UserId,
+            NoteId = newNoteId,
+            Role = NoteRoles.Owner,
+            AccessGrantedAt = DateTime.UtcNow
+        };
+
+        // Add the UserNotes entry
+        await _context.UserNotes.AddAsync(userNote);
+
+        // Create a new Content row associated with the NoteId
+        var newContent = new Notes.Entities.Content
+        {
+            NoteId = newNoteId,
+            FormattedContent = string.Empty, // Initialize with empty content
+            ContentType = "HTML",            // Default content type
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow
+        };
+
+        // Add the Content row to the database
+        await _context.Content.AddAsync(newContent);
+
+        // Save all changes to the database
+        await _context.SaveChangesAsync();
+
+        return new OkObjectResult(new
+        {
+            success = true,
+            message = "Note and content added successfully.",
+            noteId = newNoteId
+        });
+    }
+    catch (Exception ex)
+    {
+        return new ObjectResult(new
+        {
+            success = false,
+            message = $"An error occurred: {ex.Message}"
+        })
+        {
+            StatusCode = 500
+        };
+    }
+}
         
         public async Task<IEnumerable<ReadNoteDTO>> GetAllActiveNotes(Guid userId)
         {
