@@ -6,6 +6,11 @@ using Notes.Repositories.Interrfaces;
 using Notes.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.WebHost.ConfigureKestrel(options =>
+{
+	options.ListenAnyIP(5189); // HTTP
+	options.ListenAnyIP(7274, listenOptions => listenOptions.UseHttps()); // HTTPS
+});
 
 // Add services to the container.
 
@@ -24,15 +29,19 @@ builder.Services.AddScoped<INotesTitleRepository, NotesTitleRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IContentRepository, ContentRepository>();
 CryptoHelper.Initialize(builder.Configuration);
-
-// Add CORS policy
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend",
-        policy => policy.WithOrigins("http://localhost:3000") 
-            .AllowAnyHeader()
-            .AllowAnyMethod());
+	builder.Services.AddCors(options =>
+	{
+		options.AddPolicy("AllowAll", builder =>
+		{
+			builder.AllowAnyOrigin()
+				   .AllowAnyMethod()
+				   .AllowAnyHeader();
+		});
+	});
 });
+
 
 var app = builder.Build();
 
@@ -43,10 +52,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Use CORS
-app.UseCors("AllowFrontend");
 
-app.UseHttpsRedirection();
+
+
+
+// Use CORS
+app.UseCors("AllowAll");
+
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

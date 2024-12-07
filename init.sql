@@ -2,6 +2,7 @@ CREATE DATABASE MyDatabase;
 GO
 
 USE MyDatabase;
+GO
 
 CREATE TABLE Users (
                        UserId UNIQUEIDENTIFIER PRIMARY KEY, -- Primary Key
