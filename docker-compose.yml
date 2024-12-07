@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "5189:8080" # Maps host port 5000 to container port 5189
+      - "80:8080" # Maps host port 5000 to container port 5189
       - "7274:8081" # Maps host port 5000 to container port 7274
 
   MyDatabase:
