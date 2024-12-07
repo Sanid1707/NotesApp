@@ -1,4 +1,3 @@
-#create a file that would start a sql server on port 1433
 version: "3.9"
 
 services:
@@ -7,9 +6,12 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "80:8080" # Maps host port 5000 to container port 5189
-      - "7274:8081" # Maps host port 5000 to container port 7274
-    
+      - "80:8080"   # Maps host port 80 to container port 8080
+      - "7274:8081" # Maps host port 7274 to container port 8081
+    depends_on:
+      - MyDatabase  # Ensures MyDatabase starts before notesapi
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=MyDatabase,1433;Database=MyDatabase;User Id=sa;Password=YourStrongPassword123;" # Pass connection string to the API
 
   MyDatabase:
     image: mcr.microsoft.com/mssql/server:2022-latest
@@ -17,14 +19,17 @@ services:
     ports:
       - "1433:1433"  # Map port 1433 on the host to port 1433 in the container
     environment:
-      
       SA_PASSWORD: "YourStrongPassword123"  # Set the SQL Server admin password
       ACCEPT_EULA: "Y"                      # Accept the license agreement
-      MSSQL_DATABASE: "MyDatabase"
-
     volumes:
-      - ./init.sql:/var/opt/mssql/init.sql       # Mount a volume for data persistence
+      - sqlserver_data:/var/opt/mssql       # Mount a named volume for data persistence
+      - ./init.sql:/var/opt/mssql/init.sql  # Mount the initialization script for creating the database
+    entrypoint: >
+      /bin/bash -c "(
+      /opt/mssql/bin/sqlservr &
+      sleep 15 &&
+      /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'YourStrongPassword123' -i /var/opt/mssql/init.sql
+      )"
+
 volumes:
   sqlserver_data:                           # Declare the volume for persistence
-
-  
