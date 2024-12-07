@@ -1,15 +1,27 @@
 #create a file that would start a sql server on port 1433
 version: "3.9"
+
 services:
-  sqlserver:
+  notesapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:8080" # Maps host port 5000 to container port 5189
+      - "7274:8081" # Maps host port 5000 to container port 7274
+
+  MyDatabase:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserver
+    container_name: MyDatabase
     ports:
       - "1433:1433"  # Map port 1433 on the host to port 1433 in the container
     environment:
+      
       SA_PASSWORD: "YourStrongPassword123"  # Set the SQL Server admin password
       ACCEPT_EULA: "Y"                      # Accept the license agreement
     volumes:
       - sqlserver_data:/var/opt/mssql       # Mount a volume for data persistence
 volumes:
   sqlserver_data:                           # Declare the volume for persistence
+
+  
