@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using Notes.DTOs;
-using Notes.Entities;
 using Notes.Repositories.Interfaces;
 
 namespace Notes.Controllers
@@ -26,43 +25,25 @@ namespace Notes.Controllers
 
             if (content == null)
             {
-                return NotFound(new { message = "Content not found." });
+                return NotFound(new { success = false, message = "Content not found." });
             }
 
-            // Map to ContentDto
-            var contentDto = new ContentDto
-            {
-                NoteId = content.NoteId,
-                FormattedContent = content.FormattedContent,
-                ContentType = content.ContentType,
-                UpdatedAt = content.UpdatedAt
-            };
-
-            return Ok(contentDto);
+            return Ok(new { success = true, data = content });
         }
 
+        
         // PUT: api/content/{noteId}
         [HttpPut("{noteId}")]
         public async Task<IActionResult> UpdateContent(Guid noteId, [FromBody] ContentUpdateDto contentUpdateDto)
         {
             if (contentUpdateDto == null || string.IsNullOrWhiteSpace(contentUpdateDto.FormattedContent))
             {
-                return BadRequest(new { message = "Invalid content data." });
+                return BadRequest(new { success = false, message = "Invalid content data." });
             }
 
-            var updatedContent = await _contentRepository.UpdateContentAsync(
-                noteId,
-                contentUpdateDto.FormattedContent,
-                contentUpdateDto.ContentType
-            );
+            var updatedContent = await _contentRepository.UpdateContentAsync(noteId, contentUpdateDto);
 
-            return Ok(new ContentDto
-            {
-                NoteId = updatedContent.NoteId,
-                FormattedContent = updatedContent.FormattedContent,
-                ContentType = updatedContent.ContentType,
-                UpdatedAt = updatedContent.UpdatedAt
-            });
+            return Ok(new { success = true, message = "Content updated successfully.", data = updatedContent });
         }
     }
 }

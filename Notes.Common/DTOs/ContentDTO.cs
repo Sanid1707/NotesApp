@@ -8,6 +8,8 @@ namespace Notes.DTOs
         public string FormattedContent { get; set; }
         public string ContentType { get; set; }
         public DateTime UpdatedAt { get; set; } // To show last updated timestamp
+        public string NoteTitle { get; set; } // Title of the note
+        public string? Tag { get; set; } 
     }
 
     public class ContentUpdateDto

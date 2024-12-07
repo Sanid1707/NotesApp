@@ -9,7 +9,7 @@ namespace Notes.Repository
 
         public DbSet<User> Users { get; set; }
         public DbSet<NotesTitle> NotesTitles { get; set; }
-        public DbSet<Content> Contents { get; set; }
+        public DbSet<Content> Content { get; set; }
         public DbSet<UserNotes> UserNotes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
