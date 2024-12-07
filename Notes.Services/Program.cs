@@ -15,8 +15,17 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Add DbContext
-builder.Services.AddDbContext<NotesDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+try{
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    Console.WriteLine($"Attempting to connect to database: {connectionString}");
+
+    builder.Services.AddDbContext<NotesDbContext>(options =>
+        options.UseSqlServer(connectionString));
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Error initializing database connection: {ex.Message}");
+}
 
 // Add scoped services
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
