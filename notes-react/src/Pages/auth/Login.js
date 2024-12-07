@@ -90,6 +90,7 @@ import {
   Grid,
 } from "@mui/material";
 import { Visibility, VisibilityOff, Google, SportsEsports } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -98,6 +99,7 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -127,7 +129,7 @@ const Login = () => {
       setSuccessMessage("Login successful!");
       console.log("Success:", result);
       if (response.ok) {
-        window.location.href = "/dashboard";
+        navigate("/dashboard"); 
         // Save the token and user details in localStorage
         localStorage.setItem("token", result.token);
         localStorage.setItem("userId", result.userId);
@@ -140,6 +142,7 @@ const Login = () => {
       setErrorMessage("Login failed. Please check your credentials.");
     }
   };
+
 
   const handleSocialLogin = (provider) => {
     console.log(`Logging in with ${provider}`);
