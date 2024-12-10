@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"   # Maps host port 80 to container port 8080
+      - "80:8080"   # Maps host port 80 to container port 8080
       - "7274:8081" # Maps host port 7274 to container port 8081
     depends_on:
       - MyDatabase  # Ensures MyDatabase starts before notesapi
@@ -15,7 +15,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: MyDatabase
     ports:
-      - "80:1433"  # Map port 1433 on the host to port 1433 in the container
+      - "1433:1433"  # Map port 1433 on the host to port 1433 in the container
     environment:
       SA_PASSWORD: "YourStrongPassword123"  # Set the SQL Server admin password
       ACCEPT_EULA: "Y"                      # Accept the license agreement
