@@ -15,7 +15,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: MyDatabase
     ports:
-      - "1433:1433"  # Map port 1433 on the host to port 1433 in the container
+      - "80:1433"  # Map port 1433 on the host to port 1433 in the container
     environment:
       SA_PASSWORD: "YourStrongPassword123"  # Set the SQL Server admin password
       ACCEPT_EULA: "Y"                      # Accept the license agreement
