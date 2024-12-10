@@ -19,6 +19,7 @@ services:
     environment:
       SA_PASSWORD: "YourStrongPassword123"  # Set the SQL Server admin password
       ACCEPT_EULA: "Y"                      # Accept the license agreement
+      MYSQL_DATABASE: MyDatabase
     volumes:
       - sqlserver_data:/var/opt/mssql       # Mount a named volume for data persistence
       - ./init.sql:/var/opt/mssql/init.sql  # Mount the SQL initialization script
