@@ -54,3 +54,48 @@ A simple and efficient Notes application built using **React** for the frontend 
 - .NET SDK installed.
 - SQL Server running locally or accessible remotely.
 
+
+
+# **Notes App Solution**
+
+Welcome to the **Notes App** project! This solution is designed with modern software engineering principles and clean architecture to ensure maintainability, scalability, and testability. It features a multi-layered structure with a backend built in **ASP.NET Core Web API** and a frontend in **React**.
+
+---
+
+## **1. Solution Structure**
+
+The project is organized into separate solutions to promote modularity and separation of concerns:
+
+```plaintext
+📦 NotesAppSolution/
+│
+├── 📂 Common (Class Library)
+│   ├── Enums/                     # Shared enums for the project
+│   ├── DTOs/                      # Data Transfer Objects for clean data exchange
+│   ├── CryptoHelper.cs            # Utility for encryption and decryption
+│   └── Converters/                # Converters for mapping DTOs to Entities and vice versa
+│
+├── 📂 Entities (Class Library)
+│   ├── Models/                    # Database entity models (e.g., Note, User)
+│   └── Scripts/                   # SQL scripts for schema creation
+│
+├── 📂 Repository (Class Library)
+│   ├── Interfaces/                # Repository interfaces (e.g., INoteRepository)
+│   └── Implementations/           # Concrete repository implementations
+│
+├── 📂 Service (ASP.NET Core Web API)
+│   ├── Controllers/               # API endpoints (e.g., NotesController)
+│   ├── Program.cs                 # Application entry point and dependency injection
+│   └── Startup.cs                 # Middleware and service configuration
+│
+├── 📂 Test (Class Library)
+│   ├── NotesRepositoryTests.cs    # Unit tests for repositories
+│   └── NotesControllerTests.cs    # Unit tests for controllers
+│
+└── 📂 React (Frontend)
+    ├── src/
+        ├── Components/            # UI components
+        ├── Pages/                 # Application pages
+        ├── API/                   # API integration
+        └── App.js                 # Main React application file
+
