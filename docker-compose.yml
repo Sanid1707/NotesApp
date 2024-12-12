@@ -16,6 +16,8 @@ services:
       - "443:8081" # Maps host port 7274 to container port 8081
     depends_on:
       - MyDatabase  # Ensures MyDatabase starts before notesapi
+    volumes:
+     - ./MultiApp/https/aspnetapp.pfx:/https/aspnetapp.pfx:ro
 
   MyDatabase:
     image: mcr.microsoft.com/mssql/server:2022-latest
@@ -32,4 +34,4 @@ services:
 
 volumes:
   sqlserver_data:                           # Declare the volume for persistence
-    - ./MultiApp/https/aspnetapp.pfx:/https/aspnetapp.pfx:ro
+   
