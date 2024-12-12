@@ -17,7 +17,7 @@ services:
     depends_on:
       - MyDatabase  # Ensures MyDatabase starts before notesapi
     volumes:
-     - ./MultiApp/https/aspnetapp.pfx:/https/aspnetapp.pfx:ro
+     - .NotesApp/https/aspnetapp.pfx:/https/aspnetapp.pfx:ro
 
   MyDatabase:
     image: mcr.microsoft.com/mssql/server:2022-latest
