@@ -55,7 +55,7 @@ const NotesCanvas = () => {
         contentType: tag,
       };
 
-      const response = await fetch(`http://localhost:5189/api/content/${noteId}`, {
+      const response = await fetch(`/api/content/${noteId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
