@@ -23,7 +23,7 @@ const NotesCanvas = () => {
     const fetchNoteContent = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(`http://localhost:5189/api/content/${noteId}`);
+        const response = await fetch(`http://ec2-51-20-142-84.eu-north-1.compute.amazonaws.com:80/api/content/${noteId}`);
         if (!response.ok) {
           throw new Error("Failed to fetch note content");
         }
