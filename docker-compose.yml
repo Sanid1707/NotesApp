@@ -5,9 +5,15 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=mypass123
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
     ports:
       - "80:8080"   # Maps host port 80 to container port 8080
-      - "7274:8081" # Maps host port 7274 to container port 8081
+      - "443:8081" # Maps host port 7274 to container port 8081
     depends_on:
       - MyDatabase  # Ensures MyDatabase starts before notesapi
 
@@ -26,3 +32,5 @@ services:
 
 volumes:
   sqlserver_data:                           # Declare the volume for persistence
+volumes:
+    - ./MultiApp/https/aspnetapp.pfx:/https/aspnetapp.pfx:ro
