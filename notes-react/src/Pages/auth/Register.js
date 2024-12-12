@@ -82,7 +82,7 @@ const Register = () => {
         profilePicture: formData.profilePicture,
       });
 
-      const response = await axios.post("/api/auth/register", {
+      const response = await axios.post("http://ec2-51-20-142-84.eu-north-1.compute.amazonaws.com:80/api/auth/register", {
         username: formData.username,
         email: formData.email,
         password: formData.password,

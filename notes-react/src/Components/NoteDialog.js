@@ -1,4 +1,3 @@
-
 import {
   Dialog,
   DialogTitle,
@@ -17,19 +16,31 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
+// Enum to match backend byte representation of roles
+const NoteRoles = {
+  Owner: 0,
+  Editor: 1,
+  Viewer: 2
+};
+
+const roleEnum = Object.fromEntries(
+  Object.entries(NoteRoles).map(([key, value]) => [value, key])
+);
 const EditNoteDialog = ({ open, onClose, note }) => {
   const [dialogTab, setDialogTab] = useState(0);
   const [selectedNote, setSelectedNote] = useState(note);
   const [allUsers, setAllUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState("");
-  const [selectedRole, setSelectedRole] = useState(2); // Default: Viewer
+  const [selectedRole, setSelectedRole] = useState(NoteRoles.Viewer);
   const [addedCollaborators, setAddedCollaborators] = useState([]);
   const [noteStatus, setNoteStatus] = useState(1);
+  const [modifiedCollaborators, setModifiedCollaborators] = useState([]);
 
-  const roleEnum = {
-    0: "Owner",
-    1: "Editor",
-    2: "Viewer",
+  // Role mapping for display
+  const roleLabels = {
+    [NoteRoles.Owner]: "Owner",
+    [NoteRoles.Editor]: "Editor", 
+    [NoteRoles.Viewer]: "Viewer"
   };
 
   useEffect(() => {
@@ -43,7 +54,7 @@ const EditNoteDialog = ({ open, onClose, note }) => {
     if (dialogTab === 1) {
       const fetchAllUsers = async () => {
         try {
-          const response = await fetch("/api/user/get-all-users");
+          const response = await fetch("http://ec2-51-20-142-84.eu-north-1.compute.amazonaws.com:80/api/user/get-all-users");
           if (!response.ok) throw new Error("Failed to fetch users");
           const data = await response.json();
           setAllUsers(data);
@@ -60,12 +71,27 @@ const EditNoteDialog = ({ open, onClose, note }) => {
   };
 
   const handleRoleChange = (userId, newRole) => {
-    setSelectedNote((prevNote) => ({
-      ...prevNote,
-      collaborators: prevNote.collaborators.map((c) =>
+    // Track modified collaborators
+    const isModified = !modifiedCollaborators.some(m => m.userId === userId);
+    
+    setSelectedNote((prevNote) => {
+      const updatedCollaborators = prevNote.collaborators.map((c) =>
         c.userId === userId ? { ...c, role: newRole } : c
-      ),
-    }));
+      );
+      
+      return {
+        ...prevNote,
+        collaborators: updatedCollaborators
+      };
+    });
+
+    // Add to modified collaborators if not already tracked
+    if (isModified) {
+      setModifiedCollaborators(prev => [
+        ...prev, 
+        { userId, role: newRole }
+      ]);
+    }
   };
 
   const handleDeleteSelected = async () => {
@@ -81,7 +107,7 @@ const EditNoteDialog = ({ open, onClose, note }) => {
 
     try {
       const response = await fetch(
-        "/api/user/delete-collaborators",
+        "http://ec2-51-20-142-84.eu-north-1.compute.amazonaws.com:80/api/user/delete-collaborators",
         {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
@@ -105,9 +131,10 @@ const EditNoteDialog = ({ open, onClose, note }) => {
   };
 
   const handleSaveChanges = async () => {
+    // Only send modified collaborators to reduce unnecessary API calls
     const payload = {
       noteId: selectedNote.noteId,
-      collaborators: selectedNote.collaborators.map((collab) => ({
+      collaborators: modifiedCollaborators.map((collab) => ({
         userId: collab.userId,
         role: collab.role,
         status: 1,
@@ -116,7 +143,7 @@ const EditNoteDialog = ({ open, onClose, note }) => {
 
     try {
       const response = await fetch(
-        "/api/user/edit-collaborators",
+        "http://ec2-51-20-142-84.eu-north-1.compute.amazonaws.com:80/api/user/edit-collaborators",
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -124,7 +151,11 @@ const EditNoteDialog = ({ open, onClose, note }) => {
         }
       );
       const data = await response.json();
-      if (!data.success) {
+      if (data.success) {
+        // Reset modified collaborators after successful update
+        setModifiedCollaborators([]);
+        // Optionally, you might want to refresh the note data here
+      } else {
         console.error("Failed to update collaborators:", data.message);
       }
     } catch (error) {
@@ -144,7 +175,7 @@ const EditNoteDialog = ({ open, onClose, note }) => {
 
     try {
       const response = await fetch(
-        "/api/user/add-multiple-collaborators",
+        "http://ec2-51-20-142-84.eu-north-1.compute.amazonaws.com:80/api/user/add-multiple-collaborators",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -183,7 +214,7 @@ const EditNoteDialog = ({ open, onClose, note }) => {
     };
 
     try {
-      const response = await fetch("/api/notesTitle/edit-note", {
+      const response = await fetch("http://ec2-51-20-142-84.eu-north-1.compute.amazonaws.com:80/api/notesTitle/edit-note", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -204,7 +235,7 @@ const EditNoteDialog = ({ open, onClose, note }) => {
     };
 
     try {
-      const response = await fetch("/api/notesTitle/delete-note", {
+      const response = await fetch("http://ec2-51-20-142-84.eu-north-1.compute.amazonaws.com:80/api/notesTitle/delete-note", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -262,6 +293,7 @@ const EditNoteDialog = ({ open, onClose, note }) => {
                     }}
                   >
                     <Checkbox
+                      checked={collab.isSelected || false}
                       onChange={(e) => {
                         setSelectedNote((prevNote) => ({
                           ...prevNote,
@@ -279,7 +311,7 @@ const EditNoteDialog = ({ open, onClose, note }) => {
                     </Typography>
                     <TextField
                       select
-                      value={collab.role || 2}
+                      value={collab.role ?? NoteRoles.Viewer}
                       onChange={(e) =>
                         handleRoleChange(collab.userId, Number(e.target.value))
                       }
@@ -290,9 +322,11 @@ const EditNoteDialog = ({ open, onClose, note }) => {
                       }}
                       SelectProps={{ native: true }}
                     >
-                      <option value={0}>Owner</option>
-                      <option value={1}>Editor</option>
-                      <option value={2}>Viewer</option>
+                      {Object.entries(roleLabels).map(([roleValue, roleLabel]) => (
+                        <option key={roleValue} value={roleValue}>
+                          {roleLabel}
+                        </option>
+                      ))}
                     </TextField>
                   </Box>
                 ))

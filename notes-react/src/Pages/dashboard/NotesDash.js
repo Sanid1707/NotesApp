@@ -50,8 +50,8 @@ const NotesDash = () => {
     try {
       const endpoint =
         currentTab === 0
-          ? `/api/notesTitle/get-all-notes/${userId}`
-          : `/api/notesTitle/get-archived-notes/${userId}`;
+          ? `http://ec2-51-20-142-84.eu-north-1.compute.amazonaws.com:80/api/notesTitle/get-all-notes/${userId}`
+          : `http://ec2-51-20-142-84.eu-north-1.compute.amazonaws.com:80/api/notesTitle/get-archived-notes/${userId}`;
       const response = await fetch(endpoint);
       if (!response.ok) {
         throw new Error("Failed to fetch notes.");
@@ -67,7 +67,7 @@ const NotesDash = () => {
   const handleFavouriteToggle = async (noteId) => {
     try {
       const response = await fetch(
-        `/api/notesTitle/toggle-favourite/${noteId}`,
+        `http://ec2-51-20-142-84.eu-north-1.compute.amazonaws.com:80/api/notesTitle/toggle-favourite/${noteId}`,
         {
           method: "PATCH",
           headers: {

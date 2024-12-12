@@ -75,6 +75,7 @@
 
 // export default Login;
 
+
 import "./Login.css";
 import React, { useState } from "react";
 import {
@@ -107,42 +108,46 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setIsSubmitting(true);
+    setErrorMessage("");
+    setSuccessMessage("");
+  
     const data = { email, password };
-
+  
     try {
-      const response = await fetch(`/api/auth/login`, {
+      const response = await fetch(`http://ec2-51-20-142-84.eu-north-1.compute.amazonaws.com:80/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
-      }
-
+  
       const result = await response.json();
-
-      result.userId = 
-      setSuccessMessage("Login successful!");
-      console.log("Success:", result);
-      if (response.ok) {
-        navigate("/dashboard"); 
+  
+      if (result.success) {
+        // Remove the incomplete line
+        setSuccessMessage("Login successful!");
+        console.log("Success:", result);
+        
         // Save the token and user details in localStorage
         localStorage.setItem("token", result.token);
         localStorage.setItem("userId", result.userId);
-        localStorage.setItem("email", result.email);
-    }
-      
-
+        localStorage.setItem("username", result.username);
+        
+        // Navigate to dashboard
+        navigate("/dashboard");
+      } else {
+        // Handle unsuccessful login
+        setErrorMessage(result.message || "Login failed. Please check your credentials.");
+      }
     } catch (error) {
       console.error("Error:", error);
-      setErrorMessage("Login failed. Please check your credentials.");
+      setErrorMessage("An error occurred during login. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
-
 
   const handleSocialLogin = (provider) => {
     console.log(`Logging in with ${provider}`);
