@@ -15,6 +15,8 @@ COPY ["Notes.Common/Notes.Common.csproj", "Notes.Common/"]
 COPY ["Notes.Entities/Notes.Entities.csproj", "Notes.Entities/"]
 COPY ["Notes.Repositories/Notes.Repositories.csproj", "Notes.Repositories/"]
 COPY ["Notes.Services/Notes.Services.csproj", "Notes.Services/"]
+#dotnet restore
+
 
 RUN dotnet restore "Notes.Services/Notes.Services.csproj"
 COPY . .
