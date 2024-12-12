@@ -32,3 +32,5 @@ services:
 
 volumes:
   sqlserver_data:                           # Declare the volume for persistence
+volumes:
+    - ./MultiApp/https/aspnetapp.pfx:/https/aspnetapp.pfx:ro
