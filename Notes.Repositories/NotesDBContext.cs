@@ -9,24 +9,103 @@ namespace Notes.Repository
 
         public DbSet<User> Users { get; set; }
         public DbSet<NotesTitle> NotesTitles { get; set; }
+        public DbSet<ExternalLogin> ExternalLogins { get; set; }
         public DbSet<Content> Content { get; set; }
         public DbSet<UserNotes> UserNotes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // User entity configuration
-            modelBuilder.Entity<User>(entity =>
+                       modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(u => u.UserId);
-                entity.Property(u => u.Username).IsRequired().HasMaxLength(50);
-                entity.HasIndex(u => u.Email).IsUnique();
-                entity.Property(u => u.Email).IsRequired().HasMaxLength(100);
-                entity.Property(u => u.Password).IsRequired();
-                entity.Property(u => u.Role).IsRequired();
-                entity.Property(u => u.CreatedAt).IsRequired().HasDefaultValueSql("GETDATE()");
-                entity.Property(u => u.IsActive).IsRequired().HasDefaultValue((byte)1);
-                entity.Property(u => u.ProfilePicture).IsRequired(false);
+
+                entity.Property(u => u.Username)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.HasIndex(u => u.Email)
+                    .IsUnique();
+                entity.Property(u => u.Email)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(u => u.Password)
+                    .IsRequired();
+
+                entity.Property(u => u.Role)
+                    .IsRequired();
+
+                entity.Property(u => u.CreatedAt)
+                    .IsRequired()
+                    .HasDefaultValueSql("GETDATE()");
+
+                entity.Property(u => u.IsActive)
+                    .IsRequired();
+
+                entity.Property(u => u.ProfilePicture)
+                    .IsRequired(false);
+
+                entity.Property(u => u.EmailConfirmed)
+                    .IsRequired();
+
+                entity.Property(u => u.EmailVerificationToken)
+                    .IsRequired(false);
+
+                entity.Property(u => u.TokenExpiration)
+                    .IsRequired(false);
+
+                entity.Property(u => u.TwoFactorEnabled)
+                    .IsRequired();
+
+                entity.Property(u => u.LatestOtp)
+                    .IsRequired(false);
+
+                entity.Property(u => u.OtpExpiration)
+                    .IsRequired(false);
+
+                entity.Property(u => u.LatestJwtToken)
+                    .IsRequired(false);
+
+                entity.Property(u => u.JwtTokenIssuedAt)
+                    .IsRequired(false);
+
+                // Relationship: User -> ExternalLogins
+                entity.HasMany(u => u.ExternalLogins)
+                      .WithOne(el => el.User)
+                      .HasForeignKey(el => el.UserId)
+                      .OnDelete(DeleteBehavior.Cascade);
+
+                // Relationship: User -> UserNotes
+                entity.HasMany(u => u.UserNotes)
+                      .WithOne(un => un.User)
+                      .HasForeignKey(un => un.UserId)
+                      .OnDelete(DeleteBehavior.Cascade);
             });
+
+            // ExternalLogin entity configuration
+            modelBuilder.Entity<ExternalLogin>(entity =>
+            {
+                entity.HasKey(el => el.ExternalLoginId);
+
+                entity.Property(el => el.Provider)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(el => el.ProviderKey)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(el => el.CreatedAt)
+                    .IsRequired()
+                    .HasDefaultValueSql("GETDATE()");
+
+                entity.HasOne(el => el.User)
+                      .WithMany(u => u.ExternalLogins)
+                      .HasForeignKey(el => el.UserId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
 
             // NotesTitle entity configuration
             modelBuilder.Entity<NotesTitle>(entity =>

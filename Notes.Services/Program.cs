@@ -27,6 +27,7 @@ catch (Exception ex)
     Console.WriteLine($"Error initializing database connection: {ex.Message}");
 }
 
+
 // Add scoped services
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<INotesTitleRepository, NotesTitleRepository>();
