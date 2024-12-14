@@ -4,6 +4,7 @@ using Notes.Repositories;
 using Notes.Repositories.Interfaces;
 using Notes.Repositories.Interrfaces;
 using Notes.Repository;
+using Notes.Services.EmailService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +34,7 @@ builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<INotesTitleRepository, NotesTitleRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IContentRepository, ContentRepository>();
+builder.Services.AddScoped<IEmailService, SendGridEmailService>();
 CryptoHelper.Initialize(builder.Configuration);
 
 // Add CORS policy
