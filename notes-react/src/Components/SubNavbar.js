@@ -216,7 +216,7 @@
 //     }
 
 //     try {
-//       const response = await fetch("http://ec2-51-20-142-84.eu-north-1.compute.amazonaws.com:80/api/notesTitle/add-note", {
+//       const response = await fetch("http://localhost:5189/api/notesTitle/add-note", {
 //         method: "POST",
 //         headers: {
 //           "Content-Type": "application/json",
@@ -464,7 +464,7 @@ const SubNavbar = ({ currentTab, setCurrentTab, onAddNote }) => {
         favourite: newNote.favourite,
       };
 
-      const response = await fetch("http://ec2-51-20-142-84.eu-north-1.compute.amazonaws.com:80/api/notesTitle/add-note", {
+      const response = await fetch("http://localhost:5189/api/notesTitle/add-note", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

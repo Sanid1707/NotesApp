@@ -19,7 +19,7 @@ namespace Notes.Repositories
 
      
         
-public async Task<IActionResult> AddNote(EditNoteTitleDTO dto)
+        public async Task<IActionResult> AddNote(EditNoteTitleDTO dto)
 {
     try
     {
@@ -226,6 +226,7 @@ public async Task<IActionResult> AddNote(EditNoteTitleDTO dto)
     }
 }
         
+         
         //Only the Owner has the permission to Delete the Following note 
         public async Task<IActionResult> DeleteNoteTitle(DeleteNoteDTO dto)
         {

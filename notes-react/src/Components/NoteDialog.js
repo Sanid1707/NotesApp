@@ -54,22 +54,36 @@ const EditNoteDialog = ({ open, onClose, note }) => {
     if (dialogTab === 1) {
       const fetchAllUsers = async () => {
         try {
-          const response = await fetch("http://ec2-51-20-142-84.eu-north-1.compute.amazonaws.com:80/api/user/get-all-users");
-          if (!response.ok) throw new Error("Failed to fetch users");
+          const response = await fetch(
+            "http://localhost:5189/api/user/get-all-users"
+          );
+  
+          // Log the HTTP response status for debugging
+          console.log("Response Status:", response.status);
+  
+          if (!response.ok) {
+            const responseText = await response.text();
+            console.error("Failed Response Body:", responseText);
+            throw new Error(`Failed to fetch users: ${response.statusText} (Status: ${response.status})`);
+          }
+  
+          // Parse JSON response
           const data = await response.json();
-          setAllUsers(data);
+          console.log("API Result:", data); // Log the result from the API
+  
+          setAllUsers(data); // Set the data to state
         } catch (error) {
-          console.error("Error fetching users:", error);
+          console.error("Error fetching users:", error.message);
         }
       };
+  
       fetchAllUsers();
     }
   }, [dialogTab]);
-
+  
   const handleDialogTabChange = (event, newValue) => {
     setDialogTab(newValue);
   };
-
   const handleRoleChange = (userId, newRole) => {
     // Track modified collaborators
     const isModified = !modifiedCollaborators.some(m => m.userId === userId);
@@ -107,7 +121,7 @@ const EditNoteDialog = ({ open, onClose, note }) => {
 
     try {
       const response = await fetch(
-        "http://ec2-51-20-142-84.eu-north-1.compute.amazonaws.com:80/api/user/delete-collaborators",
+        "http://localhost:5189/api/user/delete-collaborators",
         {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
@@ -143,7 +157,7 @@ const EditNoteDialog = ({ open, onClose, note }) => {
 
     try {
       const response = await fetch(
-        "http://ec2-51-20-142-84.eu-north-1.compute.amazonaws.com:80/api/user/edit-collaborators",
+        "http://localhost:5189/api/user/edit-collaborators",
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -175,7 +189,7 @@ const EditNoteDialog = ({ open, onClose, note }) => {
 
     try {
       const response = await fetch(
-        "http://ec2-51-20-142-84.eu-north-1.compute.amazonaws.com:80/api/user/add-multiple-collaborators",
+        "http://localhost:5189/api/user/add-multiple-collaborators",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -214,7 +228,7 @@ const EditNoteDialog = ({ open, onClose, note }) => {
     };
 
     try {
-      const response = await fetch("http://ec2-51-20-142-84.eu-north-1.compute.amazonaws.com:80/api/notesTitle/edit-note", {
+      const response = await fetch("http://localhost:5189/api/notesTitle/edit-note", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -235,7 +249,7 @@ const EditNoteDialog = ({ open, onClose, note }) => {
     };
 
     try {
-      const response = await fetch("http://ec2-51-20-142-84.eu-north-1.compute.amazonaws.com:80/api/notesTitle/delete-note", {
+      const response = await fetch("http://localhost:5189/api/notesTitle/delete-note", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

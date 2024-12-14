@@ -33,7 +33,7 @@ const ProfilePage = () => {
       setIsLoading(true);
       try {
         const response = await axios.get(
-          `http://ec2-51-20-142-84.eu-north-1.compute.amazonaws.com:80/api/user/get-user/${userId}`,
+          `http://localhost:5189/api/user/get-user/${userId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -83,7 +83,7 @@ const ProfilePage = () => {
       };
 
       const response = await axios.put(
-        "http://ec2-51-20-142-84.eu-north-1.compute.amazonaws.com:80/api/user/update-user",
+        "http://localhost:5189/api/user/update-user",
         payload,
         {
           headers: {
@@ -105,7 +105,7 @@ const ProfilePage = () => {
   const handleDeleteAccount = async () => {
     try {
       const response = await axios.delete(
-        `http://ec2-51-20-142-84.eu-north-1.compute.amazonaws.com:80/api/user/delete-user/${userId}`,
+        `http://localhost:5189/api/user/delete-user/${userId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

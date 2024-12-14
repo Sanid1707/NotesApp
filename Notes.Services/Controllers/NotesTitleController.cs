@@ -11,7 +11,7 @@ namespace Notes.Controllers
         private readonly INotesTitleRepository _notesTitleRepository;
 
         public NotesTitleController(INotesTitleRepository notesTitleRepository)
-        {
+        { 
             _notesTitleRepository = notesTitleRepository;
         }
         

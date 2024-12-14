@@ -190,7 +190,9 @@ namespace Notes.Repository
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-
+        
+        
+        // The method validates email addresses by leveraging the MailAddress class
         private bool IsValidEmail(string email)
         {
             try
