@@ -16,5 +16,6 @@ namespace Notes.Repository
 
         Task<IActionResult> Login(LoginRequest dto);
         Task<IActionResult> ValidateToken(string token);
+        Task<IActionResult> VerifyEmail(string token);
     }
 }

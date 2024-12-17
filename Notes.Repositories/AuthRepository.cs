@@ -10,8 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Notes.Common.DTOs;
 using Notes.Common.Enums;
+using Notes.Common.Templates;
 using Notes.Common.Utils;
 using Notes.Entities;
+using Notes.Services.EmailService;
 
 namespace Notes.Repository
 {
@@ -19,38 +21,46 @@ namespace Notes.Repository
     {
         private readonly NotesDbContext _context;
         private readonly IConfiguration _configuration;
+        private readonly IEmailService _emailService; 
 
-        public AuthRepository(NotesDbContext context, IConfiguration configuration)
+        public AuthRepository(NotesDbContext context, IConfiguration configuration,IEmailService emailService)
         {
             _context = context;
             _configuration = configuration;
+            _emailService = emailService;
+
         }
 //testing
+
+
         public async Task<IActionResult> Registration(RegistrationRequest dto)
         {
             try
             {
-                // Input validation
-                if (string.IsNullOrWhiteSpace(dto.Username))
-                    return new BadRequestObjectResult(new { success = false, message = "Username is required." });
+                // 1. Input validation
+                // if (string.IsNullOrWhiteSpace(dto.Username))
+                //     return new BadRequestObjectResult(new { success = false, message = "Username is required." });
+                //
+                // if (string.IsNullOrWhiteSpace(dto.Email) || !IsValidEmail(dto.Email))
+                //     return new BadRequestObjectResult(new { success = false, message = "A valid Email is required." });
+                //
+                // if (string.IsNullOrWhiteSpace(dto.Password) || dto.Password.Length < 6)
+                //     return new BadRequestObjectResult(new { success = false, message = "Password must be at least 6 characters long." });
+                //
+                // // 2. Check for duplicate user
+                // if (await _context.Users.AnyAsync(u => u.Username == dto.Username))
+                //     return new ConflictObjectResult(new { success = false, message = "The Username is already in use." });
+                //
+                // if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
+                //     return new ConflictObjectResult(new { success = false, message = "The Email Address is already in use." });
 
-                if (string.IsNullOrWhiteSpace(dto.Email) || !IsValidEmail(dto.Email))
-                    return new BadRequestObjectResult(new { success = false, message = "A valid Email is required." });
-
-                if (string.IsNullOrWhiteSpace(dto.Password) || dto.Password.Length < 6)
-                    return new BadRequestObjectResult(new { success = false, message = "Password must be at least 6 characters long." });
-
-                // Check for duplicates
-                if (await _context.Users.AnyAsync(u => u.Username == dto.Username))
-                    return new ConflictObjectResult(new { success = false, message = "The Username is already in use." });
-
-                if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
-                    return new ConflictObjectResult(new { success = false, message = "The Email Address is already in use." });
-
-                // Encrypt password
+                // 3. Encrypt the password using CryptoHelper
                 var encryptedPassword = CryptoHelper.Encrypt(dto.Password);
 
-                // Create new user
+                // 4. Generate verification token
+                var verificationToken = Guid.NewGuid().ToString();
+
+                // 5. Create a new user
                 var newUser = new User
                 {
                     UserId = Guid.NewGuid(),
@@ -60,21 +70,143 @@ namespace Notes.Repository
                     Role = (byte)UserRole.User,
                     CreatedAt = DateTime.UtcNow,
                     IsActive = 1,
-					ProfilePicture = dto.ProfilePicture,
+                    EmailConfirmed = 0, // Email is not yet verified
+                    EmailVerificationToken = verificationToken,
+                    TokenExpiration = DateTime.UtcNow.AddHours(24), // Token valid for 24 hours
+                    ProfilePicture = dto.ProfilePicture
+                };
 
-				};
-
+                // 6. Save user to the database
                 await _context.Users.AddAsync(newUser);
                 await _context.SaveChangesAsync();
 
-                return new OkObjectResult(new { success = true, message = "User registered successfully.", userId = newUser.UserId });
+    
+                // 7. Generate email verification link
+                var verificationLink = $"{_configuration["AppSettings:BaseUrl"]}/api/auth/verify-email?token={verificationToken}";
+
+                // 8. Get email body from the static template
+                var subject = "Verify Your Email Address";
+                var body = EmailTemplates.GetEmailVerificationBody(dto.Username, verificationLink);
+
+                // 9. Send verification email using IEmailService
+                await _emailService.SendEmailAsync(dto.Email, subject, body);
+
+                // 9. Return success response
+                return new OkObjectResult(new
+                {
+                    success = true,
+                    message = "Registration successful! Please check your email to verify your account.",
+                    userId = newUser.UserId
+                });
             }
             catch (Exception ex)
             {
-                return new ObjectResult(new { success = false, message = $"An error occurred: {ex.Message}" }) { StatusCode = 500 };
+                Console.WriteLine($"Error: {ex.InnerException?.Message ?? ex.Message}");
+                return new ObjectResult(new
+                {
+                    success = false,
+                    message = $"An error occurred during registration: {ex.InnerException?.Message ?? ex.Message}"
+                }) { StatusCode = 500 };
             }
         }
 
+
+        public async Task<IActionResult> VerifyEmail(string token)
+        {
+            try
+            {
+                // 1. Validate token input
+                if (string.IsNullOrEmpty(token))
+                    return new BadRequestObjectResult(new { success = false, message = "Token is required." });
+
+                // 2. Find user with matching token
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.EmailVerificationToken == token);
+
+                if (user == null)
+                    return new NotFoundObjectResult(new { success = false, message = "Invalid or expired token." });
+
+                // 3. Check if token is expired
+                if (user.TokenExpiration < DateTime.UtcNow)
+                    return new BadRequestObjectResult(new { success = false, message = "Token has expired. Please register again." });
+
+                // 4. Mark email as confirmed
+                user.EmailConfirmed = 1;
+                user.EmailVerificationToken = null; // Clear the token
+                user.TokenExpiration = null; // Clear expiration date
+
+                // 5. Update the user in the database
+                _context.Users.Update(user);
+                await _context.SaveChangesAsync();
+
+                return new OkObjectResult(new
+                {
+                    success = true,
+                    message = "Email verified successfully. You can now log in."
+                });
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult(new
+                {
+                    success = false,
+                    message = $"An error occurred while verifying the email: {ex.Message}"
+                }) { StatusCode = 500 };
+            }
+        }
+
+
+    //     public async Task<IActionResult> Registration(RegistrationRequest dto)
+    //     {
+    //         try
+    //         {
+    //             // Input validation
+    //             if (string.IsNullOrWhiteSpace(dto.Username))
+    //                 return new BadRequestObjectResult(new { success = false, message = "Username is required." });
+    //
+    //             if (string.IsNullOrWhiteSpace(dto.Email) || !IsValidEmail(dto.Email))
+    //                 return new BadRequestObjectResult(new { success = false, message = "A valid Email is required." });
+    //
+    //             if (string.IsNullOrWhiteSpace(dto.Password) || dto.Password.Length < 6)
+    //                 return new BadRequestObjectResult(new { success = false, message = "Password must be at least 6 characters long." });
+    //
+    //             // Check for duplicates
+    //             if (await _context.Users.AnyAsync(u => u.Username == dto.Username))
+    //                 return new ConflictObjectResult(new { success = false, message = "The Username is already in use." });
+    //
+    //             if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
+    //                 return new ConflictObjectResult(new { success = false, message = "The Email Address is already in use." });
+    //
+    //             // Encrypt password
+    //             var encryptedPassword = CryptoHelper.Encrypt(dto.Password);
+    //
+    //             // Create new user
+    //             var newUser = new User
+    //             {
+    //                 UserId = Guid.NewGuid(),
+    //                 Username = dto.Username,
+    //                 Email = dto.Email,
+    //                 Password = encryptedPassword,
+    //                 Role = (byte)UserRole.User,
+    //                 CreatedAt = DateTime.UtcNow,
+    //                 IsActive = 1,
+				// 	ProfilePicture = dto.ProfilePicture,
+    //
+				// };
+    //
+    //             await _context.Users.AddAsync(newUser);
+    //             await _context.SaveChangesAsync();
+    //
+    //             return new OkObjectResult(new { success = true, message = "User registered successfully.", userId = newUser.UserId });
+    //         }
+    //         catch (Exception ex)
+    //         {
+    //             return new ObjectResult(new { success = false, message = $"An error occurred: {ex.Message}" }) { StatusCode = 500 };
+    //         }
+    //     }
+
+        
+        
+        
         public async Task<IActionResult> Login(LoginRequest dto)
         {
             try

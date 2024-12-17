@@ -42,6 +42,28 @@ namespace Notes.Controllers
             }
         }
         
+        [HttpGet("verify-email")]
+        public async Task<IActionResult> VerifyEmail([FromQuery] string token)
+        {
+            try
+            {
+                var result = await _authRepository.VerifyEmail(token);
+
+                if (result is OkObjectResult okResult)
+                {
+                    return Ok(okResult.Value);
+                }
+                else
+                {
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { success = false, message = $"An error occurred: {ex.Message}" });
+            }
+        }
+        
         
         
         [HttpPost("login")]
